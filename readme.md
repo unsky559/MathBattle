@@ -8,11 +8,15 @@ If you find a bug, has a question or has an enhancement idea, feel free to open 
 ## Usage
 **For now this project does not has a web host.** But, you can always run it localy. 
 
-``` git clone https://github.com/unsky559 ```
+``` 
+git clone https://github.com/unsky559 
+```
 
 After cloning go to project folder and run a [node.js](https://nodejs.org/) server
 
-``` node app.js ```
+``` 
+node app.js 
+```
 
 This will run a local server on *2000* port. If you want to change it go to *app.js* file and change ```var port = 2000``` to any unused value.
 
