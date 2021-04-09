@@ -1,5 +1,5 @@
 # MathBattle
-A multiplayer math game. Main goal is to get a more points than your opponent. A examples randomly generate and show to players at the same time. If somebody solve current example will get a point and server generate a new example. 
+A multiplayer math game. Main goal is to get a more points than your opponent. An example randomly generate and show to all players at the same time. If somebody solve current example will get a point and server generate a new example. 
 
 I started this project at october 2018 for train math skills with my friends before exams. So, now I go back to this and I want to refactor it and add some new cool features.
 
