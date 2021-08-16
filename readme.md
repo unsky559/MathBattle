@@ -9,7 +9,7 @@ If you find a bug, has a question or has an enhancement idea, feel free to open 
 **For now this project does not has a web host.** But, you can always run it localy. 
 
 ``` 
-git clone https://github.com/unsky559 
+git clone https://github.com/unsky559/MathBattle
 ```
 
 After cloning go to project folder and run a [node.js](https://nodejs.org/) server
