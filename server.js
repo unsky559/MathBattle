@@ -1,16 +1,16 @@
 var express = require('express');
-var app = express();
-var serv = require('http').Server(app);
+var server = express();
+var serv = require('http').Server(server);
 var io = require('socket.io')(serv,{});
 var port = 2000;
 var DEBUG = true;
 
 //Открывает индекс файл если на серв поступил пустой запрос
-app.get('/',function(req, res) {
+server.get('/',function(req, res) {
   res.sendFile(__dirname + '/client/index.html');
 });
 //Даём доступ к папке клиент
-app.use('/client', express.static(__dirname + '/client'));
+server.use('/client', express.static(__dirname + '/client'));
 
 //Ставим серв и слушаем порт
 serv.listen(port);

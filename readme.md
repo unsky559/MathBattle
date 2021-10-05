@@ -15,10 +15,10 @@ git clone https://github.com/unsky559/MathBattle
 After cloning go to project folder and run a [node.js](https://nodejs.org/) server
 
 ``` 
-node app.js 
+node server.js 
 ```
 
-This will run a local server on *2000* port. If you want to change it go to *app.js* file and change ```var port = 2000``` to any unused value.
+This will run a local server on *2000* port. If you want to change it go to *server.js* file and change ```var port = 2000``` to any unused value.
 
 ## How to play
 Connect to the server (you can connect via localhost or util like [ngrok](https://ngrok.com/) for temporary host it online)
