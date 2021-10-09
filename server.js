@@ -6,7 +6,7 @@ var port = 2000;
 var DEBUG = true;
 
 //Открывает индекс файл если на серв поступил пустой запрос
-server.get('/',function(req, res) {
+server.get('/', function(req, res) {
   res.sendFile(__dirname + '/client/index.html');
 });
 //Даём доступ к папке клиент
