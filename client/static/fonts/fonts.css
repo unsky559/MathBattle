@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+*{
+    font-family: 'Rubik', sans-serif;
+}
+
+>>>>>>> 79b45f3 (feat: add fonts)
 /* cyrillic-ext */
 @font-face {
     font-family: 'Rubik';
