@@ -1,113 +1,88 @@
-var express = require('express');
-var server = express();
-var serv = require('http').Server(server);
-var io = require('socket.io')(serv,{});
-var port = 2000;
-var DEBUG = true;
+const http = require('http');
+const express = require('express');
 
-//Открывает индекс файл если на серв поступил пустой запрос
-server.get('/', function(req, res) {
-  res.sendFile(__dirname + '/client/index.html');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+const jsonParser = express.json();
+
+
+const database = require('./modules/database');
+database.init();
+const conn = database.getDatabaseConnection();
+
+
+const registration = require("./modules/registration");
+const login = require("./modules/login");
+
+
+app.get('/', (req, res) => {
+  res.send('<h1>Hello world!</h1>');
 });
-//Даём доступ к папке клиент
-server.use('/client', express.static(__dirname + '/client'));
 
-//Ставим серв и слушаем порт
-serv.listen(port);
-console.log("Server started on port "+port);
+app.get('/reg', (req, res) => {
+  res.send('<h1>/reg</h1>');
+});
 
-var PLAYER_LIST = {}; //Список сокетов
-var string = "";
-var result = 0;
-// ------
-var hard = 100;
-var toWin = 100;
-
-function getRandomArbitrary(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
-function newEx(socket) {
-
-  var n1 = Math.round(Math.random()*hard);
-  var n2 = Math.round(Math.random()*hard);
-  var doing = Math.round(getRandomArbitrary(0,1));
-
-  var ex = [];
-  if(doing == 0){
-    string = n1 + "+" + n2;
-    result = n1 + n2;
-  }else if(doing == 1){
-    string = n1 + "-" + n2;
-    result = n1 - n2;
-  }else if (doing == 2) {
-    string = n1 + "*" + n2;
-    result = n1 * n2;
+app.post('/reg', jsonParser, (req, res) => {
+  //console.log(req.body);
+  if(req.body.nickname && req.body.email && req.body.password){
+    console.log('/reg: post request');
+    const [reg_nickname, reg_email, reg_password]= [req.body.nickname, req.body.email, req.body.password];
+    registration.register(reg_nickname, reg_email, reg_password, (err) => {
+      if(!err){
+        res.send('Account created successfully!\n');
+      }
+      else
+        res.send('Registration error!\n');
+    });
   }
-
-  socket.emit('responce', {newEx: string});
-  return ex = {string: string, result: result};
-
-}
-
-function ci() {
-  console.log("___________");
-}
-
-
-
-function updatePlayerList() {
-  io.emit('players', PLAYER_LIST);
-}
-
-
-io.on('connection', function (socket) {
-  var id = socket.id;
-  var score = 0;
-  var username = "";
-  if(string == ""){
-    newEx(io);
+  else{
+    console.log('/reg: empty post request');
+    res.send('Error: empty post request\n');
   }
-  socket.emit('responce', {newEx: string});
+});
+
+app.get('/login', (req, res) => {
+  res.send('<h1>/login</h1>');
+});
+
+app.post('/login', jsonParser, (req, res) => {
+  console.log(req.body);
+  if(req.body.login_word && req.body.password){
+    console.log('/login: post request');
+    const [login_word, login_password]= [req.body.login_word, req.body.password];
+    login.login(login_word, login_password, (err) => {
+      if(!err)
+        res.send('Login successfully!\n');
+      else
+        res.send('Login error!\n');
+    });
+  }
+  else{
+    console.log('/login: empty post request');
+    res.send('Error: empty post request\n');
+  }
+});
+
+// any request redirect to '/'
+app.use((req, res) => {
+  res.redirect('/');
+});
 
 
+app.listen(PORT, (error) => {
+  error ? console.log(error) : console.log(`Server started. PID: ${process.pid}. Listening port: ${PORT}.`);
 
-  socket.on('username', function (data) {
-    PLAYER_LIST[id] = {username: data.username, score: 0};
-    username = data.username;
-    ci();
-    console.log(PLAYER_LIST);
-    updatePlayerList();
+  conn.on('open', () => {
+      conn.db.listCollections().toArray((err, names) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Database opened successfully.');
+          //console.log(names);
+        }
+        //conn.closeConnection();
+      });
   });
-
-  socket.on('answer', function (data) {
-    console.log(data);
-
-    if(score >= toWin - 1){
-      io.emit('win', {winner: username});
-    }
-    console.log(score);
-    console.log(toWin);
-
-    if(data.answer == result && data.answer != ''){
-      score++;
-      PLAYER_LIST[id] = {username: username, score: score};
-      newEx(io);
-      socket.emit('responce', {wrong: false});
-      console.log(PLAYER_LIST);
-    }else {
-      socket.emit('responce', {wrong: true});
-    };
-    updatePlayerList();
-  });
-
-
-  socket.on('disconnect', function () {
-    delete PLAYER_LIST[id];
-    ci();
-    console.log(PLAYER_LIST);
-    updatePlayerList();
-  });
-
-
 });
