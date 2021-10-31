@@ -1,0 +1,20 @@
+header.header{
+    height: 80px;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    background: var(--background-col);
+
+    .container{
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .leftHeader{
+      display: flex;
+      align-items: center;
+    }
+}
+
