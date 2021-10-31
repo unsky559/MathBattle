@@ -1,0 +1,23 @@
+.userStatus{
+  margin: 0 15px;
+  padding: 10px 12px;
+  border-radius: 5px;
+  background: var(--background2-col);
+  .userAvatarName{
+    display: flex;
+    align-items: center;
+    .avatar{
+      margin-right: 8px;
+      img{
+        height: 42px;
+        width: 42px;
+        border-radius: 50%;
+      }
+    }
+    .userName{
+      font-family: 'Rubik', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+    }
+  }
+}

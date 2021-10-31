@@ -1,0 +1,7 @@
+/* css color vars goes here */
+
+body{
+    --background-opposite-col: #101010;
+    --background-col: #fff;
+    --background2-col: #F9F9F9;
+}
