@@ -1,0 +1,60 @@
+@import "./src/styles/mixins/animation";
+
+.tabs{
+  display: flex;
+  .tabBtn{
+    padding: 20px 50px;
+    background-color: var(--background2-col);
+
+    transition: .3s border, .3s padding-bottom;
+    border-bottom: 0px solid var(--yellow-col);
+
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+
+    transition: $animation-fast-duration $animation-fast-tf background-color;
+
+    &:hover{
+      cursor: pointer;
+      background-color: var(--background3-col);
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
+    &:before{
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 0%;
+      height: 5px;
+      background: var(--yellow-col);
+
+      transition: $animation-fast-duration;
+      transition-timing-function: $animation-fast-tf;
+    }
+
+    &:first-child{
+      border-top-left-radius: 5px;
+    }
+    &:last-child{
+      border-top-right-radius: 5px;
+    }
+
+    &.active{
+      position: relative;
+      &:before{
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 5px;
+        background: var(--yellow-col);
+        transition: $animation-fast-duration;
+        transition-timing-function: $animation-fast-tf;
+      }
+    }
+  }
+}

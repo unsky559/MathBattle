@@ -1,5 +1,11 @@
 .container{
-    max-width: 1380px;
+    max-width: 1850px;
     width: 100%;
+    margin: 0 auto;
+}
+
+.container-main-flow{
+    /*    m 8/10 m    */
+    width: calc(100% / 10 * 8);
     margin: 0 auto;
 }

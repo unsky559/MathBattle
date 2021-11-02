@@ -1,8 +1,18 @@
 import React from "react";
+import Tabbed from "../components/tabbed/tabbed";
+import GameModes from "../components/gameModes/gameModes";
 
 function HomePage(){
     return (
-        <h1>HomePage</h1>
+        <div className="container">
+            <div className="container-main-flow">
+
+                <Tabbed>
+                    <GameModes/>
+                </Tabbed>
+
+            </div>
+        </div>
     );
 }
 
