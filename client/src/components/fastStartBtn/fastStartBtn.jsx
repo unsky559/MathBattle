@@ -3,7 +3,7 @@ import "./fastStartBtn.scss";
 
 const FastStartBtn = () => {
     return (
-        <div className="fastStartBtn">
+        <div className="fastStartBtn" tabIndex="0">
             <div className="foreground">
                 <div className="content">
                     <h3 className="startTitle">Реакция</h3>

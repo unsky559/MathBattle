@@ -1,6 +1,8 @@
 /* css color vars goes here */
 
 body{
+    --white-col: var(--background-col);
+
     --background-opposite-col: #101010;
     --background-col: #fff;
     --background2-col: #F9F9F9;
