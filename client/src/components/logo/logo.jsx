@@ -3,7 +3,7 @@ import './logo.scss';
 
 function Logo(props) {
     return (
-        <a className="logo" href="/">
+        <a className={["logo", props.alternate ? "alternate" : ""].join(" ")} href="/">
             MathBattle
         </a>
     );

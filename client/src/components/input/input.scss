@@ -1,0 +1,21 @@
+@import "src/styles/mixins/animation";
+input.input{
+  padding: 15px 20px;
+  min-width: 315px;
+
+  font-family: 'Rubik', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--background-opposite-col);
+  border: none;
+  border-radius: 5px;
+
+  margin-bottom: 15px;
+
+  transition: $animation-fast-duration $animation-fast-tf box-shadow;
+
+  &:focus{
+    box-shadow: 0 4px 15px rgba(47,47,47,.2);
+    outline: none;
+  }
+}

@@ -1,11 +1,13 @@
+@import "src/styles/mixins/animation";
+
 header.header{
-    height: 80px;
-    width: 100%;
+  height: 80px;
+  width: 100%;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    background: var(--background-col);
+  position: absolute;
 
     .container{
       display: flex;
@@ -16,5 +18,17 @@ header.header{
       display: flex;
       align-items: center;
     }
+
+    &.transparent{
+      background: transparent;
+    }
 }
 
+.underHeader{
+  width: 100%;
+  height: 80px;
+  transition: $animation-middle-duration $animation-fast-tf height;
+  &.hide{
+    height: 0px;
+  }
+}

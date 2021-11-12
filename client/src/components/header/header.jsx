@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Logo from "../logo/logo";
 import Nav from "../navigation/nav";
 import UserStatus from "../userStatus/userStatus";
@@ -6,20 +6,31 @@ import Button from "../button/button";
 
 import './header.scss';
 
-const Header = () => {
+const Header = (props) => {
+    const [collapsed, setCollapsed] = useState(props.collapse);
+
     return (
-        <header className="header">
-            <div className="container">
-                <div className="leftHeader">
-                    <Logo />
-                    <Nav />
+        <>
+            <header className={ ["header", ...collapsed ? "" : ["transparent"]].join(" ") }>
+                <div className="container">
+                    <div className="leftHeader">
+                        <Logo alternate={collapsed ? false : true} />
+                        { collapsed && <Nav /> }
+                    </div>
+                    <Button text="toogle" onClick={() => {
+                        setCollapsed(!collapsed);
+                    }}/>
+                    { collapsed &&
+                    <div className="rightHeader">
+                        {/*<UserStatus/>*/}
+                        <Button text="Input"/>
+                    </div>
+                    }
                 </div>
-                <div className="rightHeader">
-                    {/*<UserStatus/>*/}
-                    <Button text="Login"/>
-                </div>
-            </div>
-        </header>
+            </header>
+            <div className={ ["underHeader", ...collapsed ? "" : ["hide"]].join(" ") }></div>
+        </>
+
     );
 };
 
