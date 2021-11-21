@@ -1,5 +1,3 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
 const user_model = require('../models/user_model.js');
 
 const {body} = require('express-validator');
@@ -17,10 +15,11 @@ const MAX_PASS_LEN = 32;
 function isLoggedIn(req, res, next)
 {
   if(req.session.user_id){
+    // mongo -> last_online = Date.now()
     return next();
   }
   else{
-    console.log("Request rejected");
+    console.log("Request rejected"); // 401 UNAUTHORIZED
     res.redirect('back');
   }
 }
@@ -32,7 +31,7 @@ function isNotLoggedIn(req, res, next)
   }
   else{
     console.log("Request rejected");
-    res.redirect('back');
+    res.redirect('back'); //409 CONFLICT
   }
 }
 
