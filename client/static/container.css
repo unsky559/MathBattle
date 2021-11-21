@@ -1,0 +1,16 @@
+.container{
+    max-width: 1850px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.container-main-flow{
+    /*    m 8/10 m    */
+    width: calc(100% / 10 * 8);
+    margin: 0 auto;
+}
+
+.min-height{
+    min-height: 100vh;
+}

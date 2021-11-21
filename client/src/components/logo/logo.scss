@@ -1,0 +1,12 @@
+@import "src/styles/mixins/animation";
+
+.logo{
+    font-family: 'Rubik', sans-serif;
+    font-weight: 900;
+    font-size: 30px;
+    color: var(--background-opposite-col);
+    transition: $animation-fast-duration $animation-fast-tf color;
+  &.alternate{
+    color: var(--white-col);
+  }
+}

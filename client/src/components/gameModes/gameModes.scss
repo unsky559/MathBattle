@@ -1,0 +1,25 @@
+.gameModes{
+  padding: 20px 50px;
+
+  .title{
+    font-family: 'Rubik', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--background-opposite-col);
+    margin-bottom: 30px;
+  }
+
+  .row{
+    margin-bottom: 30px;
+    display: flex;
+    flex-flow: wrap;
+    .col{
+      $num-of-items-in-row: 6;
+
+      width: calc(100% / #{$num-of-items-in-row} - 30px);
+      margin-right: 30px;
+      margin-bottom: 30px;
+    }
+  }
+
+}

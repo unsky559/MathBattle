@@ -1,0 +1,14 @@
+.headerNavigation{
+  margin: 0 25px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+
+  a{
+    margin-right: 30px;
+    color: var(--background-opposite-col);
+    &:last-child{
+      margin-right: unset;
+    }
+  }
+}
