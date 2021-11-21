@@ -62,7 +62,7 @@ const startServer = async () => {
       error ? console.log(error) : console.log(`Server started. PID: ${process.pid}. Listening port: ${PORT}.`);
     });
   } catch (error) {
-    console.error(error);
+    console.error(error); 
   }
 }
 
