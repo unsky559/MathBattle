@@ -5,30 +5,35 @@ import UserStatus from "../userStatus/userStatus";
 import Button from "../button/button";
 
 import './header.scss';
+import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 const Header = (props) => {
-    const [collapsed, setCollapsed] = useState(props.collapse);
-
+    // const [collapsed, setCollapsed] = useState(props.collapse);
+    const collapseHeader = useSelector(state => state.headerCollapse);
     return (
         <>
-            <header className={ ["header", ...collapsed ? "" : ["transparent"]].join(" ") }>
+            <header className={ ["header", ...collapseHeader ? "" : ["transparent"]].join(" ") }>
                 <div className="container">
                     <div className="leftHeader">
-                        <Logo alternate={collapsed ? false : true} />
-                        { collapsed && <Nav /> }
+                        <Link to="/">
+                            <Logo alternate={collapseHeader ? false : true} />
+                        </Link>
+                        { collapseHeader && <Nav /> }
                     </div>
-                    <Button text="toogle" onClick={() => {
-                        setCollapsed(!collapsed);
-                    }}/>
-                    { collapsed &&
+                    { collapseHeader &&
                     <div className="rightHeader">
                         {/*<UserStatus/>*/}
-                        <Button text="Input"/>
+
+                        <Link to="/login">
+                            <Button text="Войти"/>
+                        </Link>
+
                     </div>
                     }
                 </div>
             </header>
-            <div className={ ["underHeader", ...collapsed ? "" : ["hide"]].join(" ") }></div>
+            <div className={ ["underHeader", ...collapseHeader ? "" : ["hide"]].join(" ") }></div>
         </>
 
     );

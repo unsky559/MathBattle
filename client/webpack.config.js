@@ -38,5 +38,8 @@ module.exports = {
         port: 9000,
         watchContentBase: true,
         open: true,
+        historyApiFallback: {
+            index: '/'
+        }
     }
 };

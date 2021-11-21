@@ -1,4 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
+import {Link, Route, BrowserRouter, Switch} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+
 import Header from "./components/header/header";
 import HomePage from "./pages/homePage";
 import LoginPage from "./pages/loginPage/loginPage";
@@ -11,9 +14,14 @@ import "./themes/white-theme.scss"; // set white theme
 function App() {
     return (
         <>
-            <Header collapse={false} />
-            {/*<HomePage/>*/}
-            <LoginPage/>
+            <BrowserRouter>
+                <Header />
+
+                <Route exact path="/" component={HomePage}/>
+                <Route path="/login" component={LoginPage}/>
+
+            </BrowserRouter>
+
         </>
     );
 }

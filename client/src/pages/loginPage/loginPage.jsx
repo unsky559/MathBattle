@@ -1,8 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import "./loginPage.scss";
 import LoginForm from "../../components/loginForm/loginForm";
+import {useDispatch} from "react-redux";
+import {useLocation} from "react-router-dom";
 
 const LoginPage = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch({
+            type: "HEADER_DISCOLLAPSE"
+        });
+        return () => {
+            dispatch({
+                type: "HEADER_COLLAPSE"
+            });
+        }
+    });
+
     return (
         <div className="loginPage">
             <div className="bigBanner">

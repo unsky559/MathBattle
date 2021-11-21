@@ -10,3 +10,7 @@
     width: calc(100% / 10 * 8);
     margin: 0 auto;
 }
+
+.min-height{
+    min-height: 100vh;
+}

@@ -4,7 +4,7 @@ import GameModes from "../components/gameModes/gameModes";
 
 function HomePage(){
     return (
-        <div className="container">
+        <div className="container min-height">
             <div className="container-main-flow">
 
                 <Tabbed>
