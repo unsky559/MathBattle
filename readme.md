@@ -23,7 +23,7 @@ This will run a local server on *2000* port. If you want to change it go to *ser
 ## How to play
 Connect to the server (you can connect via localhost or util like [ngrok](https://ngrok.com/) for temporary host it online)
 
-Wait while all players connect to and choose a nickname.
+Wait while all players connect to and choose a username.
 
 Start solve examples. You can input answers using your keyboard and submit it with *Enter*
 
