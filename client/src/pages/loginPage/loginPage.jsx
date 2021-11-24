@@ -1,12 +1,13 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import "./loginPage.scss";
-import LoginForm from "../../components/loginForm/loginForm";
 import {useDispatch} from "react-redux";
-import {useLocation} from "react-router-dom";
+import Popup from "../../components/popup/popup";
+import LoginForm from "../../forms/loginForm/loginForm";
+import RegisterForm from "../../forms/registerForm/registerForm";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
-
+    const [regPop, openRegPop] = useState(false);
     useEffect(() => {
         dispatch({
             type: "HEADER_DISCOLLAPSE"
@@ -17,9 +18,13 @@ const LoginPage = () => {
             });
         }
     });
-
     return (
         <div className="loginPage">
+            <Popup title="Регистрация" isActive={regPop} setActive={openRegPop}>
+                <div className="formCont">
+                    <RegisterForm/>
+                </div>
+            </Popup>
             <div className="bigBanner">
                 <div className="container">
                     <div className="banner-text">
@@ -33,6 +38,13 @@ const LoginPage = () => {
                     <div className="formCont">
                         <h3 className="formTitle">Авторизация</h3>
                         <LoginForm/>
+                        <p className="subText">
+                            Нет аккаунта?
+                            <a href="#" onClick={(e) => {
+                                e.preventDefault();
+                                openRegPop(true);
+                            }}> Зарегестрируйтесь!</a>
+                        </p>
                     </div>
                 </div>
             </div>
