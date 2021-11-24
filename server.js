@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const mongo_store = require('connect-mongo');
 const { v4: uuidv4 } = require('uuid');
+const path = require("path");
 
 const app = express();
 
@@ -13,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 const router = require('./back/router/router');
 
-const SESS_LIFETIME = 60 * 1; // 1 minutes
+const SESS_LIFETIME = 60 * 3; // 3 minutes
 const SESS_SECRET = "B6EG4W74o8z54h070BuQIMWBDy3qb5jk4e2mhqAsmziPBKDOSG34Dm8B8FVw5log";
 
 
@@ -44,15 +45,12 @@ app.use(session({
 app.use(express.json());
 app.use('/api', router);
 
-app.get('/', (req, res) => {
-  res.send('<h1>Hello world!</h1>');
-});
+app.use(express.static(__dirname + '/dist'));
 
 // any request redirect to '/'
 app.use((req, res) => {
   res.redirect('/');
 });
-
 
 
 const startServer = async () => {

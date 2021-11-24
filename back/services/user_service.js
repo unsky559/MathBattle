@@ -9,26 +9,25 @@ class UserService
     user_model.exists({email: email}, (err, doc) => {
       if(err){
         console.log(err);
-        return done(new ErrorHandler(500, "Error: register error!"));
+        return done(new ErrorHandler(500, "Register error!"));
       }
       else if(doc)
-        return done(new ErrorHandler(409, "Error: This email exists!"));
+        return done(new ErrorHandler(409, "This email exists!"));
       else{
         user_model.exists({username: username}, (err1, doc1) => {
           if(err1){
             console.log(err1);
-            return done(new ErrorHandler(500, "Error: register1 error!"));
+            return done(new ErrorHandler(500, "Register1 error!"));
           }
           else if(doc1)
-            return done(new ErrorHandler(409, "Error: This username exists!"));
+            return done(new ErrorHandler(409, "This username exists!"));
           else{
             user_model.create({ username: username, email: email, authkeys: { password: password }, date: new Date }, (error, new_user) => {
               if(error) {
                 console.log(error);
-                return done(new ErrorHandler(500, "Error: Server didn't register account!"));
+                return done(new ErrorHandler(500, "Server didn't register account!"));
               }
               else{
-                //console.log("Successful saving account!");
                 done(null, new_user);
               }
             });
@@ -42,24 +41,23 @@ class UserService
     user_model.findOne(condition, (err, user) => {
       if(err){
         console.log(err);
-        return done(new ErrorHandler(500, "Error: login error!"));
+        return done(new ErrorHandler(500, "Login error!"));
       }
       else if(!user){
-        console.log("Error: User not found!");
-        return done(new ErrorHandler(403, "Error: User not found!"));
+        console.log("User not found!");
+        return done(new ErrorHandler(403, "Incorrect username or password"));
       }
       else{
         user.compareUserPassword(password, function (match_error, is_match) {
           if (match_error) {
             console.log(match_error);
-            return done(new ErrorHandler(500, "Error: match_error!"));
+            return done(new ErrorHandler(500, "match_error!"));
           } 
           else if(!is_match) {
             console.log("Incorrect password!");
-            return done(new ErrorHandler(403, "Error: Incorrect password!"));
+            return done(new ErrorHandler(403, "Incorrect username or password"));
           } 
           else{
-            //console.log("Successful login!");
             done(null, user);
           }
         });
