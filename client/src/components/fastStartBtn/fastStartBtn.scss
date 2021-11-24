@@ -19,13 +19,21 @@
 }
 
 .fastStartBtn{
-  aspect-ratio: 1;
+
   width: 100%;
   background-color: var(--yellow-col);
   border-radius: 5px;
 
   position: relative;
 
+  display: block;
+  
+  &:after {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+  
   .foreground{
     position: absolute;
     width: 100%;
@@ -35,6 +43,7 @@
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
+    
     .content{
       padding: 15px 10px;
       .startTitle{
