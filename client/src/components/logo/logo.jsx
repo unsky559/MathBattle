@@ -3,9 +3,9 @@ import './logo.scss';
 
 function Logo(props) {
     return (
-        <a className={["logo", props.alternate ? "alternate" : ""].join(" ")} href="/">
+        <h1 className={["logo", props.alternate ? "alternate" : ""].join(" ")} href="/">
             MathBattle
-        </a>
+        </h1>
     );
 }
 
