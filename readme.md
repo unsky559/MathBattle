@@ -6,19 +6,26 @@ I started this project at october 2018 for train math skills with my friends bef
 If you find a bug, has a question or has an enhancement idea, feel free to open a new issue.
 
 ## Usage
-**For now this project does not has a web host.** But, you can always run it localy. 
+**For now this project does not have a web host.** But, you can always run it locally. 
 
 ``` 
 git clone https://github.com/unsky559/MathBattle
 ```
 
+### Dependencies
+
+- nodejs
+- mongodb server
+
 After cloning go to project folder and run a [node.js](https://nodejs.org/) server
 
 ``` 
-node server.js 
+npm run start
 ```
 
-This will run a local server on *2000* port. If you want to change it go to *server.js* file and change ```var port = 2000``` to any unused value.
+That will build frontend part to ```dist``` folder and run a local node.js server on *3000* port.
+
+*note: the first run may take more time because of installing dependencies*
 
 ## How to play
 Connect to the server (you can connect via localhost or util like [ngrok](https://ngrok.com/) for temporary host it online)
