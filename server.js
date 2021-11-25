@@ -47,11 +47,10 @@ app.use('/api', router);
 
 app.use(express.static(__dirname + '/dist'));
 
-// any request redirect to '/'
-app.use((req, res) => {
-  res.redirect('/');
-});
 
+app.get('*', function(req, res){
+  res.sendFile(__dirname + '/dist/index.html');
+});
 
 const startServer = async () => {
   try {
