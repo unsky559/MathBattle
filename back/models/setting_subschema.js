@@ -1,18 +1,15 @@
-const {Schema} = require('mongoose')
+const {Schema} = require('mongoose');
 
 const setting_subschema = new Schema({
   is_rating: Boolean,
   is_sync: Boolean,
   max_players: Number,
   win_condition: {
-    type: String, //"time" || "score"
+    mode: String, //"time" || "score"
     value: Number
   },
-  game_mode: [{
-    type: {
-      type: Schema.Types.ObjectId,
-      ref: 'game_mode'
-    },
+  modes: [{
+    name: String,
     difficulty: Number
   }]
 }, { _id : false });

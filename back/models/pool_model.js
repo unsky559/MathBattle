@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose')
+const {Schema, model} = require('mongoose');
 
 const pool_schema = new Schema({
   players: [{
@@ -11,4 +11,4 @@ const pool_schema = new Schema({
   }
 });
 
-module.exports = model('pool', pool_schema)
+module.exports = model('pool', pool_schema);

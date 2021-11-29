@@ -1,6 +1,6 @@
-const {Schema, model} = require('mongoose')
+const {Schema, model} = require('mongoose');
 const bcrypt = require("bcryptjs");
-const {setting_subschema} = require('./setting_subschema.js')
+const {setting_subschema} = require('./setting_subschema.js');
 
 
 const user_schema = new Schema({
