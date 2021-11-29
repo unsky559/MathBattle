@@ -207,7 +207,7 @@
 ```
 
 Возможные данные в пакете:
-```json
+```js
 
   "email": String,
   "username": String,
@@ -292,3 +292,70 @@
 **Ответ при успехе** :
 
 *Код* : `200`
+
+```json
+[
+    {
+        "_id": "61a15ff002cded557e7a9315",
+        "name": "fast and simply",
+        "settings": {
+            "win_condition": {
+                "value": 25
+            },
+            "is_rating": true,
+            "is_sync": true,
+            "max_players": 2,
+            "modes": [
+                {
+                    "name": "add",
+                    "difficulty": 1
+                },
+                {
+                    "name": "subtract",
+                    "difficulty": 1
+                },
+                {
+                    "name": "multiply",
+                    "difficulty": 1
+                },
+                {
+                    "name": "division",
+                    "difficulty": 1
+                }
+            ]
+        },
+        "__v": 0
+    },
+    {
+        "_id": "61a15ff002cded557e7a931b",
+        "name": "slowly and simply",
+        "settings": {
+            "win_condition": {
+                "value": 75
+            },
+            "is_rating": true,
+            "is_sync": true,
+            "max_players": 2,
+            "modes": [
+                {
+                    "name": "add",
+                    "difficulty": 1
+                },
+                {
+                    "name": "subtract",
+                    "difficulty": 1
+                },
+                {
+                    "name": "multiply",
+                    "difficulty": 1
+                },
+                {
+                    "name": "division",
+                    "difficulty": 1
+                }
+            ]
+        },
+        "__v": 0
+    }
+]
+```
