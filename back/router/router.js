@@ -1,7 +1,7 @@
-const user_model = require('../models/user_model.js');
-
 const {body} = require('express-validator');
+
 const user_controller = require('../controllers/user_controller.js');
+const game_controller = require('../controllers/game_controller.js');
 
 const Router = require('express').Router;
 const router = new Router();
@@ -42,15 +42,15 @@ router.post('/reg', isNotLoggedIn,
   body('email').isEmail().withMessage('Invalid email'),
   user_controller.register
 );
-
 router.post('/login', isNotLoggedIn, user_controller.login);
 router.post('/logout', isLoggedIn, user_controller.logout);
-
+router.get('/account', isLoggedIn, user_controller.getCurrentUser);
+router.get("/user/:username", user_controller.getUserByUsername);
 
 router.get('/homepage', isLoggedIn, (req, res) => {
   res.send('<h1>Hello! Session created!.</h1>');
 });
 
-router.get("/user/:username", user_controller.getUserByUsername);
+router.get("/gamepresets", game_controller.getGamePresets);
 
 module.exports = router

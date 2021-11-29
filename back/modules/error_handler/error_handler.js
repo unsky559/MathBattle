@@ -7,8 +7,8 @@ class ErrorHandler extends Error
 
   sendError(res){
     res.status(this.e_status).json({
-      success: false,
-      message: this.message
+      //success: false,
+      msg: this.message
     });
   }
 }

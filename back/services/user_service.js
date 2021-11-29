@@ -9,23 +9,23 @@ class UserService
     user_model.exists({email: email}, (err, doc) => {
       if(err){
         console.log(err);
-        return done(new ErrorHandler(500, "Register error!"));
+        return done(new ErrorHandler(500, "Register error"));
       }
       else if(doc)
-        return done(new ErrorHandler(409, "This email exists!"));
+        return done(new ErrorHandler(409, "This email already exists"));
       else{
         user_model.exists({username: username}, (err1, doc1) => {
           if(err1){
             console.log(err1);
-            return done(new ErrorHandler(500, "Register1 error!"));
+            return done(new ErrorHandler(500, "Register error"));
           }
           else if(doc1)
-            return done(new ErrorHandler(409, "This username exists!"));
+            return done(new ErrorHandler(409, "This username already exists"));
           else{
             user_model.create({ username: username, email: email, authkeys: { password: password }, date: new Date }, (error, new_user) => {
               if(error) {
                 console.log(error);
-                return done(new ErrorHandler(500, "Server didn't register account!"));
+                return done(new ErrorHandler(500, "Server didn't create account"));
               }
               else{
                 done(null, new_user);
@@ -41,7 +41,7 @@ class UserService
     user_model.findOne(condition, (err, user) => {
       if(err){
         console.log(err);
-        return done(new ErrorHandler(500, "Login error!"));
+        return done(new ErrorHandler(500, "Login error"));
       }
       else if(!user){
         console.log("User not found!");
@@ -51,7 +51,7 @@ class UserService
         user.compareUserPassword(password, function (match_error, is_match) {
           if (match_error) {
             console.log(match_error);
-            return done(new ErrorHandler(500, "match_error!"));
+            return done(new ErrorHandler(500, "Match error"));
           } 
           else if(!is_match) {
             console.log("Incorrect password!");
@@ -68,11 +68,11 @@ class UserService
     user_model.findOne({username: username}, (err, user) => {
       if(err){
         console.log(err);
-        return done(new ErrorHandler(500, "Error: login error!"));
+        return done(new ErrorHandler(500, "Find user error!"));
       }
       else if(!user){
         console.log("Error: User not found!");
-        return done(new ErrorHandler(403, "Error: User not found!"));
+        return done(new ErrorHandler(403, "User not found"));
       }
       else{
         let user_data = user.toObject();
@@ -81,6 +81,19 @@ class UserService
         delete user_data.__v;
         done(null, user_data);
       }
+    });
+  }
+  getCurrentUser(user_id, done){
+    user_model.findById(user_id, (err, user) => {
+      if(err){
+        console.log(err);
+        return done(new ErrorHandler(500, "Find user error"));
+      }
+      let user_data = user.toObject();
+      delete user_data._id;
+      delete user_data.authkeys;
+      delete user_data.__v;
+      return done(null, user_data);
     });
   }
 }

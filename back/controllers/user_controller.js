@@ -9,7 +9,7 @@ class UserController
     const errors = validationResult(req);
 
     if(!errors.isEmpty()){
-      console.log(errors.array());
+      //console.log(errors.array());
       res.status(400).send(errors.array());
     }
     else{
@@ -21,7 +21,7 @@ class UserController
         }
         else{
           console.log("New user in database:\n", new_user);
-          res.redirect(200, "/login");
+          res.status(200).send({msg: "Account successfully created"});
         }
       });
     }
@@ -39,18 +39,17 @@ class UserController
       else{
         console.log("Successful login");
         req.session.user_id = user._id;
-        req.session.username = user.username;
-        res.send("login success!");
-        //res.send("test");
+        //req.session.username = user.username;
+        res.status(200).send({msg: "Login success"});
       }
     });
   }
   logout(req, res){
     req.session.destroy(err => {
       if (err) {
-        res.status(400).send('Unable to log out');
+        res.status(400).send({msg: "Unable to logout"});
       } else {
-        res.send('Logout successful');
+        res.clearCookie('sid', { httpOnly: true }).sendStatus(200);
       }
     });
   }
@@ -63,6 +62,17 @@ class UserController
       else{
         console.log(user_data);
         res.send(user_data);
+      }
+    });
+  }
+  getCurrentUser(req, res){
+    user_service.getCurrentUser(req.session.user_id, (err, user_data) => {
+      if(err){
+        err.sendError(res);
+      }
+      else{
+        console.log(user_data);
+        res.status(200).send(user_data);
       }
     });
   }
