@@ -1,0 +1,192 @@
+@import "../../styles/mixins/fonts";
+.gameLayout{
+  margin-left: calc(100% / 10 * 3);
+  height: calc(100vh - 80px);
+  min-height: 720px;
+
+  max-height: 1080px;
+
+  display: flex;
+  align-items: center;
+
+  .gameBoard{
+    width: calc(100% / 6 * 3);
+    .innerContainer{
+      width: calc(100% / 4 * 3 - (10px * 3));
+      margin: 0 auto;
+    }
+  }
+
+  .statusBar{
+    width: calc(100% / 6 * 2);
+    align-self: flex-start;
+
+    margin-top: 10%;
+
+    .block{
+      margin-bottom: 20px;
+      .lobbyInfo{
+        display: flex;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        .avatar{
+          margin-right: 15px;
+          display: flex;
+          align-items: center;
+          img{
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+          }
+        }
+        .info{
+          .secondary{
+            @include font_sm();
+            color: var(--secondary-col);
+          }
+          .playerName{
+            @include font_p();
+          }
+          .players{
+            a,
+            span{
+              @include font_p();
+              display: inline-block;
+            }
+          }
+        }
+      }
+
+      .gameModesRow{
+        display: flex;
+        .smartIcon{
+          margin-right: 15px;
+        }
+      }
+
+      .scoreboard{
+        .player{
+
+          .lobbyInfo{
+            padding: 15px;
+            background-color: var(--background-col);
+            border-radius: 5px;
+            .info{
+              flex-grow: 1;
+            }
+            .score{
+              @include font_p();
+              font-weight: 700;
+              align-self: center;
+            }
+
+          }
+
+        }
+      }
+
+    }
+  }
+
+  .block{
+    padding: 11px 25px;
+    border-radius: 5px;
+    background-color: var(--background2-col);
+    .title{
+      @include font_h2();
+    }
+  }
+
+  .innerContainer{
+    .exampleContainer{
+      margin-bottom: 15px;
+      .example{
+        @include defaultFont();
+        font-weight: 500;
+        font-size: 1.8rem;
+        color: var(--background-opposite-col);
+        margin-bottom: 15px;
+      }
+      .answerArea{
+        @include font_h1();
+        &:before{
+          @include font_h1();
+          content: "=";
+          margin-right: 15px;
+          color: var(--secondary-col);
+        }
+      }
+    }
+
+
+    .keyboard{
+      display: flex;
+      flex-wrap: wrap;
+
+      .key{
+        width: calc(100% / 4);
+        position: relative;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 2px;
+
+        button{
+          width: 100%;
+          height: 100%;
+
+          @include defaultFont();
+          font-size: 2rem;
+          font-width: 900;
+          color: var(--background-opposite-col);
+
+          background-color: var(--background2-col);
+          border-radius: 5px;
+          border: none;
+          &:hover{
+            cursor: pointer;
+            background-color: var(--background-col);
+          }
+        }
+        &.zero{
+          width: calc(100% / 3 * 2);
+        }
+        &.ok{
+          &:after{
+            content: "";
+            display: block;
+            padding-top: 200%;
+          }
+        }
+        &:after{
+          content: "";
+          display: block;
+          padding-top: 100%;
+        }
+      }
+
+      .kBtnRow{
+        width: 100%;
+        display: flex;
+        .buttons{
+          flex-grow: 1;
+          display: flex;
+          flex-wrap: wrap;
+          .key{
+            width: calc(100% / 3);
+            &.zero{
+              width: calc(100% / 3 * 2);
+              &:after{
+                display: none;
+              }
+            }
+          }
+        }
+      }
+
+
+    }
+  }
+}
