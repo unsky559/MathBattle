@@ -1,5 +1,6 @@
 import React from 'react';
 import "./fastStartBtn.scss";
+import SmartIcon from "../smartIcon/smartIcon";
 
 const FastStartBtn = () => {
     return (
@@ -8,14 +9,7 @@ const FastStartBtn = () => {
                 <div className="content">
                     <h3 className="startTitle">Реакция</h3>
                     <div className="iconRow">
-                        <div className="iconicInfo">
-                            <div className="iconicIcon">
-
-                            </div>
-                            <div className="iconicData">
-                                1s
-                            </div>
-                        </div>
+                        <SmartIcon text="1s"/>
                     </div>
                 </div>
             </div>
