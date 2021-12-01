@@ -1,0 +1,27 @@
+@import "../../styles/mixins/fonts";
+
+.keyboard{
+  display: flex;
+  flex-wrap: wrap;
+
+
+
+  .kBtnRow{
+    width: 100%;
+    display: flex;
+    .buttons{
+      flex-grow: 1;
+      display: flex;
+      flex-wrap: wrap;
+      .key{
+        width: calc(100% / 3);
+        &.zero{
+          width: calc(100% / 3 * 2);
+          &:after{
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

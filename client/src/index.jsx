@@ -6,7 +6,7 @@ import {createStore} from "redux";
 import {Provider} from "react-redux";
 
 const defaultState = {
-    headerCollapse: true,
+    headerCollapse: document.location.pathname !== "/login",
 }
 
 const reducer = (state = defaultState, action) => {
@@ -26,5 +26,5 @@ ReactDOM.render(
     <Provider store={store}>
         <App />
     </Provider>,
-    document.body
+    document.getElementById("root")
 );

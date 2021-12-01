@@ -7,7 +7,12 @@ body{
     --background-col: #fff;
     --background2-col: #F9F9F9;
     --background3-col: #F0F0F0;
+    --secondary-col: #888888;
     --yellow-col: #FCD169;
     --green-col: #B4E66B;
     --blue-col: #4B73F6;
+}
+
+a{
+  color: var(--blue-col);
 }

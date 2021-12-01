@@ -1,31 +1,19 @@
-.iconicInfo{
-  display: flex;
-  align-items: center;
-  background-color: var(--background-col);
-  border-radius: 5px;
-  .iconicIcon{
-    width: 20px;
-    height: 20px;
-    border-radius: 5px;
-    background-color: var(--green-col);
-  }
-  .iconicData{
-    font-family: 'Rubik', sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    padding-left: 3px;
-    padding-right: 4px;
-  }
-}
-
 .fastStartBtn{
-  aspect-ratio: 1;
+
   width: 100%;
   background-color: var(--yellow-col);
   border-radius: 5px;
 
   position: relative;
 
+  display: block;
+  
+  &:after {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+  
   .foreground{
     position: absolute;
     width: 100%;
@@ -35,6 +23,7 @@
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
+    
     .content{
       padding: 15px 10px;
       .startTitle{

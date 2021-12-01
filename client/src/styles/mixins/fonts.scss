@@ -1,0 +1,24 @@
+@mixin defaultFont() {
+  font-family: "Rubik", sans-serif;
+}
+@mixin font_h1(){
+  @include defaultFont();
+  font-weight: 900;
+  font-size: 30px;
+}
+@mixin font_h2(){
+  @include defaultFont();
+  font-weight: 900;
+  font-size: 18px;
+}
+@mixin font_p(){
+  @include defaultFont();
+  font-weight: 400;
+  font-size: 18px;
+}
+@mixin font_sm(){
+  @include defaultFont();
+  font-weight: 400;
+  font-size: 14px;
+}
+

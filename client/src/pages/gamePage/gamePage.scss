@@ -1,0 +1,26 @@
+@import "../../styles/mixins/fonts";
+.gameLayout{
+  margin-left: calc(100% / 10 * 3);
+  height: calc(100vh - 80px);
+  min-height: 720px;
+
+  max-height: 1080px;
+
+  display: flex;
+  align-items: center;
+
+  .gameBoard{
+    width: calc(100% / 6 * 3);
+    .innerContainer{
+      width: calc(100% / 4 * 3 - (10px * 3));
+      margin: 0 auto;
+    }
+  }
+
+  .statusBar{
+    width: calc(100% / 6 * 2);
+    align-self: flex-start;
+
+    margin-top: 10%;
+  }
+}

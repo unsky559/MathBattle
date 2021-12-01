@@ -54,19 +54,33 @@
     .formCont{
       margin-left: calc(100% / 5 * 1);
       padding: 35px 30px;
-      background: var(--background2-col);
-      border-radius: 5px;
-
-      display: flex;
-      align-items: center;
-      flex-direction: column;
       .formTitle{
-        font-family: 'Rubik', sans-serif;
-        font-size: 30px;
-        font-weight: 900;
-        color: var(--background-opposite-col);
         margin-bottom: 20px;
+      }
+      .subText{
+        margin-top: 20px;
       }
     }
   }
+  .formCont{
+    background: var(--background2-col);
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .formTitle{
+      font-family: 'Rubik', sans-serif;
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--background-opposite-col);
+    }
+    .subText{
+      font-family: 'Rubik', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--secondary-col);
+    }
+  }
+
 }

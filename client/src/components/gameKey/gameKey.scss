@@ -1,0 +1,45 @@
+@import "../../styles/mixins/fonts";
+
+.key{
+  width: calc(100% / 4);
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 2px;
+
+  button{
+    width: 100%;
+    height: 100%;
+
+    @include defaultFont();
+    font-size: 2rem;
+    font-width: 900;
+    color: var(--background-opposite-col);
+
+    background-color: var(--background2-col);
+    border-radius: 5px;
+    border: none;
+    &:hover{
+      cursor: pointer;
+      background-color: var(--background-col);
+    }
+  }
+  &.zero{
+    width: calc(100% / 3 * 2);
+  }
+  &.ok{
+    &:after{
+      content: "";
+      display: block;
+      padding-top: 200%;
+    }
+  }
+  &:after{
+    content: "";
+    display: block;
+    padding-top: 100%;
+  }
+}

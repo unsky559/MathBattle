@@ -1,24 +1,30 @@
 import React, {useState} from "react";
-import {Link, Route, BrowserRouter, Switch} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {Route, BrowserRouter} from "react-router-dom";
+
+import "../static/container.css"; // include container class
+import "../static/reset.css"; // reset default styles
+import "./themes/white-theme.scss";// set white theme
 
 import Header from "./components/header/header";
 import HomePage from "./pages/homePage";
 import LoginPage from "./pages/loginPage/loginPage";
-
-import "../static/container.css"; // include container class
-import "../static/reset.css"; // reset default styles
-import "../static/fonts/fonts.css"; // import fonts
-import "./themes/white-theme.scss"; // set white theme
+import GamePage from "./pages/gamePage/gamePage";
+import Popup from "./components/popup/popup";
+import SearchGamePopup from "./layouts/popups/searchGamePopup/searchGamePopup";
 
 function App() {
+    const searchGamePopupState = useState(true);
     return (
         <>
+            <Popup titleClose={false} title="Поиск оппонента" isActive={searchGamePopupState[0]} setActive={searchGamePopupState[1]}>
+                <SearchGamePopup setActive={searchGamePopupState[1]}/>
+            </Popup>
             <BrowserRouter>
                 <Header />
 
                 <Route exact path="/" component={HomePage}/>
                 <Route path="/login" component={LoginPage}/>
+                <Route path="/game" component={GamePage}/>
 
             </BrowserRouter>
 
