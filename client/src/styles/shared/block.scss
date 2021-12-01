@@ -1,0 +1,10 @@
+@import "src/styles/mixins/fonts";
+
+.block{
+  padding: 11px 25px;
+  border-radius: 5px;
+  background-color: var(--background2-col);
+  .title{
+    @include font_h2();
+  }
+}
