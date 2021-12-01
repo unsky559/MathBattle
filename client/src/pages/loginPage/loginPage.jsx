@@ -20,7 +20,7 @@ const LoginPage = () => {
     });
     return (
         <div className="loginPage">
-            <Popup title="Регистрация" isActive={regPop} setActive={openRegPop}>
+            <Popup titleClose={true} title="Регистрация" isActive={regPop} setActive={openRegPop}>
                 <div className="formCont">
                     <RegisterForm/>
                 </div>

@@ -4,6 +4,7 @@ import CloseButton from "../closeButton/closeButton";
 
 const Popup = (props) => {
 
+    let titleClose = props.titleClose;
     const closePopup = () => {
         props.setActive(false);
     }
@@ -14,8 +15,8 @@ const Popup = (props) => {
             <div className="container">
                 <div className="popupWindow">
                     <div className="popupHeader">
-                        <h3 className="popupHeadTitle">{ props.title }</h3>
-                        <CloseButton onClick={closePopup}/>
+                        <h3 className={["popupHeadTitle", ! titleClose ? "center" : ""].join(" ")}>{ props.title }</h3>
+                        { titleClose ? <CloseButton onClick={closePopup}/> : "" }
                     </div>
                     { props.children }
                 </div>
