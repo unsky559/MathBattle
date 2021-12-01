@@ -1,6 +1,7 @@
 import React from 'react';
 import SmartIcon from "../smartIcon/smartIcon";
 
+import Avatar from "../avatar/avatar";
 import "../../styles/shared/block.scss";
 import "./blockScoreboard.scss";
 
@@ -11,9 +12,7 @@ const BlockScoreboard = () => {
             <div className="scoreboard">
                 <div className="player">
                     <div className="lobbyInfo">
-                        <div className="avatar">
-                            <img src="https://thispersondoesnotexist.com/image" alt=""/>
-                        </div>
+                        <Avatar/>
                         <div className="info">
                             <a className="playerName" href="#">Playername</a>
                             <SmartIcon text="225"/>

@@ -3,15 +3,14 @@ import SmartIcon from "../smartIcon/smartIcon";
 
 import "../../styles/shared/block.scss";
 import "./blockGameInfo.scss";
+import Avatar from "../avatar/avatar";
 
 const BlockGameInfo = () => {
     return (
         <div className="block">
             <span className="title">Игра</span>
             <div className="lobbyInfo">
-                <div className="avatar">
-                    <img src="https://thispersondoesnotexist.com/image" alt=""/>
-                </div>
+                <Avatar/>
                 <div className="info">
                     <span className="secondary">Соревновательная</span>
                     <div className="players">
