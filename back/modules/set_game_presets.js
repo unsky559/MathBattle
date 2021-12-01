@@ -9,7 +9,7 @@ const fast_and_simply = new game_presets({
     is_sync: true,
     max_players: 2,
     win_condition: {
-      type: "score",
+      mode: "score",
       value: 25
     },
     modes: [
@@ -39,7 +39,7 @@ const fast_and_normally = new game_presets({
     is_sync: true,
     max_players: 2,
     win_condition: {
-      type: "score",
+      mode: "score",
       value: 25
     },
     modes: [
@@ -69,7 +69,7 @@ const fast_and_hard = new game_presets({
     is_sync: true,
     max_players: 2,
     win_condition: {
-      type: "score",
+      mode: "score",
       value: 25
     },
     modes: [
@@ -101,7 +101,7 @@ const medium_and_simply = new game_presets({
     is_sync: true,
     max_players: 2,
     win_condition: {
-      type: "score",
+      mode: "score",
       value: 50
     },
     modes: [
@@ -131,7 +131,7 @@ const medium_and_normally = new game_presets({
     is_sync: true,
     max_players: 2,
     win_condition: {
-      type: "score",
+      mode: "score",
       value: 50
     },
     modes: [
@@ -161,7 +161,7 @@ const medium_and_hard = new game_presets({
     is_sync: true,
     max_players: 2,
     win_condition: {
-      type: "score",
+      mode: "score",
       value: 50
     },
     modes: [
@@ -193,7 +193,7 @@ const slowly_and_simply = new game_presets({
     is_sync: true,
     max_players: 2,
     win_condition: {
-      type: "score",
+      mode: "score",
       value: 75
     },
     modes: [
@@ -223,7 +223,7 @@ const slowly_and_normally = new game_presets({
     is_sync: true,
     max_players: 2,
     win_condition: {
-      type: "score",
+      mode: "score",
       value: 75
     },
     modes: [
@@ -253,7 +253,7 @@ const slowly_and_hard = new game_presets({
     is_sync: true,
     max_players: 2,
     win_condition: {
-      type: "score",
+      mode: "score",
       value: 75
     },
     modes: [

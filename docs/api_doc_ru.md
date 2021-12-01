@@ -171,10 +171,7 @@
 
 *Код* : `200`
 
-Ключ `msg`:
-- Login success
-
-Удаляет сессию пользователя, удаляет httpOnly cookie. 
+Удаляет сессию пользователя, удаляет httpOnly cookie.
 
 ## Получение данных текущего пользователя
 
@@ -191,7 +188,7 @@
 Ключ `msg`: 
 - Find user error
 
-**Ответ при успешном выходе** :
+**Ответ** :
 
 *Код* : `200`
 
@@ -296,10 +293,11 @@
 ```json
 [
     {
-        "_id": "61a15ff002cded557e7a9315",
+        "_id": "61a769a0495a017647c81aaf",
         "name": "fast and simply",
         "settings": {
             "win_condition": {
+                "mode": "score",
                 "value": 25
             },
             "is_rating": true,
@@ -323,15 +321,15 @@
                     "difficulty": 1
                 }
             ]
-        },
-        "__v": 0
+        }
     },
     {
-        "_id": "61a15ff002cded557e7a931b",
-        "name": "slowly and simply",
+        "_id": "61a769a0495a017647c81ab3",
+        "name": "medium and normally",
         "settings": {
             "win_condition": {
-                "value": 75
+                "mode": "score",
+                "value": 50
             },
             "is_rating": true,
             "is_sync": true,
@@ -339,23 +337,22 @@
             "modes": [
                 {
                     "name": "add",
-                    "difficulty": 1
+                    "difficulty": 2
                 },
                 {
                     "name": "subtract",
-                    "difficulty": 1
+                    "difficulty": 2
                 },
                 {
                     "name": "multiply",
-                    "difficulty": 1
+                    "difficulty": 2
                 },
                 {
                     "name": "division",
-                    "difficulty": 1
+                    "difficulty": 2
                 }
             ]
-        },
-        "__v": 0
+        }
     }
 ]
 ```
