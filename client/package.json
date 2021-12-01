@@ -29,6 +29,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
+    "@material/circular-progress": "^13.0.0",
     "html-webpack-plugin": "^5.4.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
