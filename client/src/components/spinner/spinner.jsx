@@ -18,7 +18,7 @@ const Spinner = () => {
                         <circle className="mdc-circular-progress__determinate-track" cx="24" cy="24" r="18"
                                 strokeWidth="4"/>
                         <circle className="mdc-circular-progress__determinate-circle" cx="24" cy="24" r="18"
-                                strokeDasharray="113.097" strokeDashoffset="113.097" strokeWidth="4"/>
+                                strokeDasharray="113.097" strokeDashoffset="113.097" strokeWidth="5"/>
                     </svg>
                 </div>
                 <div className="mdc-circular-progress__indeterminate-container">
@@ -27,7 +27,7 @@ const Spinner = () => {
                             <svg className="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="24" cy="24" r="18" strokeDasharray="113.097" strokeDashoffset="56.549"
-                                        strokeWidth="4"/>
+                                        strokeWidth="5"/>
                             </svg>
                         </div>
                         <div className="mdc-circular-progress__gap-patch">
@@ -41,7 +41,7 @@ const Spinner = () => {
                             <svg className="mdc-circular-progress__indeterminate-circle-graphic" viewBox="0 0 48 48"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="24" cy="24" r="18" strokeDasharray="113.097" strokeDashoffset="56.549"
-                                        strokeWidth="4"/>
+                                        strokeWidth="5"/>
                             </svg>
                         </div>
                     </div>
