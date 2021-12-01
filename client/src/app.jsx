@@ -9,10 +9,16 @@ import Header from "./components/header/header";
 import HomePage from "./pages/homePage";
 import LoginPage from "./pages/loginPage/loginPage";
 import GamePage from "./pages/gamePage/gamePage";
+import Popup from "./components/popup/popup";
+import SearchGamePopup from "./layouts/popups/searchGamePopup/searchGamePopup";
 
 function App() {
+    const searchGamePopupState = useState(true);
     return (
         <>
+            <Popup titleClose={false} title="Поиск оппонента" isActive={searchGamePopupState[0]} setActive={searchGamePopupState[1]}>
+                <SearchGamePopup setActive={searchGamePopupState[1]}/>
+            </Popup>
             <BrowserRouter>
                 <Header />
 
