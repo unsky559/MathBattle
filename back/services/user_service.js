@@ -65,7 +65,7 @@ class UserService
     });
   }
   getUserByUsername(username, done){
-    user_model.findOne({username: username}, (err, user) => {
+    user_model.findOne({username: username}, '-_id -authkeys -__v', (err, user) => {
       if(err){
         console.log(err);
         return done(new ErrorHandler(500, "Find user error!"));
@@ -75,11 +75,7 @@ class UserService
         return done(new ErrorHandler(403, "User not found"));
       }
       else{
-        let user_data = user.toObject();
-        delete user_data._id;
-        delete user_data.authkeys;
-        delete user_data.__v;
-        done(null, user_data);
+        done(null, user);
       }
     });
   }
