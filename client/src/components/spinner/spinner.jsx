@@ -11,7 +11,6 @@ const Spinner = () => {
     });
 
     return (
-        <div className="spinner">
             <div className="mdc-circular-progress" style={ {width:"48px", height:"48px"} } role="progressbar">
                 <div className="mdc-circular-progress__determinate-container">
                     <svg className="mdc-circular-progress__determinate-circle-graphic" viewBox="0 0 48 48"
@@ -48,7 +47,6 @@ const Spinner = () => {
                     </div>
                 </div>
             </div>
-        </div>
     );
 };
 
