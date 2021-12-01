@@ -7,12 +7,12 @@ const Spinner = () => {
 
     useEffect(() => {
         const circularProgress = new MDCCircularProgress(document.querySelector('.mdc-circular-progress'));
-
+        circularProgress.determinate = false;
     });
 
     return (
         <div className="spinner">
-            <div className="mdc-circular-progress mdc-circular-progress--indeterminate" style={ {width:"48px", height:"48px"} } role="progressbar">
+            <div className="mdc-circular-progress" style={ {width:"48px", height:"48px"} } role="progressbar">
                 <div className="mdc-circular-progress__determinate-container">
                     <svg className="mdc-circular-progress__determinate-circle-graphic" viewBox="0 0 48 48"
                          xmlns="http://www.w3.org/2000/svg">
