@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import "./loginPage.scss";
 import {useDispatch} from "react-redux";
 import Popup from "../../components/popup/popup";
-import LoginForm from "../../forms/loginForm/loginForm";
-import RegisterForm from "../../forms/registerForm/registerForm";
+import RegisterForm from "../../layouts/forms/registerForm/registerForm";
+import LoginForm from "../../layouts/forms/loginForm/loginForm";
 
 const LoginPage = () => {
     const dispatch = useDispatch();

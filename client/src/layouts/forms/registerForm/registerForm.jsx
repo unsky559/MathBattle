@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from "../../components/button/button";
-import Input from "../../components/input/input";
+import Input from "../../../components/input/input";
+import Button from "../../../components/button/button";
 
 import "./registerForm.scss";
 
