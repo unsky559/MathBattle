@@ -19,7 +19,9 @@
   "scripts": {
     "test": "echo \"No test specified\"",
     "prestart": "cd client && npm i && npm run build && cd ..",
-    "start": "npm i && npm run test && nodemon server.js"
+    "start": "npm i && npm run test && nodemon server.js",
+    "front-watch": "cd client && npm i && npm run watch",
+    "back-watch": "npm i && nodemon server.js"
   },
   "author": "",
   "license": "ISC"
