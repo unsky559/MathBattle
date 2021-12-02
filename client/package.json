@@ -8,7 +8,8 @@
     "build": "webpack --mode=development",
     "build:prod": "webpack --mode=production",
     "serve": "npx webpack serve --mode=development",
-    "serve:prod": "npx webpack serve --mode=production"
+    "serve:prod": "npx webpack serve --mode=production",
+    "watch": "webpack --mode=development --watch"
   },
   "author": "unsky559",
   "license": "ISC",
