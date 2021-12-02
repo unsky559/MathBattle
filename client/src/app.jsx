@@ -11,6 +11,7 @@ import LoginPage from "./pages/loginPage/loginPage";
 import GamePage from "./pages/gamePage/gamePage";
 import Popup from "./components/popup/popup";
 import SearchGamePopup from "./layouts/popups/searchGamePopup/searchGamePopup";
+import TestPage from "./pages/testPage/testPage";
 
 function App() {
     const searchGamePopupState = useState(true);
@@ -25,6 +26,7 @@ function App() {
                 <Route exact path="/" component={HomePage}/>
                 <Route path="/login" component={LoginPage}/>
                 <Route path="/game" component={GamePage}/>
+                <Route path="/test" component={TestPage}/>
 
             </BrowserRouter>
 
