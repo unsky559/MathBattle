@@ -62,6 +62,17 @@ const startServer = async () => {
   } catch (error) {
     console.error(error); 
   }
+
+  io.on('connection', (socket) => {
+     console.log("a new user", socket.id);
+     socket.on("disconnect", () => {
+        console.log("USER LEFT: ", socket.id);
+     });
+     socket.onAny((evek, arguments) => {
+         console.log(`event ${evek} from ${socket.id}`);
+         console.log(arguments);
+     })
+  });
 }
 
 startServer();
