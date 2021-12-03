@@ -5,7 +5,7 @@ const Input = (props) => {
     return (
         <div>
             <input className="input"
-                   type="text"
+                   type={props.password ? "password" : "text"}
                    placeholder={props.placeholder}
                    autoFocus={props.focus} onInput={(e) => {
                     props.textState[1](e.target.value);
