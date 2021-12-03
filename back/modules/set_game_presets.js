@@ -83,11 +83,11 @@ const fast_and_hard = new game_presets({
       },
       {
         name: "multiply",
-        difficulty: 3
+        difficulty: 2
       },
       {
         name: "division",
-        difficulty: 3
+        difficulty: 2
       }
     ]
   }
@@ -175,11 +175,11 @@ const medium_and_hard = new game_presets({
       },
       {
         name: "multiply",
-        difficulty: 3
+        difficulty: 2
       },
       {
         name: "division",
-        difficulty: 3
+        difficulty: 2
       }
     ]
   }
@@ -267,11 +267,11 @@ const slowly_and_hard = new game_presets({
       },
       {
         name: "multiply",
-        difficulty: 3
+        difficulty: 2
       },
       {
         name: "division",
-        difficulty: 3
+        difficulty: 2
       }
     ]
   }

@@ -10,7 +10,7 @@ const user_schema = new Schema({
     password: String
   },
   userpic: String,
-  date: Date, // registration date 
+  date_reg: Date, // registration date 
   stats: {
     rating: Number,
     winrate: Number,

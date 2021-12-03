@@ -23,7 +23,7 @@ const session_middleware = session({
   secret: SESS_SECRET,
   resave: false,
   //resave: true,
-  //rolling: true,
+  //rolling: true, 
   saveUninitialized: false,
   genid: function(req) {
     return uuidv4();
