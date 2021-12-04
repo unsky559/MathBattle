@@ -1,9 +1,8 @@
-import config from "../../../../config";
+import "./loginForm.scss";
 import React, {useState} from 'react';
 import Input from "../../../components/input/input";
-
 import Button from "../../../components/button/button";
-import "./loginForm.scss";
+import {apiPostRequest} from "../../../webWorkers/apiRequest";
 
 const LoginForm = () => {
 
@@ -16,17 +15,9 @@ const LoginForm = () => {
             "password" : inputPassword[0]
         };
 
-        fetch(config.apiPath('/login'), {
-            method: 'POST',
-            mode: "same-origin",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        }).then((resp) => {
-            console.log(resp);
+        apiPostRequest("login", data).then((r) => {
+            console.log(r);
         });
-
     }
 
     return (
