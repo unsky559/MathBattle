@@ -5,7 +5,6 @@ const ErrorHandler = require('../modules/error_handler/error_handler.js');
 class UserService
 {
   register(username, email, password, done){
-    //console.log(`Register data: {username: ${username}, email: ${email}, password: ${password}}`);
     user_model.exists({email: email}, (err, doc) => {
       if(err){
         console.log(err);
@@ -22,7 +21,7 @@ class UserService
           else if(doc1)
             return done(new ErrorHandler(409, "This username already exists"));
           else{
-            user_model.create({ username: username, email: email, authkeys: { password: password }, date: new Date }, (error, new_user) => {
+            user_model.create({ username: username, email: email, authkeys: {password: password}, date_reg: new Date, stats:{rating: 1000} }, (error, new_user) => {
               if(error) {
                 console.log(error);
                 return done(new ErrorHandler(500, "Server didn't create account"));
@@ -65,7 +64,7 @@ class UserService
     });
   }
   getUserByUsername(username, done){
-    user_model.findOne({username: username}, (err, user) => {
+    user_model.findOne({username: username}, '-_id -authkeys -__v', (err, user) => {
       if(err){
         console.log(err);
         return done(new ErrorHandler(500, "Find user error!"));
@@ -75,25 +74,17 @@ class UserService
         return done(new ErrorHandler(403, "User not found"));
       }
       else{
-        let user_data = user.toObject();
-        delete user_data._id;
-        delete user_data.authkeys;
-        delete user_data.__v;
-        done(null, user_data);
+        done(null, user);
       }
     });
   }
   getCurrentUser(user_id, done){
-    user_model.findById(user_id, (err, user) => {
+    user_model.findById(user_id, '-_id -authkeys -__v', (err, user) => {
       if(err){
         console.log(err);
         return done(new ErrorHandler(500, "Find user error"));
       }
-      let user_data = user.toObject();
-      delete user_data._id;
-      delete user_data.authkeys;
-      delete user_data.__v;
-      return done(null, user_data);
+      return done(null, user);
     });
   }
 }

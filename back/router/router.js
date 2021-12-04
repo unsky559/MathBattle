@@ -19,8 +19,8 @@ function isLoggedIn(req, res, next)
     return next();
   }
   else{
-    console.log("Request rejected"); // 401 UNAUTHORIZED
-    res.redirect('back');
+    console.log("Request rejected");
+    res.status(401).send({msg: 'Unauthorized'}); // UNAUTHORIZED
   }
 }
 
@@ -31,7 +31,7 @@ function isNotLoggedIn(req, res, next)
   }
   else{
     console.log("Request rejected");
-    res.redirect('back'); //409 CONFLICT
+    res.status(409).send({msg: 'Request rejected'});
   }
 }
 

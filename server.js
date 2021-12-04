@@ -14,7 +14,8 @@ const http = require('http');
 
 const app = express();
 const server = http.createServer(app);
-const io = require('socket.io')(server);
+//const io = require('socket.io')(server);
+const io = require('./socket.js').listen(server);
 
 const router = require('./back/router/router');
 
@@ -23,7 +24,7 @@ const session_middleware = session({
   secret: SESS_SECRET,
   resave: false,
   //resave: true,
-  //rolling: true,
+  //rolling: true, 
   saveUninitialized: false,
   genid: function(req) {
     return uuidv4();
@@ -44,12 +45,18 @@ const session_middleware = session({
 app.use(cookieParser());
 app.use(session_middleware);
 
+io.use((socket, next) => {
+  session_middleware(socket.request, {}, next);
+  // sessionMiddleware(socket.request, socket.request.res, next); will not work with websocket-only
+  // connections, as 'socket.request.res' will be undefined in that case
+});
+
 app.use(express.json());
 app.use('/api', router);
 
 app.use(express.static(__dirname + '/dist'));
 
-app.get('*', function(req, res){
+app.get('*', (req, res) => {
   res.sendFile(__dirname + '/dist/index.html');
 });
 
@@ -62,7 +69,7 @@ const startServer = async () => {
   } catch (error) {
     console.error(error); 
   }
-
+/*
   io.on('connection', (socket) => {
      console.log("a new user", socket.id);
      socket.on("disconnect", () => {
@@ -73,6 +80,7 @@ const startServer = async () => {
          console.log(arguments);
      })
   });
+*/
 }
 
 startServer();
