@@ -11,6 +11,7 @@ import {useSelector} from "react-redux";
 const Header = (props) => {
     // const [collapsed, setCollapsed] = useState(props.collapse);
     const collapseHeader = useSelector(state => state.headerCollapse);
+    const loggedHeader = useSelector(state => state.headerLogged);
     return (
         <>
             <header className={ ["header", ...collapseHeader ? "" : ["transparent"]].join(" ") }>
@@ -22,14 +23,16 @@ const Header = (props) => {
                         { collapseHeader && <Nav /> }
                     </div>
                     { collapseHeader &&
-                    <div className="rightHeader">
-                        {/*<UserStatus/>*/}
+                        <div className="rightHeader">
 
-                        <Link to="/login">
-                            <Button text="Войти"/>
-                        </Link>
+                            {
+                                loggedHeader ? <UserStatus/> :
+                                    (<Link to="/login">
+                                        <Button text="Войти"/>
+                                    </Link>)
+                            }
 
-                    </div>
+                        </div>
                     }
                 </div>
             </header>

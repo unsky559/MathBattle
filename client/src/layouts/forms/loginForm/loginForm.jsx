@@ -3,9 +3,12 @@ import React, {useState} from 'react';
 import Input from "../../../components/input/input";
 import Button from "../../../components/button/button";
 import {apiPostRequest} from "../../../webWorkers/apiRequest";
+import {useHistory} from "react-router-dom";
+import {useDispatch} from "react-redux";
 
 const LoginForm = () => {
-
+    const history = useHistory();
+    const dispatch = useDispatch();
     const inputLogin = useState('');
     const inputPassword = useState('');
 
@@ -16,7 +19,12 @@ const LoginForm = () => {
         };
 
         apiPostRequest("login", data).then((r) => {
-            console.log(r);
+            if(r.status === 200){
+                dispatch({ type: "HEADER_LOGGED" });
+                history.push("/");
+            }else{
+                // TODO: catch errors
+            }
         });
     }
 
