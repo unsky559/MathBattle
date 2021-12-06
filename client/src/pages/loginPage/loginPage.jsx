@@ -8,7 +8,7 @@ import isLoggedIn from "../../webWorkers/user/isLoggedIn";
 import {useHistory} from "react-router-dom";
 
 const LoginPage = () => {
-    let history = useHistory();
+    const history = useHistory();
     const dispatch = useDispatch();
     const [regPop, openRegPop] = useState(false);
     useEffect(() => {

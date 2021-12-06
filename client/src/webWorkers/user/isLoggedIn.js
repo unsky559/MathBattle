@@ -12,5 +12,5 @@ import {apiGetRequest} from "../apiRequest";
  * */
 export default async function isLoggedIn () {
     const result = await apiGetRequest("account");
-    return result.status === 200 ? true : false;
+    return result.status === 200;
 }

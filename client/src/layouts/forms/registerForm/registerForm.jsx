@@ -3,7 +3,6 @@ import Input from "../../../components/input/input";
 import Button from "../../../components/button/button";
 
 import "./registerForm.scss";
-import config from "../../../config";
 import {apiPostRequest} from "../../../webWorkers/apiRequest";
 
 const RegisterForm = () => {
