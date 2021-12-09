@@ -6,12 +6,28 @@ import Button from "../button/button";
 
 import './header.scss';
 import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import userState from "../../webWorkers/user/userState";
 
 const Header = (props) => {
-    // const [collapsed, setCollapsed] = useState(props.collapse);
+    const dispatch = useDispatch();
     const collapseHeader = useSelector(state => state.headerCollapse);
     const loggedHeader = useSelector(state => state.headerLogged);
+    const userData = useState({});
+
+    useEffect(() => {
+
+        userState.isLogged().then((data) => {
+            if(data){ dispatch({ type: "HEADER_LOGGED" }) }
+            else{ dispatch({ type: "HEADER_UNLOGGED" }) }
+        });
+
+        userState.onUpdate((data) => {
+            userData[1](data);
+        });
+
+    }, []);
+
     return (
         <>
             <header className={ ["header", ...collapseHeader ? "" : ["transparent"]].join(" ") }>
@@ -26,7 +42,7 @@ const Header = (props) => {
                         <div className="rightHeader">
 
                             {
-                                loggedHeader ? <UserStatus/> :
+                                loggedHeader ? <UserStatus userData={userData}/> :
                                     (<Link to="/login">
                                         <Button text="Войти"/>
                                     </Link>)
@@ -36,7 +52,7 @@ const Header = (props) => {
                     }
                 </div>
             </header>
-            <div className={ ["underHeader", ...collapseHeader ? "" : ["hide"]].join(" ") }></div>
+            <div className={["underHeader", ...collapseHeader ? "" : ["hide"]].join(" ")}/>
         </>
 
     );

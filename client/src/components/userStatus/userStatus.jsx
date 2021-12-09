@@ -1,7 +1,7 @@
 import React from 'react';
 import "./userStatus.scss";
 
-const UserStatus = () => {
+const UserStatus = (props) => {
     return (
         <div className="userStatus">
             <div className="userAvatarName" tabIndex="0">
@@ -9,10 +9,9 @@ const UserStatus = () => {
                     <img src="https://thispersondoesnotexist.com/image" alt=""/>
                 </div>
                 <span className="userName">
-                    НикНейм
+                    {props.userData[0].username}
                 </span>
             </div>
-            
         </div>
     );
 };

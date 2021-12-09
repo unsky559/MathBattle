@@ -5,6 +5,7 @@ import Button from "../../../components/button/button";
 import {apiPostRequest} from "../../../webWorkers/apiRequest";
 import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
+import userState from "../../../webWorkers/user/userState";
 
 const LoginForm = () => {
     const history = useHistory();
@@ -20,11 +21,16 @@ const LoginForm = () => {
 
         apiPostRequest("login", data).then((r) => {
             if(r.status === 200){
-                dispatch({ type: "HEADER_LOGGED" });
                 history.push("/");
-            }else{
-                // TODO: catch errors
+                return r.json();
             }
+            if(r.status === 409){
+                history.push("/");
+                return new Error("You already logged in");
+            }
+        }).then((data) => {
+            userState.login();
+            dispatch({ type: "HEADER_LOGGED" });
         });
     }
 

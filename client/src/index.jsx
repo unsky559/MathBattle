@@ -4,7 +4,6 @@ import * as ReactDOM from "react-dom";
 import App from "./app";
 import {createStore} from "redux";
 import {Provider} from "react-redux";
-import isLoggedIn from "./webWorkers/user/isLoggedIn";
 
 const defaultState = {
     headerCollapse: document.location.pathname !== "/login",
