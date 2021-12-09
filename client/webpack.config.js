@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: './src/index.jsx',
@@ -13,6 +14,7 @@ module.exports = {
         path: path.resolve(__dirname, '../dist')
     },
     plugins: [
+        new MiniCssExtractPlugin(),
         new HtmlWebpackPlugin({
             title: 'MathBattle',
             template: path.resolve(__dirname, 'src/index.html'),
@@ -37,11 +39,11 @@ module.exports = {
             },
             {
                 test: /\.css$/i,
-                use: ["style-loader", "css-loader"],
+                use: [MiniCssExtractPlugin.loader, "css-loader"],
             },
             {
                 test: /\.s[ac]ss$/i,
-                use: ["style-loader", "css-loader", "sass-loader"],
+                use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
             },
         ]
     },
