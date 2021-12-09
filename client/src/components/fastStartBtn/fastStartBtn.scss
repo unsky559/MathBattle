@@ -38,7 +38,19 @@
       }
       .iconRow{
         display: flex;
-
+        flex-wrap: wrap;
+        .smartIcon{
+          margin-right: 3px;
+          margin-top: 5px;
+        }
+      }
+      .hr{
+        height: 3px;
+        width: 100%;
+        border-radius: 5px;
+        background-color: rgba(0,0,0,.1);
+        margin-top: 7px;
+        margin-bottom: 7px;
       }
     }
   }
