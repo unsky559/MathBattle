@@ -2,12 +2,31 @@ import React, {useEffect, useState} from 'react';
 import "./gameModes.scss";
 import FastStartBtn from "../fastStartBtn/fastStartBtn";
 import {apiGetRequest} from "../../webWorkers/apiRequest";
+import gameSocket from "../../webWorkers/gameSocket";
+import {useDispatch} from "react-redux";
 
 const GameModes = () => {
 
+    const dispatch = useDispatch();
     const gamemodes = useState([]);
 
-    const connectToLobbie = () => {
+    const connectToLobbie = (gameModeId) => {
+        const connectionInstance = gameSocket;
+
+        connectionInstance.findGame({"game_preset_id": gameModeId},
+            () => {
+                console.log("FOUNT");
+                dispatch({type: "SEARCH_GAME", val: false});
+            },
+            () => {
+                dispatch({type: "SEARCH_GAME",
+                    val: true,
+                    cancelEvent: () => {
+                        connectionInstance.disconnect();
+                    }
+                });
+            });
+
         return;
     }
 
@@ -20,21 +39,22 @@ const GameModes = () => {
     }, []);
 
     return (
-        <div className="gameModes">
-            <h3 className="title">Разогрев</h3>
-            <div className="row">
-                {
-                    gamemodes[0].map((gamemode, index) => {
-                        return <FastStartBtn key={index} data={gamemode} onClick={() => {
-                                console.log(gamemode._id);
-                                connectToLobbie();
-                            }
-                        }/>
-                    })
-                }
+        <>
+            <div className="gameModes">
+                <h3 className="title">Разогрев</h3>
+                <div className="row">
+                    {
+                        gamemodes[0].map((gamemode, index) => {
+                            return <FastStartBtn key={index} data={gamemode} onClick={() => {
+                                    connectToLobbie(gamemode['_id']);
+                                }
+                            }/>
+                        })
+                    }
 
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

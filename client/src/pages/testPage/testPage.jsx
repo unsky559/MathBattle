@@ -3,15 +3,10 @@ import Input from "../../components/input/input";
 
 
 const TestPage = () => {
-
     const conn = useState( io("http://localhost:3000", {autoConnect: false}) );
     const connectedState = useState(false);
     const socketInput = useState('');
     const socketData = useState('');
-
-    console.log('TestPage');
-
-    //let test = 0;
 
     useEffect( () => {
         conn[0].on("connect", (socket) => {
