@@ -9,7 +9,8 @@ const defaultState = {
     headerCollapse: document.location.pathname !== "/login",
     headerLogged: false,
     searchGamePopup: false,
-    cancelEvent: () => {}
+    cancelEvent: () => {},
+    gamemode: {}
 }
 
 const reducer = (state = defaultState, action) => {
@@ -23,7 +24,7 @@ const reducer = (state = defaultState, action) => {
         case "HEADER_UNLOGGED":
             return {...state, headerLogged: false};
         case "SEARCH_GAME":
-            return {...state, searchGamePopup: action.val, cancelEvent: action.cancelEvent};
+            return {...state, searchGamePopup: action.val, cancelEvent: action.cancelEvent, gamemode: action.gamemode};
         default:
             return state;
     }

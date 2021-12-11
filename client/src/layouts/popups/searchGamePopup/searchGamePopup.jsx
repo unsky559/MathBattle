@@ -8,6 +8,7 @@ const SearchGamePopup = (props) => {
 
     const dispatch = useDispatch();
     const cancelEvent = useSelector(state => state.cancelEvent);
+    const gamemode = useSelector(state => state.gamemode);
 
     function closePopup() {
         cancelEvent.call();
@@ -16,12 +17,12 @@ const SearchGamePopup = (props) => {
 
     return (
         <div className="searchGamePopup">
-            <p className="gameModeName">Simple and fast</p>
+            <p className="gameModeName">{gamemode.name}</p>
             <div className="spinnerContainer">
                 <Spinner/>
             </div>
             <div className="bottomRow">
-                <Button onClick={closePopup} text="Cancel"/>
+                <Button onClick={closePopup} text="Отмена"/>
             </div>
         </div>
     );

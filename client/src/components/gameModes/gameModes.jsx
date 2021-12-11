@@ -10,8 +10,9 @@ const GameModes = () => {
     const dispatch = useDispatch();
     const gamemodes = useState([]);
 
-    const connectToLobbie = (gameModeId) => {
+    const connectToLobbie = (gamemode) => {
         const connectionInstance = gameSocket;
+        const gameModeId = gamemode['_id'];
 
         connectionInstance.findGame({"game_preset_id": gameModeId},
             () => {
@@ -23,7 +24,8 @@ const GameModes = () => {
                     val: true,
                     cancelEvent: () => {
                         connectionInstance.disconnect();
-                    }
+                    },
+                    gamemode: gamemode
                 });
             });
 
@@ -46,7 +48,7 @@ const GameModes = () => {
                     {
                         gamemodes[0].map((gamemode, index) => {
                             return <FastStartBtn key={index} data={gamemode} onClick={() => {
-                                    connectToLobbie(gamemode['_id']);
+                                    connectToLobbie(gamemode);
                                 }
                             }/>
                         })

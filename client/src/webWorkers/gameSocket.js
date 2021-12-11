@@ -4,6 +4,10 @@ class gameSocket {
     constructor() {
         this.connection = io("/", {autoConnect: false});
 
+        this.connectionListeners();
+    }
+
+    connectionListeners() {
         this.connection.on("connect", (socket) => {
             console.log(this.connection);
         });
@@ -21,7 +25,11 @@ class gameSocket {
     }
 
     disconnect(){
+        const listeners = this.connection["_callbacks"];
         this.connection.disconnect();
+
+        this.connection.off("find_game");
+        this.connection.off("game_found");
     }
 }
 
