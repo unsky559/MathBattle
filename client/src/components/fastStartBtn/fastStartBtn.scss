@@ -1,3 +1,4 @@
+@import "src/styles/mixins/animation";
 .fastStartBtn{
 
   width: 100%;
@@ -7,7 +8,14 @@
   position: relative;
 
   display: block;
-  
+
+  transition: box-shadow $animation-fast-duration $animation-fast-tf;
+
+  &:hover{
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,.2);
+  }
+
   &:after {
     content: '';
     display: block;

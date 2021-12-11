@@ -7,6 +7,10 @@ const GameModes = () => {
 
     const gamemodes = useState([]);
 
+    const connectToLobbie = () => {
+        return;
+    }
+
     useEffect(() => {
         apiGetRequest("gamepresets").then((r) => {
             return r.json();
@@ -21,8 +25,11 @@ const GameModes = () => {
             <div className="row">
                 {
                     gamemodes[0].map((gamemode, index) => {
-                        console.log(gamemode);
-                        return <FastStartBtn key={index} data = {gamemode}/>
+                        return <FastStartBtn key={index} data={gamemode} onClick={() => {
+                                console.log(gamemode._id);
+                                connectToLobbie();
+                            }
+                        }/>
                     })
                 }
 

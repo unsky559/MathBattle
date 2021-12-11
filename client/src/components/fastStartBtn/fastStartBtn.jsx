@@ -20,7 +20,7 @@ const FastStartBtn = (props) => {
     }
 
     return (
-        <div className="fastStartBtn" tabIndex="0">
+        <div className="fastStartBtn" tabIndex="1" onKeyPress={props.onClick} onClick={props.onClick}>
             <div className="foreground">
                 <div className="content">
                     <h3 className="startTitle">{ data.name }</h3>
@@ -32,7 +32,7 @@ const FastStartBtn = (props) => {
                     {
                         data.settings.modes[0] && <div className="iconRow">
                         {
-                            data.settings.modes.map((mode, index) => {
+                            data.settings.modes.map((mode) => {
                                 return <SmartIcon key={Math.random()} gray texty icon={textToIcon(mode.name)} text={mode.difficulty}/>
                             })
                         }
