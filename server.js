@@ -1,6 +1,6 @@
 const URL_DATABASE = "mongodb://localhost:27017/mydb";
 const PORT = process.env.PORT || 3000;
-const SESS_LIFETIME = 60 * 3; // 3 minutes
+const SESS_LIFETIME = 60 * 60; // 60 minutes
 const SESS_SECRET = "B6EG4W74o8z54h070BuQIMWBDy3qb5jk4e2mhqAsmziPBKDOSG34Dm8B8FVw5log";
 
 const express = require('express');
@@ -15,7 +15,7 @@ const http = require('http');
 const app = express();
 const server = http.createServer(app);
 //const io = require('socket.io')(server);
-const io = require('./socket.js').listen(server);
+const io = require('./back/io/socket.js').listen(server);
 
 const router = require('./back/router/router');
 

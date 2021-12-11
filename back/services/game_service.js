@@ -14,6 +14,14 @@ class GameService
       return done(null, presets);
     });
   }
+  getGamePresetById(preset_id, done){
+    game_preset_model.findById(preset_id, '-__v', (err, preset) => {
+      if(err){
+        return done(new ErrorHandler(500, 'Cannot find presets'));
+      }
+      return done(null, preset);
+    });
+  }
   generateAddExpression(difficulty){
     const expr_ceil = this.generateMaxNumber(difficulty);
     
@@ -23,7 +31,7 @@ class GameService
     const answer = a + b;
     const expression_str = `${a} + ${b}`;
 
-    return [expression_str, answer];
+    return {expression: expression_str, answer: answer};
   }
   generateSubtractExpression(difficulty) {
     const expr_ceil = this.generateMaxNumber(difficulty);
@@ -34,7 +42,7 @@ class GameService
     const answer = a - b;
     const expression_str = `${a} - ${b}`;
 
-    return [expression_str, answer];
+    return {expression: expression_str, answer: answer};
   }
   generateMultiplyExpression(difficulty) {
     const expr_ceil = this.generateMaxNumber(difficulty);
@@ -45,7 +53,7 @@ class GameService
     const answer = a * b;
     const expression_str = `${a} * ${b}`;
 
-    return [expression_str, answer];
+    return {expression: expression_str, answer: answer};
   }
   generateDivisionExpression(difficulty) {
     const expr_ceil = this.generateMaxNumber(difficulty);
@@ -59,7 +67,7 @@ class GameService
     const answer = a * b;
     const expression_str = `${answer} / ${b}`;
 
-    return [expression_str, a];
+    return {expression: expression_str, answer: a};
   }
   generateMaxNumber(difficulty) {
     const diff = Math.max(Math.min(difficulty, MAX_EXPRESSION_DIFFICULTY), MIN_EXPRESSION_DIFFICULTY);   
@@ -75,6 +83,21 @@ class GameService
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max + 1 - min)) + min;
+  }
+  translationModeToMathExpression(mode){
+    const mode_name = mode.name;
+    const mode_difficulty = mode.difficulty;
+
+    if(mode_name === "add")
+      return this.generateAddExpression(mode_difficulty);
+    else if(mode_name === "subtract")
+      return this.generateSubtractExpression(mode_difficulty);
+    else if(mode_name === "multiply")
+      return this.generateMultiplyExpression(mode_difficulty);
+    else if(mode_name === "division")
+      return this.generateDivisionExpression(mode_difficulty);
+    
+    return null;
   }
 }
 

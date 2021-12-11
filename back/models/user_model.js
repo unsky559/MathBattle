@@ -9,30 +9,32 @@ const user_schema = new Schema({
   authkeys: {
     password: String
   },
-  userpic: String,
-  date_reg: Date, // registration date 
+  //userpic: String,
+  date_reg: Date, 
+  last_online: Date,
   stats: {
     rating: Number,
-    winrate: Number,
-    time_spend: Number,
+    //winrate: Number,
+    //time_spend: Number,
     finished_lobbies: [{
       date_create: Date,
       date_end: Date,
       setting: setting_subschema,
-      avg_rating: Number,
+      //avg_rating: Number,
       result: {
         is_win: Boolean,
         rating_changed: Number
       }
     }]
-  },
+  }
   //is_online: Boolean
   //is_playing: Boolean
-  last_online: Date,
+  /*
   current_lobbies: {
     type: Schema.Types.ObjectId,
     ref: 'lobby'
   }
+  */
 });
 
 user_schema.pre("save", function (done) {
