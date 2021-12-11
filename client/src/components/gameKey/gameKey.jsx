@@ -7,7 +7,7 @@ const GameKey = (props) => {
 
     return (
         <div className={keyClasses.join(" ")}>
-            <button>{ props.text }</button>
+            <button onClick={props.onClick}>{ props.text }</button>
         </div>
     );
 };

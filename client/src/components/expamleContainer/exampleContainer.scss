@@ -1,20 +1,48 @@
 @import "../../styles/mixins/fonts";
+@import "../../styles/mixins/animation";
 .exampleContainer{
   margin-bottom: 15px;
   .example{
     @include defaultFont();
     font-weight: 500;
-    font-size: 1.8rem;
+    font-size: 2.5rem;
     color: var(--background-opposite-col);
     margin-bottom: 15px;
+    user-select: none;
+    transition: opacity $animation-fast-duration $animation-fast-tf, transform $animation-middle-duration $animation-fast-tf;
+    transform: translateY(0%);
+    opacity: 1;
+    &.loading{
+      opacity: 0;
+      transform: translateY(-100%);
+    }
   }
   .answerArea{
-    @include font_h1();
+    span{
+      @include font_h1();
+      display: inline-block;
+      animation-name: InputFadeInLeftSlide;
+      animation-duration: $animation-fast-duration;
+      animation-timing-function: $animation-fast-tf;
+    }
     &:before{
       @include font_h1();
+      font-weight: 400;
       content: "=";
       margin-right: 15px;
       color: var(--secondary-col);
     }
   }
+}
+
+@keyframes InputFadeInLeftSlide {
+  0%{
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100%{
+    transform: translateX(0%);
+    opacity: 1;
+  }
+
 }

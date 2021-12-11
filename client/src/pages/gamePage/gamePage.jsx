@@ -1,9 +1,8 @@
 import React from 'react';
 import "./gamePage.scss";
-import GameKeyboard from "../../components/gameKeyboard/gameKeyboard";
-import ExampleContainer from "../../components/expamleContainer/exampleContainer";
 import BlockGameInfo from "../../components/blockGameInfo/blockGameInfo";
 import BlockScoreboard from "../../components/blockScoreboard/blockScoreboard";
+import GameComponent from "../../components/gameComponent/gameComponent";
 
 const GamePage = () => {
     return (
@@ -12,8 +11,7 @@ const GamePage = () => {
                 <div className="gameLayout">
                     <div className="gameBoard">
                         <div className="innerContainer">
-                            <ExampleContainer example="5+5" answer="11"/>
-                            <GameKeyboard/>
+                            <GameComponent/>
                         </div>
                     </div>
                     <div className="statusBar">
