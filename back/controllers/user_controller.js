@@ -39,6 +39,7 @@ class UserController
       else{
         console.log("Successful login");
         req.session.user_id = user._id;
+        req.session.user_rating = user.stats.rating;
         //req.session.username = user.username;
         res.status(200).send({msg: "Login success"});
       }

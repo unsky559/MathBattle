@@ -12,6 +12,18 @@ const MAX_USERNAME_LEN = 16;
 const MIN_PASS_LEN = 8;
 const MAX_PASS_LEN = 32;
 
+/*
+router.use((req, res, next) => {
+  if(req.session.user_id){
+    console.log('auth req to api: ', req.session.user_id);
+  }
+  else{
+    console.log('anon req to api');
+  }
+  next();
+});
+*/
+
 function isLoggedIn(req, res, next)
 {
   if(req.session.user_id){
@@ -44,7 +56,7 @@ router.post('/reg', isNotLoggedIn,
 );
 router.post('/login', isNotLoggedIn, user_controller.login);
 router.post('/logout', isLoggedIn, user_controller.logout);
-router.get('/account', isLoggedIn, user_controller.getCurrentUser);
+router.get('/account', isLoggedIn, user_controller.getCurrentUser); 
 router.get("/user/:username", user_controller.getUserByUsername);
 
 router.get('/homepage', isLoggedIn, (req, res) => {

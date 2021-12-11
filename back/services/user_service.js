@@ -35,7 +35,6 @@ class UserService
       }
     });
   }
-
   login(condition, password, done){
     user_model.findOne(condition, (err, user) => {
       if(err){
@@ -63,7 +62,7 @@ class UserService
       }
     });
   }
-  getUserByUsername(username, done){
+  getUserByUsername(username, done){  
     user_model.findOne({username: username}, '-_id -authkeys -__v', (err, user) => {
       if(err){
         console.log(err);
@@ -78,6 +77,9 @@ class UserService
       }
     });
   }
+  getUserById(user_id, done){
+    return this.getCurrentUser(user_id, done);
+  }
   getCurrentUser(user_id, done){
     user_model.findById(user_id, '-_id -authkeys -__v', (err, user) => {
       if(err){
@@ -85,6 +87,38 @@ class UserService
         return done(new ErrorHandler(500, "Find user error"));
       }
       return done(null, user);
+    });
+  }
+  changeUserStats(username, finished_lobby, done){
+    user_model.findOne({username: username}, (err, user) => {
+      if(err){
+        console.log(err);
+        return done(new ErrorHandler(500, "Find user error"));
+      }
+      if(user){
+        user.stats.rating += finished_lobby.result.rating_changed; 
+        user.stats.finished_lobbies.push(finished_lobby);
+
+        user.save((err) => {
+          if(err) console.log(err);
+          else done(null, user);
+        }); 
+      }
+    });
+  }
+  changeLastOnline(username, done){
+    user_model.findOne({username: username}, (err, user) => {
+      if(err){
+        console.log(err);
+        return done(new ErrorHandler(500, "Find user error"));
+      }
+      if(user){
+        user.last_online = new Date;
+        user.save((err) => {
+          if(err) console.log(err);
+          else done(null, user);
+        }); 
+      }
     });
   }
 }

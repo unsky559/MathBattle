@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Input from "../../components/input/input";
 
+
 const TestPage = () => {
 
     const conn = useState( io("http://localhost:3000", {autoConnect: false}) );
@@ -8,6 +9,35 @@ const TestPage = () => {
     const socketInput = useState('');
     const socketData = useState('');
 
+    console.log('TestPage');
+
+    //let test = 0;
+
+    useEffect( () => {
+        conn[0].on("connect", (socket) => {
+            connectedState[1](conn[0].id);
+        });
+    
+        conn[0].on("disconnect", () => {
+            connectedState[1](false);
+        });
+
+        conn[0].on("game_found", (room_id) => {
+            console.log('test!');
+            conn[0].emit('join_lobby', room_id);
+        });
+        //conn[0].on("new_math_expression", (expression) => {
+        //    conn[0].emit('answer', 20);
+        //});
+
+        conn[0].onAny((evek, arg) => {
+            console.log(`event ${evek}`);
+            console.log("args ---->", arg);
+            //console.log(conn[0]);
+        });
+    }, []);
+    
+/*
     conn[0].on("connect", (socket) => {
         connectedState[1](conn[0].id);
     });
@@ -15,7 +45,7 @@ const TestPage = () => {
     conn[0].on("disconnect", () => {
         connectedState[1](false);
     });
-
+*/
     function disconnect() {
         conn[0].disconnect();
     }
