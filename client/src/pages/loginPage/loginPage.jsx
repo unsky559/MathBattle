@@ -4,11 +4,20 @@ import {useDispatch} from "react-redux";
 import Popup from "../../components/popup/popup";
 import RegisterForm from "../../layouts/forms/registerForm/registerForm";
 import LoginForm from "../../layouts/forms/loginForm/loginForm";
+import {useHistory} from "react-router-dom";
+import userState from "../../webWorkers/user/userState";
 
 const LoginPage = () => {
+    const history = useHistory();
     const dispatch = useDispatch();
     const [regPop, openRegPop] = useState(false);
     useEffect(() => {
+        userState.isLogged().then((isLogged) => {
+           if(isLogged){
+               history.push("/");
+               dispatch({ type: "HEADER_LOGGED" });
+           }
+        });
         dispatch({
             type: "HEADER_DISCOLLAPSE"
         });
@@ -18,6 +27,7 @@ const LoginPage = () => {
             });
         }
     });
+
     return (
         <div className="loginPage">
             <Popup titleClose={true} title="Регистрация" isActive={regPop} setActive={openRegPop}>

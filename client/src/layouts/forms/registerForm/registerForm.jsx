@@ -3,8 +3,7 @@ import Input from "../../../components/input/input";
 import Button from "../../../components/button/button";
 
 import "./registerForm.scss";
-import config from "../../../../config";
-import {body} from "express-validator";
+import {apiPostRequest} from "../../../webWorkers/apiRequest";
 
 const RegisterForm = () => {
 
@@ -20,18 +19,9 @@ const RegisterForm = () => {
             "password": inputPassword[0]
         }
 
-        fetch(config.apiPath("/reg"), {
-            method: 'POST',
-            mode: "same-origin",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        }).then((resp) => {
-            return resp.json();
-        }).then((data) => {
-            console.log(data);
-        })
+        apiPostRequest("reg", data).then((r) => {
+            console.log(r.status)
+        });
 
     }
 

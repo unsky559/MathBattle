@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Route, BrowserRouter} from "react-router-dom";
 
 import "../static/container.css"; // include container class
@@ -14,7 +14,8 @@ import SearchGamePopup from "./layouts/popups/searchGamePopup/searchGamePopup";
 import TestPage from "./pages/testPage/testPage";
 
 function App() {
-    const searchGamePopupState = useState(true);
+    const searchGamePopupState = useState(false);
+
     return (
         <>
             <Popup titleClose={false} title="Поиск оппонента" isActive={searchGamePopupState[0]} setActive={searchGamePopupState[1]}>
