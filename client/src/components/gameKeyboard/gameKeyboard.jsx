@@ -40,6 +40,7 @@ const GameKeyboard = (props) => {
 
     const enter = (inputState = props.inputState) => {
         return () => {
+            props.onEnter();
             return;
         }
     }

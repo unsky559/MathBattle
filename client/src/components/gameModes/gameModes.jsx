@@ -4,30 +4,34 @@ import FastStartBtn from "../fastStartBtn/fastStartBtn";
 import {apiGetRequest} from "../../webWorkers/apiRequest";
 import gameSocket from "../../webWorkers/gameSocket";
 import {useDispatch} from "react-redux";
+import {useHistory} from "react-router-dom";
 
 const GameModes = () => {
 
     const dispatch = useDispatch();
     const gamemodes = useState([]);
+    const history = useHistory();
 
-    const connectToLobbie = (gamemode) => {
+    const searchGame = (gamemode) => {
         const connectionInstance = gameSocket;
         const gameModeId = gamemode['_id'];
 
-        connectionInstance.findGame({"game_preset_id": gameModeId},
-            () => {
-                console.log("FOUNT");
-                dispatch({type: "SEARCH_GAME", val: false});
-            },
-            () => {
-                dispatch({type: "SEARCH_GAME",
-                    val: true,
-                    cancelEvent: () => {
-                        connectionInstance.disconnect();
-                    },
-                    gamemode: gamemode
-                });
+        const onFound = (data) => {
+            dispatch({type: "SEARCH_GAME", val: false});
+            history.push('/game/'+data);
+        }
+
+        const beforeFound = () => {
+            dispatch({type: "SEARCH_GAME",
+                val: true,
+                gamemode: gamemode,
+                cancelEvent: () => {
+                    connectionInstance.stopFindingGame();
+                }
             });
+        }
+
+        connectionInstance.findGame({"game_preset_id": gameModeId}, onFound, beforeFound);
 
         return;
     }
@@ -48,7 +52,7 @@ const GameModes = () => {
                     {
                         gamemodes[0].map((gamemode, index) => {
                             return <FastStartBtn key={index} data={gamemode} onClick={() => {
-                                    connectToLobbie(gamemode);
+                                    searchGame(gamemode);
                                 }
                             }/>
                         })

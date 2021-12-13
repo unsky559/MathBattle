@@ -15,6 +15,14 @@ class gameSocket {
         this.connection.on("disconnect", () => {
             console.log(this.connection);
         });
+
+        this.connection.onAny((eve,data) => {
+            console.log(eve, data);
+        })
+    }
+
+    answer(answer){
+        this.connection.emit("answer", {answer: parseFloat(answer)});
     }
 
     findGame(preset_id, onFound, beforeFound) {
@@ -24,12 +32,27 @@ class gameSocket {
         this.connection.on("game_found", onFound);
     }
 
-    disconnect(){
-        const listeners = this.connection["_callbacks"];
-        this.connection.disconnect();
-
-        this.connection.off("find_game");
+    stopFindingGame() {
+        this.disconnect();
         this.connection.off("game_found");
+    }
+
+    joinLobby(lobby_id, lobbieEvents){
+        this.connection.emit("join_lobby", lobby_id);
+        this.connection.on("lobby_settings", lobbieEvents.onLobbySettings);
+        this.connection.on("new_math_expression", lobbieEvents.onExpression);
+        this.connection.on("player_data", lobbieEvents.onPlayerChange);
+        this.connection.on("game_finished", lobbieEvents.onGameFinished)
+    }
+
+    leftLobby(){
+        this.disconnect();
+        this.connection.off("new_math_expression");
+        this.connection.off("player_data");
+    }
+
+    disconnect(){
+        this.connection.disconnect();
     }
 }
 
