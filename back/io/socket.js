@@ -51,12 +51,8 @@ module.exports.listen = (server) => {
       console.log('find_game');
 
 
-      let game_preset_id = null;
-      try {
-        game_preset_id = JSON.parse(data).game_preset_id;
-      } catch(e) {
-        return console.log(e);
-      }
+      game_preset_id = data.game_preset_id;
+
       if(pool_index !== null || game_status.in_game === true) return;
 
       console.log('find_game ->');

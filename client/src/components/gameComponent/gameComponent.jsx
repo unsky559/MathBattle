@@ -1,17 +1,27 @@
 import React, {useState} from 'react';
 import ExampleContainer from "../expamleContainer/exampleContainer";
 import GameKeyboard from "../gameKeyboard/gameKeyboard";
+import gameSocket from "../../webWorkers/gameSocket";
 
-const GameComponent = () => {
+const GameComponent = (props) => {
 
     const inputState = useState([]);
+    const loadingExpressionState = props.loadingExpressionState;
+    const currentExpressionState = props.currentExpressionState;
 
-    console.log(inputState[0]);
+    const onEnter = () => {
+        const currentConnection = gameSocket;
+        currentConnection.answer(inputState[0].join(""));
+        inputState[1]([]);
+    }
 
     return (
         <div>
-            <ExampleContainer example="5+5" answer={inputState[0]}/>
-            <GameKeyboard inputState = {inputState}/>
+            <ExampleContainer
+                example={currentExpressionState[0]}
+                answer={inputState[0]}
+                loadingExpressionState={loadingExpressionState}/>
+            <GameKeyboard onEnter={onEnter} inputState={inputState}/>
         </div>
     );
 };

@@ -20,17 +20,23 @@ const LoginForm = () => {
         };
 
         apiPostRequest("login", data).then((r) => {
-            if(r.status === 200){
-                history.push("/");
-                return r.json();
-            }
-            if(r.status === 409){
-                history.push("/");
-                return new Error("You already logged in");
+            switch (r.status){
+                case 200:
+                    history.push("/");
+                    return r.json();
+                case 409:
+                    history.push("/");
+                    throw new Error("You already logged in");
+                    return;
+                default:
+                    throw new Error("Nothing good");
+                    return;
             }
         }).then((data) => {
-            userState.login();
-            dispatch({ type: "HEADER_LOGGED" });
+            console.log(data);
+            userState.login().then(r => {
+                dispatch({ type: "HEADER_LOGGED" });
+            });
         });
     }
 

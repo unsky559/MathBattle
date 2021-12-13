@@ -2,11 +2,11 @@ import React, {useState} from 'react';
 import "./exampleContainer.scss";
 
 const ExampleContainer = (props) => {
-    const exampleLoading = useState(true);
+    const loadingExpressionState = props.loadingExpressionState;
 
     return (
         <div className="exampleContainer">
-            <div className={["example", exampleLoading ? "loading" : ""].join(" ")}>
+            <div className={["example", loadingExpressionState[0] ? "loading" : ""].join(" ")}>
                 { props.example }
             </div>
             <div className="answerArea">

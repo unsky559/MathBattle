@@ -7,7 +7,10 @@ import {Provider} from "react-redux";
 
 const defaultState = {
     headerCollapse: document.location.pathname !== "/login",
-    headerLogged: false
+    headerLogged: false,
+    searchGamePopup: false,
+    cancelEvent: () => {},
+    gamemode: {}
 }
 
 const reducer = (state = defaultState, action) => {
@@ -20,6 +23,8 @@ const reducer = (state = defaultState, action) => {
             return {...state, headerLogged: true};
         case "HEADER_UNLOGGED":
             return {...state, headerLogged: false};
+        case "SEARCH_GAME":
+            return {...state, searchGamePopup: action.val, cancelEvent: action.cancelEvent, gamemode: action.gamemode};
         default:
             return state;
     }

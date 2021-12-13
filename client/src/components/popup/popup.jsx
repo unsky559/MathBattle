@@ -6,7 +6,9 @@ const Popup = (props) => {
 
     let titleClose = props.titleClose;
     const closePopup = () => {
-        props.setActive(false);
+        if(!props.nonClosable){
+            props.setActive(false);
+        }
     }
 
     return props.isActive && (

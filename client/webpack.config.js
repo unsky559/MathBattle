@@ -19,6 +19,7 @@ module.exports = {
             title: 'MathBattle',
             template: path.resolve(__dirname, 'src/index.html'),
             inject: 'head',
+            publicPath: "/"
         }),
         new CopyPlugin({
             patterns: [
