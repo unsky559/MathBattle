@@ -1,9 +1,9 @@
 import React from 'react';
-import SmartIcon from "../smartIcon/smartIcon";
+import SmartIcon from "../../../components/smartIcon/smartIcon";
 
-import "../../styles/shared/block.scss";
+import "../../../styles/shared/block.scss";
 import "./blockGameInfo.scss";
-import Avatar from "../avatar/avatar";
+import Avatar from "../../../components/avatar/avatar";
 
 const BlockGameInfo = () => {
     return (

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import "./gamePage.scss";
-import BlockGameInfo from "../../components/blockGameInfo/blockGameInfo";
-import BlockScoreboard from "../../components/blockScoreboard/blockScoreboard";
+import BlockGameInfo from "../../layouts/blocks/blockGameInfo/blockGameInfo";
+import BlockScoreboard from "../../layouts/blocks/blockScoreboard/blockScoreboard";
 import GameComponent from "../../components/gameComponent/gameComponent";
 import {matchPath} from "react-router-dom";
 import gameSocket from "../../webWorkers/gameSocket";
