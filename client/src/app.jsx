@@ -1,9 +1,11 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {Route, BrowserRouter} from "react-router-dom";
 
 import "../static/container.css"; // include container class
 import "../static/reset.css"; // reset default styles
-import "./themes/white-theme.scss";// set white theme
+
+import "./themes/white-theme.scss"; // set white theme
+import "./styles/shared/texts.scss";
 
 import Header from "./components/header/header";
 import HomePage from "./pages/homePage";
@@ -12,11 +14,10 @@ import GamePage from "./pages/gamePage/gamePage";
 import Popup from "./components/popup/popup";
 import SearchGamePopup from "./layouts/popups/searchGamePopup/searchGamePopup";
 import TestPage from "./pages/testPage/testPage";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {newExpressionAudio, startGameAudio} from "./webWorkers/audioController";
 
 function App() {
-    const dispatch = useDispatch();
     const searchGamePopupState = useSelector(state => state.searchGamePopup);
 
     useEffect(() => {
