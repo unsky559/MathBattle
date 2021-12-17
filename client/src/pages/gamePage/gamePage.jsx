@@ -6,9 +6,11 @@ import GameComponent from "../../components/gameComponent/gameComponent";
 import {matchPath} from "react-router-dom";
 import gameSocket from "../../webWorkers/gameSocket";
 import {newExpressionAudio, startGameAudio} from "../../webWorkers/audioController";
+import GameFinishedLayout from "../../layouts/layout/gameFinishedLayout";
 
 const GamePage = () => {
-
+    const gameFinished = useState(false);
+    const isWin = useState(false);
     const loadingExpressionState = useState(true);
     const currentExpressionState = useState("");
     let isFirstExpressionState = true;
@@ -16,6 +18,11 @@ const GamePage = () => {
     const playSound = () => {
         newExpressionAudio.currentTime = 0;
         newExpressionAudio.play();
+    }
+
+    const playStartSound = () => {
+        startGameAudio.currentTime = 0;
+        startGameAudio.play();
     }
 
     const onExpression = (expression) => {
@@ -40,7 +47,9 @@ const GamePage = () => {
     }
 
     const onGameFinished = (data) => {
-        alert(data);
+        playStartSound();
+        gameFinished[1](true);
+        isWin[1](data);
     }
 
     const connectTo = (serverId) => {
@@ -50,8 +59,7 @@ const GamePage = () => {
 
         currentConnection.joinLobby(serverId, lobbieEvents);
 
-        startGameAudio.currentTime = 0;
-        startGameAudio.play();
+        playStartSound();
     }
 
     useEffect(() => {
@@ -69,10 +77,15 @@ const GamePage = () => {
                 <div className="gameLayout">
                     <div className="gameBoard">
                         <div className="innerContainer">
-                            <GameComponent
-                                loadingExpressionState={loadingExpressionState}
-                                currentExpressionState={currentExpressionState}
-                            />
+                            {
+                                gameFinished[0] ?
+                                    <GameFinishedLayout isWin={isWin}/>
+                                    :
+                                    <GameComponent
+                                        loadingExpressionState={loadingExpressionState}
+                                        currentExpressionState={currentExpressionState}
+                                    />
+                            }
                         </div>
                     </div>
                     <div className="statusBar">
