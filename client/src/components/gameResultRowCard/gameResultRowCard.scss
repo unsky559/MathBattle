@@ -1,0 +1,93 @@
+@import "src/styles/mixins/fonts";
+.gameResults{
+  width: 100%;
+  padding: 15px 25px;
+  margin-bottom: 10px;
+  background-color: var(--background2-col);
+  border-radius: 5px;
+  display: flex;
+  .row{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    &:first-child{
+      margin-top: 0;
+    }
+    &:last-child{
+      margin-bottom: 0;
+    }
+    .col{
+      margin-left: 10px;
+    }
+  }
+  .gameInfoBlock{
+    flex-grow: 1;
+    .gameHeader{
+      @include font_h2();
+    }
+    .secondary{
+      @include defaultFont();
+      color: var(--secondary-col);
+      font-size: 12px;
+      font-weight: 400;
+    }
+    .timeBack{
+      margin-left: 10px;
+    }
+    .userLink{
+      a{
+        @include defaultFont();
+        font-size: 14px;
+        font-width: 400;
+      }
+    }
+  }
+  .gameResultsBlock{
+    .ratingChange{
+      background-color: var(--background-col);
+      border-radius: 5px;
+      padding: 8px;
+      img{
+        height: 25px;
+        width: 25px;
+
+      }
+      .ratingCount{
+        @include defaultFont();
+        font-size: 24px;
+        margin-left: 5px;
+      }
+      .row{
+        display: flex;
+        align-items: center;
+      }
+      &.increase{
+        .ratingCount{
+          color: var(--green-col);
+        }
+      }
+      &.decrease{
+        .ratingCount{
+          color: var(--red-col);
+        }
+      }
+    }
+    .gamemodesRow{
+      border-radius: 5px;
+      padding: 8px;
+      margin-top: 8px;
+      background-color: var(--background-col);
+      display: flex;
+      .smartIcon{
+        margin-right: 5px;
+        &:last-child{
+          margin-right: 0;
+        }
+        .iconicInfo{
+          background-color: var(--background2-col);
+        }
+      }
+    }
+  }
+}

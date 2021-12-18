@@ -1,0 +1,32 @@
+@import "src/styles/mixins/fonts";
+.userPage{
+  display: flex;
+  .userContainer{
+    width: calc(100% / 10 * 3 - 30px);
+    margin-left: calc(100% / 10);
+      .userInfo{
+        display: flex;
+        align-items: center;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        .userData{
+          margin-left: 15px;
+          .userName{
+            @include font_h1();
+            font-weight: 400;
+          }
+          .infoRow{
+            display: flex;
+            align-items: center;
+            .smartIcon{
+              margin-left: 15px;
+            }
+          }
+        }
+      }
+  }
+  .contentContainer{
+    width: calc(100%/10*5);
+    margin-left: 15px;
+  }
+}
