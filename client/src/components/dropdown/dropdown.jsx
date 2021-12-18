@@ -19,7 +19,7 @@ const Dropdown = (props) => {
     }
 
     const disableOnClick = (e) => {
-        if(e.target.closest(".dropdown")){
+        if(e.target.closest(".userStatus")){
             return;
         }
         setTimeout(() => {
