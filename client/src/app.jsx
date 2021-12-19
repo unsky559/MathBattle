@@ -16,7 +16,7 @@ import GamePage from "./pages/gamePage/gamePage";
 import UserPage from "./pages/userPage/userPage";
 import TestPage from "./pages/testPage/testPage";
 import {useSelector} from "react-redux";
-import {newExpressionAudio, startGameAudio} from "./webWorkers/audioController";
+import {newExpressionAudio, startGameAudio} from "./workers/audioController";
 
 function App() {
     const searchGamePopupState = useSelector(state => state.searchGamePopup);

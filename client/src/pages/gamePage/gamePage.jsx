@@ -5,7 +5,7 @@ import BlockScoreboard from "../../layouts/blocks/blockScoreboard/blockScoreboar
 import GameComponent from "../../components/gameComponent/gameComponent";
 import {matchPath} from "react-router-dom";
 import gameSocket from "../../webWorkers/gameSocket";
-import {newExpressionAudio, startGameAudio} from "../../webWorkers/audioController";
+import {newExpressionAudio, startGameAudio} from "../../workers/audioController";
 import GameFinishedLayout from "../../layouts/layout/gameFinishedLayout";
 
 const GamePage = () => {
