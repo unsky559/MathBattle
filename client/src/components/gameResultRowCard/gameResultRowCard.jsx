@@ -2,14 +2,23 @@ import React from 'react';
 import "./gameResultRowCard.scss";
 import Avatar from "../avatar/avatar";
 import SmartIcon from "../smartIcon/smartIcon";
+import DateController from "../../workers/dateController";
+import textToIcon from "../../workers/textToIcon";
 
-const GameResultRowCard = () => {
+const GameResultRowCard = (props) => {
+
+    const lobby = props.lobby;
+    const dateController = new DateController(lobby.date_end);
+
     return (
         <section className="gameResults">
             <div className="gameInfoBlock">
                 <div className="row">
-                    <h1 className="gameHeader">Победа</h1>
-                    <p className="secondary timeBack">20 минут назад</p>
+
+                    <h1 className="gameHeader">
+                        { lobby.result.is_win ? "Победа" : "Поражение" }
+                    </h1>
+                    <p className="secondary timeBack">{ dateController.getTimeLeft() }</p>
                 </div>
                 <div className="row">
                     <Avatar/>
@@ -21,21 +30,36 @@ const GameResultRowCard = () => {
                     </div>
                 </div>
                 <div className="row">
-                    <SmartIcon/>
+                    <SmartIcon icon="../static/images/icons/points/points.svg" text={ lobby.setting.win_condition.value }/>
                 </div>
             </div>
             <div className="gameResultsBlock">
-                <div className="ratingChange decrease">
-                    <div className="row">
-                        <img src="../static/images/icons/rating/decrease.svg" alt=""/>
-                        <span className="ratingCount">10</span>
+
+                {
+                    lobby.result.is_win &&
+                    <div className="ratingChange increase">
+                        <div className="row">
+                            <img src="../static/images/icons/rating/increase.svg" alt=""/>
+                            <span className="ratingCount"> { lobby.result.rating_changed }</span>
+                        </div>
                     </div>
-                </div>
+                }
+                {
+                    !lobby.result.is_win &&
+                    <div className="ratingChange decrease">
+                        <div className="row">
+                            <img src="../static/images/icons/rating/decrease.svg" alt=""/>
+                            <span className="ratingCount">{ -lobby.result.rating_changed }</span>
+                        </div>
+                    </div>
+                }
+
                 <div className="gamemodesRow">
-                    <SmartIcon gray text="1"/>
-                    <SmartIcon gray text="2"/>
-                    <SmartIcon gray text="1"/>
-                    <SmartIcon gray text="1"/>
+                    {
+                        lobby.setting.modes.map((mode) => {
+                            return <SmartIcon key={Math.random()} gray texty icon={textToIcon(mode.name)} text={mode.difficulty}/>
+                        })
+                    }
                 </div>
             </div>
         </section>
