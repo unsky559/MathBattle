@@ -38,38 +38,24 @@ module.exports.listen = (server) => {
   const io = require('socket.io')(server);
 
   io.on('connection', (socket) => {
-    let game_status = {room_id: null, in_game: false, lobby_users_data: null}; // [room_id: null, in_game: true/false]
-    let pool_index = null;
+    socket.pool_index = null;
+    socket.game_status = {room_id: null, in_game: false};
+
     const socket_id = socket.id;
     const authorized_user_id = (socket.request.session.user_id) ? socket.request.session.user_id : null;
     console.log("A new user: ", socket.id, (authorized_user_id) ? " (authorized)" : " (anonym)");
 
-
     socket.on('find_game', (data) => {
-      // data = {"game_preset_id": "61b4b4e819d7bbace8124a93"}
-      
       console.log('find_game');
-
-
-      game_preset_id = data.game_preset_id;
-
-      if(pool_index !== null || game_status.in_game === true) return;
-
-      console.log('find_game ->');
-
-      pool_index = pushIntoPool({
-        socket_id: socket_id, 
-        user_id: (authorized_user_id) ? authorized_user_id : null,
-        raiting: (authorized_user_id) ? socket.request.session.user_rating : null,
-        game_preset_id: game_preset_id,
-        is_wait: false
-      });
-      
-      console.log(pool);
-      console.log(empty_spaces);
-      
+      let game_preset_id = data.game_preset_id;
       let opponent = null;
 
+      if(socket.pool_index !== null || socket.game_status.in_game !== false) return;
+      console.log('find_game: after condition');
+
+      //console.log(pool);
+      //console.log(empty_spaces);
+      
       // for authorized 
       if(authorized_user_id){
         //const user_id = socket.request.session.user_id;
@@ -77,7 +63,7 @@ module.exports.listen = (server) => {
         for(let i = 0; i < pool.length; i++){
           const candidate = pool[i];
           if(candidate === undefined) continue;
-          if(candidate.user_id !== null && candidate.user_id !== authorized_user_id && candidate.socket_id !== socket_id && candidate.game_preset_id === game_preset_id && candidate.is_wait === true){
+          if(candidate.user_id !== null && candidate.user_id !== authorized_user_id && candidate.socket_id !== socket_id && candidate.game_preset_id === game_preset_id /*&& candidate.is_wait === true*/){
             if(candidate.raiting <= user_rating + RAITING_RANGE && candidate.raiting >= user_rating - RAITING_RANGE){
               opponent = candidate;
               break;
@@ -89,197 +75,286 @@ module.exports.listen = (server) => {
         for(let i = 0; i < pool.length; i++){
           const candidate = pool[i];
           if(candidate === undefined) continue;
-          if(candidate.user_id === null && candidate.socket_id !== socket_id && candidate.game_preset_id === game_preset_id && candidate.is_wait === true){
+          if(candidate.user_id === null && candidate.socket_id !== socket_id && candidate.game_preset_id === game_preset_id /*&& candidate.is_wait === true*/){
             opponent = candidate;
             break;
           }
         }
       }
       if(opponent !== null){
-        const room_id = uuidv4(); 
         
-        // CREATE FUTURE LOBBY IN DATABASE
+        socket.join(opponent.room_id);
+        
+        const room = io.of("/").adapter.rooms.get(opponent.room_id);
+        const opp_socket = io.sockets.sockets.get(opponent.socket_id);
+        const opp_user_id = opponent.user_id;
+        
+        opp_socket.game_status.room_id = opponent.room_id;
+        opp_socket.game_status.in_game = true;
+        socket.game_status.room_id = opp_socket.game_status.room_id;
+        socket.game_status.in_game = true;
+        
+        deleteItemPool(opp_socket.pool_index);
+        opp_socket.pool_index = null;
 
-        if(authorized_user_id){
-          //const err_flbp = await lobby.createFutureLobbyByPreset([pool[pool_index], opponent], room_id);
-          //if(err_flbp !== 0){
-          //  return socket.emit("error_create_lobby");
-          //}
-
-          user_service.getUserById(authorized_user_id, (err, cur_user) => {
-            user_service.getUserById(opponent.user_id, (err1, opp_user) => {
-              game_status.lobby_users_data = 
-              [
-                { userdata: cur_user, score: 0, socket_id: socket_id },
-                { userdata: opp_user, score: 0, socket_id: opponent.socket_id }
-              ];
-
-              console.log('send auth game_found');
-              socket.emit("game_found", room_id);
-              io.to(opponent.socket_id).emit("game_found", room_id);
+        game_service.getGamePresetById(game_preset_id, (err1, preset) => {
+          if(err1){
+            console.log(err1); 
+            io.to(socket.game_status.room_id).emit('error', "did not create lobby");
+            //io.in(opponent.room_id).socketsLeave(opponent.room_id);
+            return;
+          }
+          else if(authorized_user_id){
+            user_service.getUserById(authorized_user_id, (err2, cur_user) => {
+              user_service.getUserById(opp_user_id, (err3, opp_user) => {
+                  if(err2 || err3){
+                    io.to(socket.game_status.room_id).emit('error', "did not create lobby");
+                    //io.in(opponent.room_id).socketsLeave(opponent.room_id);
+                    return;
+                  }
+                  createLobby(room, socket.game_status.room_id, cur_user, opp_user, socket_id, opp_socket.id, preset);
+              });
             });
-          });
+          }
+          else{ // anon
+            game_service.getGamePresetById(game_preset_id, (err, preset) => {
+              if(err){
+                console.log(err); 
+                io.to(socket.game_status.room_id).emit('error', "join_lobby: did not create lobby");
+                //io.in(opponent.room_id).socketsLeave(opponent.room_id); 
+                return;
+              }
 
-
-        }
-        else{ // anon
-          game_status.lobby_users_data = 
-          [
-            { userdata: null, score: 0, socket_id: socket_id },
-            { userdata: null, score: 0, socket_id: opponent.socket_id }
-          ];
-          console.log('send anon game_found');
-          socket.emit("game_found", room_id);
-          io.to(opponent.socket_id).emit("game_found", room_id);
-        }
+              createLobby(room, socket.game_status.room_id, null, null, socket_id, opp_socket.id, preset);
+            });
+          }
+        });
       }
       else{
-        pool[pool_index].is_wait = true;
+        const _room_id = uuidv4();
+        socket.join(_room_id);
+        
+        socket.pool_index = pushIntoPool({
+          socket_id: socket_id, 
+          user_id: (authorized_user_id) ? authorized_user_id : null,
+          raiting: (authorized_user_id) ? socket.request.session.user_rating : null,
+          game_preset_id: game_preset_id,
+          room_id: _room_id
+        });
       }
     });
-
+    
     socket.on("join_lobby", (room_id) => {
-      console.log('in join_lobby');
-      
-      if(pool_index !== null && game_status.in_game === false){
-        game_status.room_id = room_id;
-        game_status.in_game = true;
-        const user_data = deleteItemPool(pool_index);
-        pool_index = null;
-        
-        console.log((authorized_user_id) ? `An authorized user joined to the lobby, user id: ${authorized_user_id}, socket id: ${socket_id}` : `An anonym user joined to the lobby, socket id: ${socket_id}`);
-        socket.join(room_id);    
-        
-        const room = io.of("/").adapter.rooms.get(room_id);
-        
-        if(game_status.lobby_users_data){
-          room.players_data = game_status.lobby_users_data;
-          game_status.lobby_users_data = null;
-        }
-
-        // !!!          2 
-        if(room.size >= 2){
-          game_service.getGamePresetById(user_data.game_preset_id, (err, preset) => {
-            if(!err){
-              room.lobby_rules = preset; 
-              console.log("room.lobby_rules:", room.lobby_rules);
-
-              console.log('2 READY. START!');
-
-              const cnt_modes = room.lobby_rules.settings.modes.length;
-              const mode = room.lobby_rules.settings.modes[game_service.getRandomInt(0, cnt_modes - 1)];
-              //const math_expression = game_service.translationModeToMathExpression(mode);
-
-              room.math_expression = game_service.translationModeToMathExpression(mode); //math_expression;
-              room.date_create = new Date;
-              console.log(`mode: ${mode}, expr: ${room.math_expression.expression}, aswer: ${room.math_expression.answer}`);
-
-              console.log('room.players_data: ', room.players_data);
-              //if
-              //user_service/
-
-              io.to(room_id).emit('new_math_expression', room.math_expression.expression, room.players_data);
-            }
-            else console.log(err);
-          });
-        }
+      const room = io.of("/").adapter.rooms.get(room_id);
+      if(!room){
+        socket.emit("error", "room doesnot exist");
+        return;
       }
-      else{
-        console.log('error_start_lobby: pool_index ', socket_id);
-        //socket.emit("error_start_lobby");
+      if(++room.players_ready === 2){
+        const cnt_modes = room.lobby_rules.settings.modes.length;
+        const mode = room.lobby_rules.settings.modes[game_service.getRandomInt(0, cnt_modes - 1)];
+        room.math_expression = game_service.translationModeToMathExpression(mode);
+        io.to(room_id).emit('new_math_expression', room.math_expression.expression, room.players_data);
       }
+
+
+      //io.to(room_id).emit('new_math_expression', room.math_expression.expression, room.players_data);
+      //return;
     });
 
     socket.on('answer', (answer) => {
+      const room = io.of("/").adapter.rooms.get(socket.game_status.room_id);
 
-      try {
-        answer = JSON.parse(answer).answer;
-      } catch(e) {
-        return console.log(e);
+      if(!room){
+        // console.log('room doesnot exist');
+        socket.emit("error", "answer: room doesnot exist");
+        return;
+      }
+      else if(socket.game_status.room_id === null){
+        socket.emit("error", "answer: request rejected");
+        return;
+      } 
+      else if(typeof answer.answer !== "number" || answer.answer === Infinity || answer.answer === -Infinity){
+        socket.emit("error", "answer: is not number");
+        return;
       }
 
-      const room = io.of("/").adapter.rooms.get(game_status.room_id);
-      //room.players_points[socket_id];
-      
-      if(game_status.in_game === true){
-        if(answer === room.math_expression.answer){
-          io.to(socket_id).emit('answer_correct', true);
-          let player_stat = room.players_data.find(obj => obj.socket_id === socket_id);
-          if(++player_stat.score === room.lobby_rules.settings.win_condition.value){
+      answer = answer.answer;
+    
+      if(answer === room.math_expression.answer){
+        io.to(socket_id).emit('answer_correct', true);
+        let player_stat = room.players_data.find(obj => obj.socket_id === socket_id);
+        if(++player_stat.score === room.lobby_rules.settings.win_condition.value){
+          
+          // for auth
+          const rating_change = Math.ceil(Math.abs(room.players_data[0].score - room.players_data[1].score) / 2);
+          if(player_stat.userdata !== null){
+            const finished_lobby = {
+              date_create: room.date_create,
+              date_end: new Date,
+              setting: room.lobby_rules.settings,
+              result: {
+                is_win: true,
+                rating_changed: rating_change
+              }
+            };
+            user_service.changeUserStats(player_stat.userdata.username, finished_lobby, () => {
+              io.to(player_stat.socket_id).emit('game_finished', true);
+            });
+          }
+          else{ // for anon 
+            io.to(player_stat.socket_id).emit('game_finished', true); 
+          }
+
+          const losing_players = room.players_data.filter(obj => obj.socket_id !== socket_id);
+          for(let los_player of losing_players){
+            console.log('losed: ', los_player);
             
             // for auth
-            const rating_change = Math.ceil(Math.abs(room.players_data[0].score - room.players_data[1].score) / 2);
-            if(player_stat.userdata !== null){
+            if(los_player.userdata !== null){
               const finished_lobby = {
                 date_create: room.date_create,
                 date_end: new Date,
                 setting: room.lobby_rules.settings,
                 result: {
-                  is_win: true,
-                  rating_changed: rating_change
+                  is_win: false,
+                  rating_changed: -rating_change
                 }
               };
-              user_service.changeUserStats(player_stat.userdata.username, finished_lobby, () => {
-                io.to(player_stat.socket_id).emit('game_finished', true);
+              user_service.changeUserStats(los_player.userdata.username, finished_lobby, () => {
+                io.to(los_player.socket_id).emit('game_finished', false);
+                io.sockets.sockets.get(los_player.socket_id).pool_index = null;
+                io.sockets.sockets.get(los_player.socket_id).game_status = {room_id: null, in_game: false};
               });
             }
-            else{ // for anon 
-              io.to(player_stat.socket_id).emit('game_finished', true); 
+            else{
+              io.to(los_player.socket_id).emit('game_finished', false); 
+              io.sockets.sockets.get(los_player.socket_id).pool_index = null;
+              io.sockets.sockets.get(los_player.socket_id).game_status = {room_id: null, in_game: false};
             }
-
-            const losing_players = room.players_data.filter(obj => obj.socket_id !== socket_id);
-            for(let los_player of losing_players){
-              console.log('losed: ', los_player);
-              
-              // for auth
-              if(los_player.userdata !== null){
-                const finished_lobby = {
-                  date_create: room.date_create,
-                  date_end: new Date,
-                  setting: room.lobby_rules.settings,
-                  result: {
-                    is_win: false,
-                    rating_changed: -rating_change
-                  }
-                };
-                user_service.changeUserStats(los_player.userdata.username, finished_lobby, () => {
-                  io.to(los_player.socket_id).emit('game_finished', false);
-                });
-              }
-              else{
-                io.to(los_player.socket_id).emit('game_finished', false); 
-              }
-            }
-            io.socketsLeave(game_status.room_id);
           }
-          else{ // generates new math expression and sendes to all client of room
-
-            console.log(room.players_data);
-
-            const cnt_modes = room.lobby_rules.settings.modes.length;
-            const mode = room.lobby_rules.settings.modes[game_service.getRandomInt(0, cnt_modes - 1)];
-            room.math_expression = game_service.translationModeToMathExpression(mode);
-            console.log(`mode: ${mode}, expr: ${room.math_expression.expression}, aswer: ${room.math_expression.answer}`);
-            io.to(game_status.room_id).emit('new_math_expression', room.math_expression.expression, room.players_data);
-          }
+          socket.pool_index = null;
+          socket.game_status = {room_id: null, in_game: false};
+          io.socketsLeave(socket.game_status.room_id);
         }
-        else{
-          io.to(socket_id).emit('answer_correct', false);
+        else{ // generates new math expression and sendes to all client of room
+          console.log(room.players_data);
+
+          const cnt_modes = room.lobby_rules.settings.modes.length;
+          const mode = room.lobby_rules.settings.modes[game_service.getRandomInt(0, cnt_modes - 1)];
+          room.math_expression = game_service.translationModeToMathExpression(mode);
+          console.log(`mode: ${mode}, expr: ${room.math_expression.expression}, aswer: ${room.math_expression.answer}`);
+          io.to(socket.game_status.room_id).emit('new_math_expression', room.math_expression.expression, room.players_data);
         }
+      }
+      else{
+        io.to(socket_id).emit('answer_correct', false);
       }
     });
 
     socket.on('disconnect', () => {
-      console.log("USER LEFT: ", socket.id, (socket.request.session.user_id) ? " (authorized)" : " (anonym)");
-      if(pool_index !== null && pool[pool_index] !== undefined){
-        if(pool[pool_index].socket_id == socket_id){
-          deleteItemPool(pool_index);
+      console.log("USER LEFT: ", socket_id, (socket.request.session.user_id) ? " (authorized)" : " (anonym)");
+      if(socket.pool_index !== null && pool[socket.pool_index] !== undefined){
+        if(pool[socket.pool_index].socket_id == socket_id){
+          deleteItemPool(socket.pool_index);
           console.log(pool);
           console.log(empty_spaces);
         }
       }
-    });
- });
+      /// socket.game_status = {room_id: null, in_game: false}; 
+      else if(socket.game_status.in_game === true){
+        const room = io.of("/").adapter.rooms.get(socket.game_status.room_id);
+        if(authorized_user_id){
+          
+          const rating_change = Math.ceil(Math.abs(room.players_data[0].score - room.players_data[1].score) / 2);          
+          const now_date = new Date;
+          const player_stat = room.players_data.find(obj => obj.socket_id === socket_id);
 
+          user_service.changeUserStats(player_stat.userdata.username, 
+            {
+              date_create: room.date_create,
+              date_end: now_date,
+              setting: room.lobby_rules.settings,
+              result: {
+                is_win: false,
+                rating_changed: -rating_change
+              }
+            }, () => {
+              //socket.close();
+              //io.to(socket_id).emit('game_finished', false);
+          });
+
+          const win_player = room.players_data.filter(obj => obj.socket_id !== socket_id);
+          user_service.changeUserStats(win_player[0].userdata.username, 
+            {
+              date_create: room.date_create,
+              date_end: now_date,
+              setting: room.lobby_rules.settings,
+              result: {
+                is_win: true,
+                rating_changed: rating_change
+              }
+          }, () => {
+            io.to(win_player[0].socket_id).emit('game_finished', true);
+            //io.sockets.sockets.get(win_player[0].socket_id).close();
+          });
+
+          io.sockets.sockets.get(player.socket_id).pool_index = null;
+          io.sockets.sockets.get(player.socket_id).game_status = {room_id: null, in_game: false};
+          socket.pool_index = null;
+          socket.game_status = {room_id: null, in_game: false};
+
+          io.to(socket.game_status.room_id).socketsLeave(socket.game_status.room_id);
+        }
+        else{
+          io.to(socket.game_status.room_id).emit('game_finished', true);
+          
+          //console.log(room);
+          const player = room.players_data.find(obj => obj.socket_id === socket_id);
+
+          console.log(player);
+          
+          io.sockets.sockets.get(player.socket_id).pool_index = null;
+          io.sockets.sockets.get(player.socket_id).game_status = {room_id: null, in_game: false};
+          socket.pool_index = null;
+          socket.game_status = {room_id: null, in_game: false};
+          
+          io.to(socket.game_status.room_id).socketsLeave(socket.game_status.room_id);
+        }
+      }
+
+
+    });
+
+    function createLobby(room, room_id, player1_data, player2_data, player1_socket_id, player2_socket_id, preset){
+      room.players_data = [
+        { userdata: player1_data, score: 0, socket_id: player1_socket_id },
+        { userdata: player2_data, score: 0, socket_id: player2_socket_id }
+      ];
+      room.lobby_rules = preset; 
+      room.date_create = new Date;
+      room.players_ready = 0;
+
+      /*
+      const cnt_modes = room.lobby_rules.settings.modes.length;
+      const mode = room.lobby_rules.settings.modes[game_service.getRandomInt(0, cnt_modes - 1)];
+      room.math_expression = game_service.translationModeToMathExpression(mode);
+*/
+/*
+      console.log(`LOBBY DATA (auth):\n \
+              date: ${room.date_create}; \n \
+              rules: ${room.lobby_rules};\n \
+              players_data: ${room.players_data};\n \
+              expression: ${room.math_expression.expression};\n \
+              aswer: ${room.math_expression.answer};`
+      );
+*/      
+      console.log('The lobby is set up. Starting game.');
+      
+      io.to(room_id).emit('game_found', room_id, preset, room.players_data);
+      //io.to(room_id).emit('new_math_expression', room.math_expression.expression, room.players_data);
+    }
+
+ });
   return io;
 }
