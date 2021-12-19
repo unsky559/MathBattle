@@ -2,13 +2,16 @@ import React from 'react';
 import "./input.scss";
 
 const Input = (props) => {
+    const [textState, updateTextState] = props.textState;
+
     return (
         <div>
-            <input className="input"
+            <input className={["input", textState.isWrong ? "wrong" : null].join(" ")}
                    type={props.password ? "password" : "text"}
                    placeholder={props.placeholder}
-                   autoFocus={props.focus} onInput={(e) => {
-                    props.textState[1](e.target.value);
+                   autoFocus={props.focus}
+                   onChange={ (e) => {
+                       updateTextState({...textState, isWrong: false, val: e.target.value});
                    }}
             />
         </div>
