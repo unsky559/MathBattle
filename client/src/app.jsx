@@ -1,22 +1,24 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {Route, BrowserRouter} from "react-router-dom";
 
 import "../static/container.css"; // include container class
 import "../static/reset.css"; // reset default styles
-import "./themes/white-theme.scss";// set white theme
 
+import "./themes/white-theme.scss"; // set white theme
+import "./styles/shared/texts.scss";
+
+import Popup from "./components/popup/popup";
+import SearchGamePopup from "./layouts/popups/searchGamePopup/searchGamePopup";
 import Header from "./components/header/header";
 import HomePage from "./pages/homePage";
 import LoginPage from "./pages/loginPage/loginPage";
 import GamePage from "./pages/gamePage/gamePage";
-import Popup from "./components/popup/popup";
-import SearchGamePopup from "./layouts/popups/searchGamePopup/searchGamePopup";
+import UserPage from "./pages/userPage/userPage";
 import TestPage from "./pages/testPage/testPage";
-import {useDispatch, useSelector} from "react-redux";
-import {newExpressionAudio, startGameAudio} from "./webWorkers/audioController";
+import {useSelector} from "react-redux";
+import {newExpressionAudio, startGameAudio} from "./workers/audioController";
 
 function App() {
-    const dispatch = useDispatch();
     const searchGamePopupState = useSelector(state => state.searchGamePopup);
 
     useEffect(() => {
@@ -37,6 +39,7 @@ function App() {
                 <Route exact path="/" component={HomePage}/>
                 <Route path="/login" component={LoginPage}/>
                 <Route path="/game/:id" component={GamePage}/>
+                <Route path="/user/:id" component={UserPage}/>
                 <Route path="/test" component={TestPage}/>
             </BrowserRouter>
         </>

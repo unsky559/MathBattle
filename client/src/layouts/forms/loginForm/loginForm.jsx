@@ -6,37 +6,46 @@ import {apiPostRequest} from "../../../webWorkers/apiRequest";
 import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import userState from "../../../webWorkers/user/userState";
+import {userNameRegex} from "../../../workers/regex";
 
 const LoginForm = () => {
     const history = useHistory();
     const dispatch = useDispatch();
-    const inputLogin = useState('');
-    const inputPassword = useState('');
+    const inputLogin = useState({val: "", isWrong: false});
+    const inputPassword = useState({val: "", isWrong: false});
 
     const submit = () => {
         const data = {
-            "username" : inputLogin[0],
-            "password" : inputPassword[0]
+            "username" : inputLogin[0].val,
+            "password" : inputPassword[0].val
         };
+
+        if(!userNameRegex.test(data.username)){
+            inputLogin[1]({...inputLogin[0], isWrong: true});
+            return;
+        }
+
+        if(data.password === ""){
+            inputPassword[1]({...inputPassword[0], isWrong: true});
+            return;
+        }
 
         apiPostRequest("login", data).then((r) => {
             switch (r.status){
                 case 200:
                     history.push("/");
-                    return r.json();
+                    userState.login().then(() => {
+                        dispatch({ type: "HEADER_LOGGED" });
+                    });
+                    return;
                 case 409:
                     history.push("/");
                     throw new Error("You already logged in");
-                    return;
                 default:
-                    throw new Error("Nothing good");
+                    inputLogin[1]({...inputLogin[0], isWrong: true});
+                    inputPassword[1]({...inputPassword[0], isWrong: true});
                     return;
             }
-        }).then((data) => {
-            console.log(data);
-            userState.login().then(r => {
-                dispatch({ type: "HEADER_LOGGED" });
-            });
         });
     }
 

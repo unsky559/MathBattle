@@ -2,9 +2,9 @@ import React from 'react';
 
 import "./avatar.scss";
 
-const Avatar = () => {
+const Avatar = (props) => {
     return (
-        <div className="avatar">
+        <div className={["avatar", props.big ? "big" : ""].join(" ")}>
             <img src="https://thispersondoesnotexist.com/image" alt=""/>
         </div>
     );

@@ -11,6 +11,7 @@ const LoginPage = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const [regPop, openRegPop] = useState(false);
+    const successPopupState = useState(false);
     useEffect(() => {
         userState.isLogged().then((isLogged) => {
            if(isLogged){
@@ -30,9 +31,15 @@ const LoginPage = () => {
 
     return (
         <div className="loginPage">
+
+            <Popup titleClose={true} title="Успех" isActive={successPopupState[0]} setActive={successPopupState[1]}>
+                <p className="p">Ваш аккаунт успешно зарегистрирован!</p>
+                <p className="p">Воспользуйтесь формой входа чтобы продолжить</p>
+            </Popup>
+
             <Popup titleClose={true} title="Регистрация" isActive={regPop} setActive={openRegPop}>
                 <div className="formCont">
-                    <RegisterForm/>
+                    <RegisterForm popupControll={openRegPop} successPopupController={successPopupState}/>
                 </div>
             </Popup>
             <div className="bigBanner">

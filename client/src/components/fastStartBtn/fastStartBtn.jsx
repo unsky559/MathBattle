@@ -1,23 +1,11 @@
 import React from 'react';
 import "./fastStartBtn.scss";
 import SmartIcon from "../smartIcon/smartIcon";
+import textToIcon from "../../workers/textToIcon";
 
 const FastStartBtn = (props) => {
 
     const data = props.data;
-
-    function textToIcon(text){
-        switch (text){
-            case "add":
-                return "+"
-            case "subtract":
-                return "-"
-            case "division":
-                return "÷"
-            case "multiply":
-                return "×"
-        }
-    }
 
     return (
         <div className="fastStartBtn" tabIndex="1" onKeyPress={props.onClick} onClick={props.onClick}>

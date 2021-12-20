@@ -1,6 +1,6 @@
 import React from 'react';
-import "../../styles/shared/block.scss";
-import Player from "../player/player";
+import "../../../styles/shared/block.scss";
+import Player from "../../../components/player/player";
 
 const BlockScoreboard = () => {
     return (
