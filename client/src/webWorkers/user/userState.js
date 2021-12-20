@@ -1,5 +1,4 @@
-import {apiGetRequest} from "../apiRequest";
-import {useDispatch} from "react-redux";
+import {apiGetRequest, apiPostRequest} from "../apiRequest";
 
 class userState {
     constructor() {
@@ -43,10 +42,8 @@ class userState {
             switch (r.status){
                 case 200:
                     return r.json();
-                    break;
                 case 401:
                     return {};
-                    break;
                 default:
                     throw new Error("Error in init function. Something unexpected happened on server");
             }
@@ -87,7 +84,9 @@ class userState {
      * Logout from account
      * */
     logout () {
-        this.currentUserData = {};
+        return apiPostRequest("logout", {}).then(() => {
+            this.currentUserData = {};
+        });
     }
 
     login () {

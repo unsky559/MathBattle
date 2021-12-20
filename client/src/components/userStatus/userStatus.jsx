@@ -1,11 +1,14 @@
-import React, {createRef, useRef, useState} from 'react';
+import React from 'react';
 import "./userStatus.scss";
 import Dropdown from "../dropdown/dropdown";
 import ButtonList from "../buttonList/buttonList";
 import {useHistory} from "react-router-dom";
+import userState from "../../webWorkers/user/userState";
+import {useDispatch} from "react-redux";
 
 const UserStatus = (props) => {
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const buttons = [
         {title: props.userData[0].username,
@@ -13,15 +16,12 @@ const UserStatus = (props) => {
                 history.push(`/user/${props.userData[0].username}`);
             }
         },
-        {title: "Настройки",
-            onclick: () => {
-                history.push("/settings");
-            }
-        },
         {title: "Logout",
             onclick: () => {
-                console.log("do logout");
-                history.push("/login");
+                userState.logout().then(() => {
+                    dispatch({ type: "HEADER_UNLOGGED" });
+                    history.push("/login");
+                });
             }
         }];
     return (
