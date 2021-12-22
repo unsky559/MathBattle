@@ -3,17 +3,23 @@ import {io} from "socket.io-client";
 class gameSocket {
     constructor() {
         this.connection = io("/", {autoConnect: false});
-
+        this.connected = false;
         this.connectionListeners();
     }
 
+    isConnected() {
+        return this.connected;
+    }
+
     connectionListeners() {
-        this.connection.on("connect", (socket) => {
+        this.connection.on("connect", () => {
             console.log(this.connection);
+            this.connected = true;
         });
 
         this.connection.on("disconnect", () => {
             console.log(this.connection);
+            this.connected = false;
         });
     }
 
