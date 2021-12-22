@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import "./gamePage.scss";
-import BlockGameInfo from "../../layouts/blocks/blockGameInfo/blockGameInfo";
 import BlockScoreboard from "../../layouts/blocks/blockScoreboard/blockScoreboard";
 import GameComponent from "../../components/gameComponent/gameComponent";
-import {matchPath} from "react-router-dom";
+import {matchPath, useHistory} from "react-router-dom";
 import gameSocket from "../../webWorkers/gameSocket";
 import {newExpressionAudio, startGameAudio} from "../../workers/audioController";
 import GameFinishedLayout from "../../layouts/layout/gameFinishedLayout";
 
 const GamePage = () => {
-
+    const history = useHistory();
+    const currentConnection = gameSocket;
     const scoreboardState = useState([]);
     const gameFinished = useState(false);
     const isWin = useState(false);
@@ -57,13 +57,13 @@ const GamePage = () => {
     }
 
     const connectTo = (serverId) => {
-        const currentConnection = gameSocket;
-
-        const lobbieEvents = { onExpression, onPlayerChange, onLobbySettings, onGameFinished}
-
-        currentConnection.joinLobby(serverId, lobbieEvents);
-
-        playStartSound();
+        if(currentConnection.isConnected()){
+            const lobbyEvents = { onExpression, onPlayerChange, onLobbySettings, onGameFinished}
+            currentConnection.joinLobby(serverId, lobbyEvents);
+            playStartSound();
+        }else{
+            history.push("/");
+        }
     }
 
     useEffect(() => {
@@ -73,6 +73,10 @@ const GamePage = () => {
             strict: true
         });
         connectTo(page.params.id);
+        return () => {
+            gameFinished[1](true);
+            currentConnection.leftLobby();
+        }
     }, []);
 
     return (
