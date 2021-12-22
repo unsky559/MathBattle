@@ -308,6 +308,51 @@ const fast_and_simply_test = new game_presets({
     ]
   }
 });
+const fast_and_add = new game_presets({
+    name: "fast and add",
+    settings: {
+        is_rating: true,
+        is_sync: true,
+        max_players: 2,
+        win_condition: {
+            mode: "score",
+            value: 50
+        },
+        modes: [
+            {
+                name: "add",
+                difficulty: 2
+            },
+            {
+                name: "subtract",
+                difficulty: 2
+            }
+        ]
+    }
+});
+
+const fast_and_multiply = new game_presets({
+    name: "fast and multiply",
+    settings: {
+        is_rating: true,
+        is_sync: true,
+        max_players: 2,
+        win_condition: {
+            mode: "score",
+            value: 50
+        },
+        modes: [
+            {
+                name: "multiply",
+                difficulty: 1
+            },
+            {
+                name: "division",
+                difficulty: 1
+            }
+        ]
+    }
+});
 ///
 
 
@@ -315,6 +360,7 @@ game_presets.collection.drop().then(() => {
   game_presets.create(fast_and_simply, fast_and_normally, fast_and_hard, 
     medium_and_simply, medium_and_normally, medium_and_hard,
     slowly_and_simply, slowly_and_normally, slowly_and_hard,
+    fast_and_add, fast_and_multiply,
     /*fast_and_simply_test,*/ 
     (error) => {
       if(error) {
