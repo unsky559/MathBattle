@@ -24,3 +24,36 @@
     margin-top: 10%;
   }
 }
+
+@media screen and (max-width: 1200px){
+  .gameLayout{
+    margin-left: calc(100% / 10 * 2);
+    height: calc(100vh - 80px);
+
+    .gameBoard{
+      width: calc(100% / 6 * 4);
+      .innerContainer{
+        width: calc(100% / 4 * 3 - (10px * 3));
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px){
+  .gameLayout{
+    margin-left: 0;
+    height: calc(100vh - 80px);
+
+    .gameBoard{
+      width: calc(100% / 6 * 4);
+      .innerContainer{
+        width: calc(100% / 4 * 4 - (10px * 3));
+      }
+    }
+
+    .statusBar{
+      width: calc(100% / 6 * 3);
+      margin-top: 10%;
+    }
+  }
+}
