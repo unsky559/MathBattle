@@ -1,6 +1,9 @@
 @mixin defaultFont() {
   font-family: "Rubik", sans-serif;
 }
+@mixin secondaryFont() {
+  font-family: 'Rubik Beastly', sans-serif;
+}
 @mixin font_h1(){
   @include defaultFont();
   font-weight: 900;
