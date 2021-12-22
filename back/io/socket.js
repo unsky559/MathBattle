@@ -154,7 +154,8 @@ module.exports.listen = (server) => {
         const cnt_modes = room.lobby_rules.settings.modes.length;
         const mode = room.lobby_rules.settings.modes[game_service.getRandomInt(0, cnt_modes - 1)];
         room.math_expression = game_service.translationModeToMathExpression(mode);
-        io.to(room_id).emit('new_math_expression', room.math_expression.expression, room.players_data);
+        io.to(room_id).emit('new_math_expression', room.math_expression.expression);
+        io.to(room_id).emit('player_data', room.players_data);
       }
 
 
@@ -244,7 +245,8 @@ module.exports.listen = (server) => {
           const mode = room.lobby_rules.settings.modes[game_service.getRandomInt(0, cnt_modes - 1)];
           room.math_expression = game_service.translationModeToMathExpression(mode);
           console.log(`mode: ${mode}, expr: ${room.math_expression.expression}, aswer: ${room.math_expression.answer}`);
-          io.to(socket.game_status.room_id).emit('new_math_expression', room.math_expression.expression, room.players_data);
+          io.to(socket.game_status.room_id).emit('new_math_expression', room.math_expression.expression);
+          io.to(socket.game_status.room_id).emit('player_data', room.players_data);
         }
       }
       else{
