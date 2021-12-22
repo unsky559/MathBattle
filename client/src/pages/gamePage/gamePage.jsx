@@ -10,6 +10,9 @@ import GameFinishedLayout from "../../layouts/layout/gameFinishedLayout";
 
 const GamePage = () => {
 
+    //let currentConnection = null;
+    const currentConnection = gameSocket;
+
     const scoreboardState = useState([]);
     const gameFinished = useState(false);
     const isWin = useState(false);
@@ -50,6 +53,7 @@ const GamePage = () => {
     }
 
     const onGameFinished = (data) => {
+        //const currentConnection = gameSocket;
         playStartSound();
         gameFinished[1](true);
         isWin[1](data);
@@ -57,7 +61,8 @@ const GamePage = () => {
     }
 
     const connectTo = (serverId) => {
-        const currentConnection = gameSocket;
+        //const currentConnection = gameSocket;
+        //currentConnection = gameSocket;
 
         const lobbieEvents = { onExpression, onPlayerChange, onLobbySettings, onGameFinished}
 
