@@ -15,10 +15,6 @@ class gameSocket {
         this.connection.on("disconnect", () => {
             console.log(this.connection);
         });
-
-        this.connection.onAny((eve,data) => {
-            console.log(eve, data);
-        })
     }
 
     answer(answer){
@@ -42,13 +38,12 @@ class gameSocket {
         this.connection.on("lobby_settings", lobbieEvents.onLobbySettings);
         this.connection.on("new_math_expression", lobbieEvents.onExpression);
         this.connection.on("player_data", lobbieEvents.onPlayerChange);
-        this.connection.on("game_finished", lobbieEvents.onGameFinished)
+        this.connection.on("game_finished", lobbieEvents.onGameFinished);
     }
 
     leftLobby(){
+        this.connection.offAny();
         this.disconnect();
-        this.connection.off("new_math_expression");
-        this.connection.off("player_data");
     }
 
     disconnect(){
