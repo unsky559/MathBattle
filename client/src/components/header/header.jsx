@@ -1,15 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {lazy, Suspense, useEffect, useState} from 'react';
 import Logo from "../logo/logo";
-import Nav from "../navigation/nav";
-import UserStatus from "../userStatus/userStatus";
-import Button from "../button/button";
+
 
 import './header.scss';
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import userState from "../../webWorkers/user/userState";
 
-const Header = (props) => {
+const UserStatus = lazy(() => import("../userStatus/userStatus"));
+const Button = lazy(() => import("../button/button"));
+
+const Header = () => {
     const dispatch = useDispatch();
     const collapseHeader = useSelector(state => state.headerCollapse);
     const loggedHeader = useSelector(state => state.headerLogged);
@@ -34,20 +35,20 @@ const Header = (props) => {
                 <div className="container">
                     <div className="leftHeader">
                         <Link to="/">
-                            <Logo alternate={collapseHeader ? false : true} />
+                            <Logo alternate={!collapseHeader} />
                         </Link>
                         {/* collapseHeader && <Nav /> */}
                     </div>
                     { collapseHeader &&
                         <div className="rightHeader">
-
-                            {
-                                loggedHeader ? <UserStatus userData={userData}/> :
-                                    (<Link to="/login">
-                                        <Button text="Войти"/>
-                                    </Link>)
-                            }
-
+                            <Suspense fallback="">
+                                {
+                                    loggedHeader ? <UserStatus userData={userData}/> :
+                                        (<Link to="/login">
+                                            <Button text="Войти"/>
+                                        </Link>)
+                                }
+                            </Suspense>
                         </div>
                     }
                 </div>
