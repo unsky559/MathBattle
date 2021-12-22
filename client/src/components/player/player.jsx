@@ -3,16 +3,23 @@ import Avatar from "../avatar/avatar";
 import SmartIcon from "../smartIcon/smartIcon";
 import "./player.scss";
 
-const Player = () => {
+const Player = (props) => {
+
+    const data = props.player;
+
     return (
         <div className="player">
             <div className="lobbyInfo">
-                <Avatar/>
+                {
+                    data.userdata.userpic && <Avatar/>
+                }
                 <div className="info">
-                    <a className="playerName" href="#">Playername</a>
-                    <SmartIcon text="225"/>
+                    <p className="playerName">{data.userdata.username}</p>
+                    {
+                        data.userdata.stats && <SmartIcon yellow icon="../static/images/icons/rating/bubble_chart_black_24dp 1.svg" text={data.userdata.stats.rating}/>
+                    }
                 </div>
-                <span className="score">50</span>
+                <span className="score">{data.score}</span>
             </div>
         </div>
     );

@@ -36,7 +36,7 @@ const Header = (props) => {
                         <Link to="/">
                             <Logo alternate={collapseHeader ? false : true} />
                         </Link>
-                        { collapseHeader && <Nav /> }
+                        {/* collapseHeader && <Nav /> */}
                     </div>
                     { collapseHeader &&
                         <div className="rightHeader">

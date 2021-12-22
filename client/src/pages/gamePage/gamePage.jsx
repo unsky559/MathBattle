@@ -9,6 +9,8 @@ import {newExpressionAudio, startGameAudio} from "../../workers/audioController"
 import GameFinishedLayout from "../../layouts/layout/gameFinishedLayout";
 
 const GamePage = () => {
+
+    const scoreboardState = useState([]);
     const gameFinished = useState(false);
     const isWin = useState(false);
     const loadingExpressionState = useState(true);
@@ -40,6 +42,7 @@ const GamePage = () => {
 
     const onPlayerChange = (data) => {
         console.log(data);
+        scoreboardState[1](data);
     }
 
     const onLobbySettings = (data) => {
@@ -50,6 +53,7 @@ const GamePage = () => {
         playStartSound();
         gameFinished[1](true);
         isWin[1](data);
+        currentConnection.leftLobby();
     }
 
     const connectTo = (serverId) => {
@@ -89,8 +93,8 @@ const GamePage = () => {
                         </div>
                     </div>
                     <div className="statusBar">
-                        <BlockGameInfo/>
-                        <BlockScoreboard/>
+                        {/*<BlockGameInfo/>*/}
+                        <BlockScoreboard scoreboard={scoreboardState}/>
                     </div>
                 </div>
             </div>
