@@ -8,8 +8,8 @@ import {newExpressionAudio, startGameAudio} from "../../workers/audioController"
 import GameFinishedLayout from "../../layouts/layout/gameFinishedLayout";
 
 const GamePage = () => {
-    const history = useHistory();
     const currentConnection = gameSocket;
+    const history = useHistory();
     const scoreboardState = useState([]);
     const gameFinished = useState(false);
     const isWin = useState(false);
@@ -50,6 +50,7 @@ const GamePage = () => {
     }
 
     const onGameFinished = (data) => {
+        //const currentConnection = gameSocket;
         playStartSound();
         gameFinished[1](true);
         isWin[1](data);

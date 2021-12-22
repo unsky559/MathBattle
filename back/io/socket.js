@@ -7,6 +7,20 @@ const user_service = require('../services/user_service.js');
   pool[x] = { socket_id: String, user_id: String/null, raiting: Number/null, is_wait: Boolean }
 */
 
+/*
+  mytest@test.test
+  mytest
+  123456789
+
+  -----
+
+  tester@test.test
+  tester
+  123456789
+
+*/
+
+
 const RAITING_RANGE = 100;
 const pool = []; 
 const empty_spaces = [];
@@ -186,6 +200,9 @@ module.exports.listen = (server) => {
         io.to(socket_id).emit('answer_correct', true);
         let player_stat = room.players_data.find(obj => obj.socket_id === socket_id);
         if(++player_stat.score === room.lobby_rules.settings.win_condition.value){
+          io.to(socket.game_status.room_id).emit('player_data', room.players_data);
+
+          //io.to(socket_id).emit('answer_correct', true); // ???????????????
           
           // for auth
           const rating_change = Math.ceil(Math.abs(room.players_data[0].score - room.players_data[1].score) / 2);
@@ -224,18 +241,12 @@ module.exports.listen = (server) => {
               };
               user_service.changeUserStats(los_player.userdata.username, finished_lobby, () => {
                 io.to(los_player.socket_id).emit('game_finished', false);
-                io.sockets.sockets.get(los_player.socket_id).pool_index = null;
-                io.sockets.sockets.get(los_player.socket_id).game_status = {room_id: null, in_game: false};
               });
             }
             else{
               io.to(los_player.socket_id).emit('game_finished', false); 
-              io.sockets.sockets.get(los_player.socket_id).pool_index = null;
-              io.sockets.sockets.get(los_player.socket_id).game_status = {room_id: null, in_game: false};
             }
           }
-          socket.pool_index = null;
-          socket.game_status = {room_id: null, in_game: false};
           io.socketsLeave(socket.game_status.room_id);
         }
         else{ // generates new math expression and sendes to all client of room
@@ -263,11 +274,10 @@ module.exports.listen = (server) => {
           console.log(empty_spaces);
         }
       }
-      /// socket.game_status = {room_id: null, in_game: false}; 
+      /// socket.game_status = {room_id: null, in_game: false};
       else if(socket.game_status.in_game === true){
         const room = io.of("/").adapter.rooms.get(socket.game_status.room_id);
-        if(authorized_user_id){
-          
+        if(authorized_user_id && room){          
           const rating_change = Math.ceil(Math.abs(room.players_data[0].score - room.players_data[1].score) / 2);          
           const now_date = new Date;
           const player_stat = room.players_data.find(obj => obj.socket_id === socket_id);
@@ -301,27 +311,17 @@ module.exports.listen = (server) => {
             //io.sockets.sockets.get(win_player[0].socket_id).close();
           });
 
-          io.sockets.sockets.get(player.socket_id).pool_index = null;
-          io.sockets.sockets.get(player.socket_id).game_status = {room_id: null, in_game: false};
-          socket.pool_index = null;
-          socket.game_status = {room_id: null, in_game: false};
-
-          io.to(socket.game_status.room_id).socketsLeave(socket.game_status.room_id);
+          if(room){
+            io.to(socket.game_status.room_id).socketsLeave(socket.game_status.room_id);
+          }
         }
         else{
           io.to(socket.game_status.room_id).emit('game_finished', true);
           
-          //console.log(room);
-          const player = room.players_data.find(obj => obj.socket_id === socket_id);
-
-          console.log(player);
-          
-          io.sockets.sockets.get(player.socket_id).pool_index = null;
-          io.sockets.sockets.get(player.socket_id).game_status = {room_id: null, in_game: false};
-          socket.pool_index = null;
-          socket.game_status = {room_id: null, in_game: false};
-          
-          io.to(socket.game_status.room_id).socketsLeave(socket.game_status.room_id);
+          if(room){
+            io.to(socket.game_status.room_id).socketsLeave(socket.game_status.room_id);
+          }
+          //io.to(socket.game_status.room_id).socketsLeave(socket.game_status.room_id);
         }
       }
 
