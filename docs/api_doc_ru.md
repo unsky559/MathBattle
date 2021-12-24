@@ -199,7 +199,7 @@
     },
     "email": "IamJohn@test.tcom",
     "username": "IamJohn",
-    "date": "2021-11-19T11:52:45.079Z"
+    "date_reg": "2021-11-19T11:52:45.079Z"
 }
 ```
 
