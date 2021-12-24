@@ -322,37 +322,6 @@
                 }
             ]
         }
-    },
-    {
-        "_id": "61a769a0495a017647c81ab3",
-        "name": "medium and normally",
-        "settings": {
-            "win_condition": {
-                "mode": "score",
-                "value": 50
-            },
-            "is_rating": true,
-            "is_sync": true,
-            "max_players": 2,
-            "modes": [
-                {
-                    "name": "add",
-                    "difficulty": 2
-                },
-                {
-                    "name": "subtract",
-                    "difficulty": 2
-                },
-                {
-                    "name": "multiply",
-                    "difficulty": 2
-                },
-                {
-                    "name": "division",
-                    "difficulty": 2
-                }
-            ]
-        }
     }
 ]
 ```
