@@ -15,9 +15,9 @@ const http = require('http');
 const app = express();
 const server = http.createServer(app);
 //const io = require('socket.io')(server);
-const io = require('./back/io/socket.js').listen(server);
+const io = require('./io/socket.js').listen(server);
 
-const router = require('./back/router/router');
+const router = require('./router/router');
 
 const session_middleware = session({
   name: 'sid',
