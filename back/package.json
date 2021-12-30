@@ -1,0 +1,28 @@
+{
+  "name": "MathBattleBackend",
+  "version": "1.0.0",
+  "description": "A heart of MathBattle",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"No test specified\"",
+    "start": "node server.js",
+    "watch": "nodemon server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-mongo": "^4.6.0",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "express-validator": "^6.13.0",
+    "mongo-sanitize": "^1.1.0",
+    "mongoose": "^6.0.13",
+    "socket.io": "^4.4.0",
+    "uuid": "^8.3.2"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

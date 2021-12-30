@@ -2,27 +2,15 @@
   "name": "MathBattle",
   "version": "1.0.0",
   "description": "Math competitive game",
-  "main": "server.js",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "client": "file:client",
-    "connect-mongo": "^4.6.0",
-    "cookie-parser": "^1.4.6",
-    "express": "^4.17.1",
-    "express-session": "^1.17.2",
-    "express-validator": "^6.13.0",
-    "mongo-sanitize": "^1.1.0",
-    "mongoose": "^6.0.13",
-    "socket.io": "^4.4.0",
-    "uuid": "^8.3.2"
-  },
+  "main": "back/server.js",
+  "workspaces": ["client", "back"],
   "scripts": {
-    "test": "echo \"No test specified\"",
-    "prestart": "cd client && npm i && npm run build && cd ..",
-    "start": "npm i && npm run test && nodemon server.js",
-    "front-watch": "cd client && npm i && npm run watch",
-    "back-watch": "npm i && nodemon server.js"
+    "start": "npm run start --workspaces"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^5.59.1",
+    "webpack-cli": "^4.9.1"
+  }
 }
