@@ -1,7 +1,7 @@
-const URL_DATABASE = "mongodb://localhost:27017/mydb";
-const PORT = process.env.PORT || 3000;
-const SESS_LIFETIME = 60 * 60; // 60 minutes
-const SESS_SECRET = "B6EG4W74o8z54h070BuQIMWBDy3qb5jk4e2mhqAsmziPBKDOSG34Dm8B8FVw5log";
+const URL_DATABASE = process.env.npm_package_config_databaseURL;
+const PORT = process.env.PORT || process.env.npm_package_config_port || 80;
+const SESS_LIFETIME = process.env.npm_package_config_session_lifetime;
+const SESS_SECRET = process.env.npm_package_config_session_secret;
 
 const express = require('express');
 const session = require('express-session');
