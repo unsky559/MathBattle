@@ -1,0 +1,26 @@
+@import "../../../styles/mixins/fonts";
+.block{
+  margin-bottom: 20px;
+  .lobbyInfo{
+    .info{
+      .secondary{
+        @include font_sm();
+        color: var(--secondary-col);
+      }
+      .players{
+        a,
+        span{
+          @include font_p();
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  .gameModesRow{
+    display: flex;
+    .smartIcon{
+      margin-right: 15px;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+/* css color vars goes here */
+
+body{
+    --white-col: var(--background-col);
+
+    --background-opposite-col: #101010;
+    --background-col: #fff;
+    --background2-col: #F9F9F9;
+    --background3-col: #F0F0F0;
+    --secondary-col: #888888;
+    --yellow-col: #FCD169;
+    --red-col: #F27D66;
+    --green-col: #B4E66B;
+    --blue-col: #4B73F6;
+    --light-gray-col: #E5E5E5;
+}
+
+a{
+  color: var(--blue-col);
+}

@@ -1,16 +1,16 @@
 {
-  "name": "game",
+  "name": "MathBattle",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "dependencies": {
-    "express": "^4.16.3",
-    "socket.io": "^2.1.1"
-  },
-  "devDependencies": {},
+  "description": "Math competitive game",
+  "main": "back/server.js",
+  "workspaces": ["client", "back"],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run start --workspaces"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^5.59.1",
+    "webpack-cli": "^4.9.1"
+  }
 }

@@ -1,0 +1,19 @@
+@import "src/styles/mixins/fonts";
+.searchGamePopup{
+  .gameModeName{
+    @include font_p();
+    text-align: center;
+    color: var(--secondary-col);
+  }
+  .spinnerContainer{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  .bottomRow{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+}

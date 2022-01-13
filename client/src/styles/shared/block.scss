@@ -1,0 +1,10 @@
+.block{
+  padding: 11px 25px;
+  border-radius: 5px;
+  background-color: var(--background2-col);
+  .lobbyInfo{
+    display: flex;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+}

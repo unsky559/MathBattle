@@ -1,0 +1,34 @@
+@import "src/styles/mixins/fonts";
+@import "src/styles/mixins/animation";
+
+.buttonList{
+  padding: 15px;
+  background-color: var(--background2-col);
+  min-width: 200px;
+  box-shadow: 0 10px 15px rgba(0,0,0,.1);
+  border-radius: 5px;
+  margin-top: 5px;
+  .listableButton{
+    @include font_p;
+    text-align: start;
+
+    border: none;
+    background-color: var(--background-col);
+    width: 100%;
+    padding: 15px;
+    border-radius: 5px;
+
+    margin-bottom: 5px;
+
+    transition: background-color $animation-fast-duration $animation-fast-tf;
+
+    &:last-child{
+      margin-bottom: 0;
+    }
+
+    &:hover{
+      cursor: pointer;
+      background-color: var(--background3-col);
+    }
+  }
+}

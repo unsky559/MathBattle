@@ -1,0 +1,15 @@
+.avatar{
+  display: flex;
+  align-items: center;
+  &.big{
+    img{
+      width: 75px;
+      height: 75px;
+    }
+  }
+  img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+  }
+}

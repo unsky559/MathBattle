@@ -1,0 +1,13 @@
+@import "src/styles/mixins/fonts";
+
+.hTitle{
+  @include font_h1();
+}
+
+.title{
+  @include font_h2();
+}
+
+.p{
+  @include font_p();
+}

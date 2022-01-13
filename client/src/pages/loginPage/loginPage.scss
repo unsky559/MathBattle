@@ -1,0 +1,178 @@
+@import "src/styles/mixins/fonts";
+.loginPage{
+  display: flex;
+  .bigBanner{
+    width: 50%;
+    min-height: 720px;
+    max-height: 1200px;
+    height: 100vh;
+    background-color: var(--blue-col);
+
+    display: flex;
+    justify-content: flex-end;
+    .container{
+      width: 50vw;
+      max-width: 925px; //1850px / 2
+      margin: 0;
+      padding-right: 10px;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+    }
+
+    .banner-text{
+      .subBanner{
+        @include defaultFont();
+        font-size: 36px;
+        font-weight: 500;
+        color: var(--white-col);
+      }
+      .decorativeBig{
+        @include secondaryFont();
+        font-size: 144px;
+        color: var(--white-col);
+      }
+    }
+
+  }
+
+  .leftSide{
+    display: flex;
+    min-height: 720px;
+    max-height: 1200px;
+    justify-content: flex-start;
+    .container{
+      width: 50vw;
+      max-width: 925px; //1850px / 2
+      margin: 0;
+      padding-left: 10px;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+    }
+    .formCont{
+      margin-left: calc(100% / 5 * 1);
+      padding: 35px 30px;
+      .formTitle{
+        margin-bottom: 20px;
+      }
+      .subText{
+        margin-top: 20px;
+      }
+    }
+  }
+  .formCont{
+    background: var(--background2-col);
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .formTitle{
+      @include defaultFont();
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--background-opposite-col);
+    }
+    .subText{
+      @include defaultFont();
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--secondary-col);
+    }
+  }
+
+}
+
+
+@media screen and (max-width: 1200px){
+  .loginPage{
+    flex-direction: column;
+    .bigBanner{
+      width: 100%;
+      min-height: 300px;
+      max-height: 500px;
+      height: 100vh;
+      background-color: var(--blue-col);
+
+      display: flex;
+      justify-content: flex-start;
+      .container{
+        width: 100%;
+        max-width: 925px; //1850px / 2
+        margin: 0;
+        padding-right: 10px;
+        height: 100%;
+
+        display: flex;
+        align-items: center;
+      }
+
+      .banner-text{
+        .subBanner{
+          font-family: 'Rubik', sans-serif;
+          font-size: 36px;
+          font-weight: 500;
+          color: var(--white-col);
+        }
+        .decorativeBig{
+          font-family: 'Rubik Beastly', sans-serif;
+          font-size: 144px;
+          color: var(--white-col);
+        }
+      }
+
+    }
+
+    .leftSide{
+      display: flex;
+      min-height: 720px;
+      max-height: 1200px;
+      justify-content: center;
+      .container{
+        width: 100%;
+        max-width: 925px; //1850px / 2
+        margin: 0;
+        padding-left: 10px;
+        height: 100%;
+
+        margin-top: -50px;
+
+        display: flex;
+        justify-content: center;
+      }
+      .formCont{
+        margin-left: 0;
+        .formTitle{
+          margin-bottom: 20px;
+        }
+        .subText{
+          margin-top: 20px;
+        }
+      }
+    }
+    .formCont{
+      background: var(--background2-col);
+      border-radius: 5px;
+
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      .formTitle{
+        font-family: 'Rubik', sans-serif;
+        font-size: 30px;
+        font-weight: 900;
+        color: var(--background-opposite-col);
+      }
+      .subText{
+        font-family: 'Rubik', sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        color: var(--secondary-col);
+      }
+    }
+
+  }
+}

@@ -1,0 +1,38 @@
+@import "src/styles/mixins/animation";
+.dropdownHeaderContainer{
+  .userStatus{
+    padding: 10px 12px;
+    border-radius: 5px;
+    background-color: var(--background2-col);
+
+    &:hover{
+      cursor: pointer;
+      background-color: var(--background3-col);
+      transition: background-color $animation-fast-duration $animation-fast-tf;
+    }
+
+    .userAvatarName{
+      display: flex;
+      align-items: center;
+      .avatar{
+        margin-right: 8px;
+        img{
+          height: 42px;
+          width: 42px;
+          border-radius: 50%;
+        }
+      }
+      .userName{
+        font-family: 'Rubik', sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+      }
+    }
+  }
+  .dropdown{
+    .dropdownDrop{
+      right: 0;
+    }
+  }
+}
+
