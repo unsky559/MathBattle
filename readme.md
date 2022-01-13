@@ -39,6 +39,17 @@ That will build frontend part to ```back/dist``` folder and run a local node.js 
 ## How to play
 Connect to the server (you can connect via localhost or util like [ngrok](https://ngrok.com/) for temporary host it online)
 
+## Config
+go to ```back/package.json``` and configure config variable. By default, it is: 
+```json
+  "config": {
+    "port": "80",
+    "session_secret": "B6EG4W74o8z54h070BuQIMWBDy3qb5jk4e2mhqAsmziPBKDOSG34Dm8B8FVw5log",
+    "session_lifetime": 3600,
+    "databaseURL": "mongodb://localhost:27017/mydb"
+  },
+```
+
 ## Develop *with comfort*
 
 Consider two cases:
