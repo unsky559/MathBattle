@@ -2,15 +2,13 @@ const user_service = require('../services/game_service.js');
 
 class GameController
 {
-  getGamePresets(req, res){
-    user_service.getGamePresets((err, presets) => {
-      if(err){
-          err.sendError(res);
-      }
-      else{
-        res.send(presets);
-      }
-    });
+  async getGamePresets(req, res){
+    try{
+      res.status(200).send(await user_service.getGamePresets());
+    }
+    catch(err){
+      err.sendError(res);
+    }
   }
 }
 

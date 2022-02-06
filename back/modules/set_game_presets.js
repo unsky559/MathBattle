@@ -3,14 +3,14 @@ const game_presets = require('../models/game_preset_model.js');
 
 // FAST:
 const fast_and_simply = new game_presets({
-  name: "fast and simply",
+  name: "fast and simply3",
   settings: {
     is_rating: true,
     is_sync: true,
-    max_players: 2,
+    max_players: 3,
     win_condition: {
       mode: "score",
-      value: 25
+      value: 5
     },
     modes: [
       {
@@ -33,31 +33,31 @@ const fast_and_simply = new game_presets({
   }
 });
 const fast_and_normally = new game_presets({
-  name: "fast and normally",
+  name: "fast test2",
   settings: {
     is_rating: true,
     is_sync: true,
     max_players: 2,
     win_condition: {
       mode: "score",
-      value: 25
+      value: 5
     },
     modes: [
       {
         name: "add",
-        difficulty: 2
+        difficulty: 1
       },
       {
         name: "subtract",
-        difficulty: 2
+        difficulty: 1
       },
       {
         name: "multiply",
-        difficulty: 2
+        difficulty: 1
       },
       {
         name: "division",
-        difficulty: 2
+        difficulty: 1
       }
     ]
   }

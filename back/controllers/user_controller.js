@@ -5,77 +5,69 @@ const user_service = require('../services/user_service.js');
 
 class UserController
 {
-  register(req, res){
+  async register(req, res){
     const errors = validationResult(req);
 
     if(!errors.isEmpty()){
-      //console.log(errors.array());
+      delete errors.array()[0].value;
       res.status(400).send(errors.array());
+      return;
     }
-    else{
+
+    try{
       const [username, email, password] = [sanitize(req.body.username), sanitize(req.body.email), sanitize(req.body.password)];
-      user_service.register(username, email, password, (err, new_user) => {
-        //console.log("In done function");
-        if(err){
-          err.sendError(res);
-        }
-        else{
-          console.log("New user in database:\n", new_user);
-          res.status(200).send({msg: "Account successfully created"});
-        }
-      });
+      const new_user = await user_service.register(username, email, password);
+      console.log("NEW USER:\n", new_user);
+      res.status(200).send({msg: "Account successfully created"});
+    } 
+    catch(err){
+      err.sendError(res);
     }
   }
-  login(req, res){
-    console.log(req.body);
-    const [username, email, password] = [sanitize(req.body.username), sanitize(req.body.email), sanitize(req.body.password)];
-    const condition = username ? {username: username} : {email: email};
-    
-    user_service.login(condition, password, (err, user) => {
-      console.log("in done() login");
-      if(err){
-        err.sendError(res);
-      }
-      else{
-        console.log("Successful login");
-        req.session.user_id = user._id;
-        req.session.user_rating = user.stats.rating;
-        //req.session.username = user.username;
-        res.status(200).send({msg: "Login success"});
-      }
-    });
+
+  async login(req, res){
+    const [username, password] = [sanitize(req.body.username), sanitize(req.body.password)];
+    try{
+      const user = await user_service.loginByUsername(username, password);
+      req.session.user_id = user._id;
+      //req.session.user_rating = user.stats.rating;
+      //console.log("req.session.user_id: ", req.session.user_id)
+      //console.log("req.session.user_rating: ", req.session.user_rating)
+
+      res.status(200).send({msg: "Login success"});
+      console.log("Successful login");
+    }
+    catch(err){
+      err.sendError(res);
+    }
   }
+
   logout(req, res){
     req.session.destroy(err => {
-      if (err) {
+      if(err)
         res.status(400).send({msg: "Unable to logout"});
-      } else {
+      else
         res.clearCookie('sid', { httpOnly: true }).sendStatus(200);
-      }
     });
   }
-  getUserByUsername(req, res){
+  
+  async getUserByUsername(req, res){
     const username = sanitize(req.params.username);
-    user_service.getUserByUsername(username, (err, user_data) => {
-      if(err){
-        err.sendError(res);
-      }
-      else{
-        console.log(user_data);
-        res.send(user_data);
-      }
-    });
+    try{
+      res.status(200).send(await user_service.getUserByUsername(username));
+    }
+    catch(err){
+      err.sendError(res);
+    }
   }
-  getCurrentUser(req, res){
-    user_service.getCurrentUser(req.session.user_id, (err, user_data) => {
-      if(err){
-        err.sendError(res);
-      }
-      else{
-        console.log(user_data);
-        res.status(200).send(user_data);
-      }
-    });
+
+  async getCurrentUser(req, res){
+    try{
+      res.status(200).send(await user_service.getUserById(req.session.user_id));
+    }
+    catch(err){
+      err.sendError(res);
+    }
   }
 }
 

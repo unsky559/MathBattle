@@ -31,7 +31,7 @@ function isLoggedIn(req, res, next)
     return next();
   }
   else{
-    console.log("Request rejected");
+    //console.log("Request rejected");
     res.status(401).send({msg: 'Unauthorized'}); // UNAUTHORIZED
   }
 }
@@ -42,7 +42,7 @@ function isNotLoggedIn(req, res, next)
     return next();
   }
   else{
-    console.log("Request rejected");
+    //console.log("Request rejected");
     res.status(409).send({msg: 'Request rejected'});
   }
 }
@@ -65,4 +65,4 @@ router.get('/homepage', isLoggedIn, (req, res) => {
 
 router.get("/gamepresets", game_controller.getGamePresets);
 
-module.exports = router
+module.exports = router;

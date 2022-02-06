@@ -59,14 +59,8 @@ user_schema.pre("save", function (done) {
   }
 });
 
-user_schema.methods.compareUserPassword = function(password, done) {
-  bcrypt.compare(password, this.authkeys.password, function(error, is_match) {
-    if (error) {
-      return done(error);
-    } else {
-      done(null, is_match);
-    }
-  });
+user_schema.methods.compareUserPassword = function(password) {
+  return bcrypt.compareSync(password, this.authkeys.password);
 }
 
 module.exports = model('user', user_schema);

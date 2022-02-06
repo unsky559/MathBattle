@@ -12,9 +12,10 @@ const { v4: uuidv4 } = require('uuid');
 const http = require('http');
 //const path = require("path");
 
+//require('./modules/set_game_presets');
+
 const app = express();
 const server = http.createServer(app);
-//const io = require('socket.io')(server);
 const io = require('./io/socket.js').listen(server);
 
 const router = require('./router/router');
@@ -35,7 +36,7 @@ const session_middleware = session({
     ttl: SESS_LIFETIME
   }),
   cookie: {
-    maxAge: 1000 * SESS_LIFETIME, //SESS_LIFETIME,
+    maxAge: 1000 * SESS_LIFETIME,
     httpOnly: true,
     sameSite: 'strict',
     secure: false // dev
