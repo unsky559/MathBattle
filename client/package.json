@@ -1,6 +1,6 @@
 {
   "name": "MathBattleClient",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "mathBattle client side",
   "main": "index.js",
   "scripts": {
