@@ -5,6 +5,7 @@ import "../static/container.css"; // include container class
 import "../static/reset.css"; // reset default styles
 
 import "./themes/white-theme.scss"; // set white theme
+import "./styles/shared/block.scss";
 import "./styles/shared/texts.scss";
 
 
