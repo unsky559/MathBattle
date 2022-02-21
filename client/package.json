@@ -24,7 +24,9 @@
     "mini-css-extract-plugin": "^2.4.5",
     "sass": "^1.43.3",
     "sass-loader": "^12.2.0",
-    "style-loader": "^3.3.1"
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.5"
   },
   "dependencies": {
     "@material/circular-progress": "^13.0.0",
