@@ -14,6 +14,8 @@
 
 [Получение пресетов игр (/api/gamepresets)](#Получение-пресетов-игр)
 
+[Изменение пароля пользователя (/api/changepassword)](#Изменение-пароля-пользователя)
+
 ## Регистрация пользователя
 
 Создается учетнуя запись пользователя, указывая уникальное именя и уникальную почту, и пароле.
@@ -46,53 +48,73 @@
 
 *Код* : `400`
 
-Ключ `msg` - указывается сообщения о несоответствующих данных :
-
-- `username` - "Invalid username length" либо "Invalid characters in username"
-- `password` - "Invalid password length"
-- `email` - "Invalid email"
-
-Ключ `param` - указывает  на параметр в котором несоответствуют данные (`username`, `password`, `email`)
-
+*Пример ответа* :
 ```json
-[
+{
+  "status": "fail",
+  "code": 400,
+  "data": [
     {
-        "value": "I am John",
-        "msg": "Invalid characters in username",
-        "param": "username",
-        "location": "body"
+      "param": "username",
+      "message": "Invalid username length"
     },
     {
-        "value": "test@test .test",
-        "msg": "Invalid email",
-        "param": "email",
-        "location": "body"
+      "param": "username",
+      "message": "Invalid characters in username"
+    },
+    {
+      "param": "password",
+      "message": "Invalid password length"
+    },
+    {
+      "param": "email",
+      "message": "Invalid email"
     }
-]
+  ]
+}
 ```
 
 **Ответ при ошибке БД** :
 
 *Код* : `500`
 
-Ключ `msg`:
-- Register error
-- Server didn't create account
+*Пример ответа* :
+```json
+{
+  "status": "error",
+  "code": 500,
+  "message": "Internal server error."
+}
+```
 
 **Ответ при ошибке совпадения данных в БД** :
 
 *Код* : `409`
 
-Ключ `msg`:
-- This email already exists
-- This username already exists
+*Пример ответа* :
+```json
+{
+  "status": "fail",
+  "code": 409,
+  "data": {
+    "param": "username",
+    "message": "This username already exists."
+  }
+}
+```
 
 **Ответ при успешном создании пользователя** :
 
 *Код* : `200`
 
-Ключ `msg`:
-- Account successfully created
+*Пример ответа* :
+```json
+{
+  "status": "success",
+  "code": 200,
+  "data": null
+}
+```
 
 ## Вход в аккаунт
 
@@ -117,18 +139,36 @@
 }
 ```
 
+**Ответ если пользователь уже авторизован** :
+
+*Код* : `409`
+
+```json
+{
+  "status": "fail",
+  "code": 409,
+  "data": null
+}
+```
+
 **Ответ при ошибке несовпадения данных** :
 
 *Код* : `403`
 
-Ключ `msg` - указывается сообщения о несоответствующих данных :
-- `username` - "Incorrect username or password"
-- `password` - "Incorrect username or password"
-- `email` - "Incorrect username or password"
-
 ```json
 {
-    "msg": "Incorrect username or password"
+  "status": "fail",
+  "code": 403,
+  "data": [
+    {
+      "param": "username",
+      "message": "Incorrect username"
+    },
+    {
+      "param": "password",
+      "message": "Incorrect password"
+    }
+  ]
 }
 ```
 
@@ -136,16 +176,27 @@
 
 *Код* : `500`
 
-Ключ `msg`:
-- Login error
-- Match error
+*Пример ответа* :
+```json
+{
+  "status": "error",
+  "code": 500,
+  "message": "Internal server error."
+}
+```
 
 **Ответ при успешном входе в аккаунт** :
 
 *Код* : `200`
 
-Ключ `msg`:
-- Login success
+*Пример ответа* :
+```json
+{
+  "status": "success",
+  "code": 200,
+  "data": null
+}
+```
 
 Создает сессию для пользователя, сохраняет httpOnly cookie.
 
@@ -159,17 +210,44 @@
 
 **Требуется авторизация** : Да
 
+**Ответ если пользователь не авторизован** :
+
+*Код* : `401`
+
+*Пример ответа* :
+```json
+{
+  "status": "fail",
+  "code": 401,
+  "data": null
+}
+```
+
 **Ответ при ошибке** :
 
-*Код* : `400`
+*Код* : `500`
 
-Ключ `msg`: 
-- Unable to logout
-
+*Пример ответа* :
+```json
+{
+  "status": "error",
+  "code": 500,
+  "message": "Internal server error."
+}
+```
 
 **Ответ при успешном выходе** :
 
 *Код* : `200`
+
+*Пример ответа* :
+```json
+{
+  "status": "success",
+  "code": 200,
+  "data": null
+}
+```
 
 Удаляет сессию пользователя, удаляет httpOnly cookie.
 
@@ -181,31 +259,55 @@
 
 **Требуется авторизация** : Да
 
+**Ответ если пользователь не авторизован** :
+
+*Код* : `401`
+
+*Пример ответа* :
+```json
+{
+  "status": "fail",
+  "code": 401,
+  "data": null
+}
+```
+
 **Ответ при ошибке БД** :
 
 *Код* : `500`
 
-Ключ `msg`: 
-- Find user error
+*Пример ответа* :
+```json
+{
+  "status": "error",
+  "code": 500,
+  "message": "Internal server error."
+}
+```
 
 **Ответ** :
 
 *Код* : `200`
 
+*Пример ответа* :
 ```json
 {
+  "status": "success",
+  "code": 200,
+  "data": {
     "stats": {
-        "finished_lobbies": []
+      "rating": 1000,
+      "finished_lobbies": []
     },
     "email": "IamJohn@test.tcom",
     "username": "IamJohn",
-    "date_reg": "2021-11-19T11:52:45.079Z"
+    "date_reg": "2022-02-23T16:59:34.227Z"
+  }
 }
 ```
 
 Возможные данные в пакете:
 ```js
-
   "email": String,
   "username": String,
   "userpic": String,
@@ -238,9 +340,6 @@
   }]
 },
   "last_online": Date,
-  "current_lobbies": {
-    "ref": *lobby*
-  }
 ```
 
 ## Получение данных пользователя
@@ -255,15 +354,27 @@
 
 *Код* : `500`
 
-Ключ `msg`: 
-- Find user error
+*Пример ответа* :
+```json
+{
+  "status": "error",
+  "code": 500,
+  "message": "Internal server error."
+}
+```
 
 **Ошибка "Пользователь не найден"** :
 
-*Код* : `403`
+*Код* : `404`
 
-Ключ `msg`:
-- User not found
+*Пример ответа* :
+```json
+{
+  "status": "fail",
+  "code": 404,
+  "data": null
+}
+```
 
 **Ответ при успехе** :
 
@@ -283,45 +394,161 @@
 
 *Код* : `500`
 
-Ключ `msg`: 
-- Cannot find presets
+*Пример ответа* :
+```json
+{
+  "status": "error",
+  "code": 500,
+  "message": "Internal server error."
+}
+```
 
 **Ответ при успехе** :
 
 *Код* : `200`
 
 ```json
-[
+{
+  "status": "success",
+  "code": 200,
+  "data": [
     {
-        "_id": "61a769a0495a017647c81aaf",
-        "name": "fast and simply",
-        "settings": {
-            "win_condition": {
-                "mode": "score",
-                "value": 25
-            },
-            "is_rating": true,
-            "is_sync": true,
-            "max_players": 2,
-            "modes": [
-                {
-                    "name": "add",
-                    "difficulty": 1
-                },
-                {
-                    "name": "subtract",
-                    "difficulty": 1
-                },
-                {
-                    "name": "multiply",
-                    "difficulty": 1
-                },
-                {
-                    "name": "division",
-                    "difficulty": 1
-                }
-            ]
-        }
-    }
-]
+      "_id": "621656682327287f3b6a5bdc",
+      "name": "medium and simply",
+      "settings": {
+        "win_condition": {
+          "mode": "score",
+          "value": 50
+        },
+        "is_rating": true,
+        "is_sync": true,
+        "max_players": 2,
+        "modes": [
+          {
+            "name": "add",
+            "difficulty": 1
+          },
+          {
+            "name": "subtract",
+            "difficulty": 1
+          },
+          {
+            "name": "multiply",
+            "difficulty": 1
+          },
+          {
+            "name": "division",
+            "difficulty": 1
+          }
+        ]
+      }
+    },
+    {
+      "_id": "621656682327287f3b6a5bd9",
+      "name": "fast and simply3",
+      "settings": {
+        "win_condition": {
+          "mode": "score",
+          "value": 5
+        },
+        "is_rating": true,
+        "is_sync": true,
+        "max_players": 3,
+        "modes": [
+          {
+            "name": "add",
+            "difficulty": 1
+          },
+          {
+            "name": "subtract",
+            "difficulty": 1
+          },
+          {
+            "name": "multiply",
+            "difficulty": 1
+          },
+          {
+            "name": "division",
+            "difficulty": 1
+          }
+        ]
+      }
+    },
+  ]
+}
 ```
+
+## Изменение пароля пользователя
+
+**URL** : `/api/changepassword`
+
+**Метод** : `POST`
+
+**Требуется авторизация** : Да
+
+**Аргументы и требования к ним** :
+
+`current_password` - текущий пароль пользователя.
+
+`new_password` - Может состоять из любых символов. Минимальное количество символов - 8, максимальное - 32.
+
+**Ответ при ошибке несоответствия данных** :
+
+*Код* : `400`
+
+```json
+{
+  "status": "fail",
+  "code": 400,
+  "data": [
+    {
+      "param": "current_password",
+      "message": "Invalid current password length"
+    },
+    {
+      "param": "new_password",
+      "message": "Invalid new password length"
+    }
+  ]
+}
+```
+
+**Ответ при ошибке совпадения нового пароля со старым** :
+
+*Код* : `409`
+
+```json
+{
+  "status": "fail",
+  "code": 409,
+  "data": {
+    "param": "new_password",
+    "message": "New password must be different from previous password."
+  }
+}
+```
+
+**Ответ при ошибке ввода неправильного пароля** :
+
+*Код* : `409`
+
+```json
+{
+  "status": "fail",
+  "code": 409,
+  "data": {
+    "param": "current_password",
+    "message": "Incorrect current password."
+  }
+}
+```
+
+**Ответ при успехе** :
+
+*Код* : `200`
+
+{
+  "status": "success",
+  "code": 200,
+  "data": null
+}
