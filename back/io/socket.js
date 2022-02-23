@@ -122,8 +122,6 @@ module.exports.listen = (server) => {
         return;
       }
 
-      // setTimeout(lobby.breakLobby, 5000, room);
-
       let room_player_data = room.players_data.find(player => player.socket_id === socket.id);
       if (room_player_data === undefined){
         socket.emit("error");

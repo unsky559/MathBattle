@@ -1,5 +1,5 @@
 const game_preset_model = require('../models/game_preset_model.js');
-const ErrorHandler = require('../modules/error_handler/error_handler.js');
+const {InternalErrorHandler} = require('../modules/error_handler/error_handler.js');
 
 const MIN_EXPRESSION_DIFFICULTY = 1;
 const MAX_EXPRESSION_DIFFICULTY = 3;
@@ -8,11 +8,11 @@ class GameService
 {
   async getGamePresets(){
     try{
-      return await game_preset_model.find({}, '-__v')
+      return await game_preset_model.find({}, '-__v');
     }
     catch(err){
       console.log(err);
-      throw new ErrorHandler(500, 'Internal server error.');
+      throw new InternalErrorHandler();
     };
   }
 
@@ -21,7 +21,8 @@ class GameService
       return await game_preset_model.findById(preset_id, '-__v');
     }
     catch(err){
-      return new ErrorHandler(500, 'Internal server error.');
+      console.log(err);
+      return new InternalErrorHandler();
     }
   }
 

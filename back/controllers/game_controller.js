@@ -1,13 +1,16 @@
-const user_service = require('../services/game_service.js');
+const game_service = require('../services/game_service.js');
+const {StatusCodes} = require('http-status-codes');
+const {sendError} = require('../modules/error_handler/error_handler.js');
+
 
 class GameController
 {
   async getGamePresets(req, res){
     try{
-      res.status(200).send(await user_service.getGamePresets());
+      res.status(StatusCodes.OK).send({status: "success", code: StatusCodes.OK, data: await game_service.getGamePresets()});
     }
     catch(err){
-      err.sendError(res);
+      sendError(res, err);
     }
   }
 }

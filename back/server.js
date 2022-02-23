@@ -48,8 +48,6 @@ app.use(session_middleware);
 
 io.use((socket, next) => {
   session_middleware(socket.request, {}, next);
-  // sessionMiddleware(socket.request, socket.request.res, next); will not work with websocket-only
-  // connections, as 'socket.request.res' will be undefined in that case
 });
 
 app.use(express.json());

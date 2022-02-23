@@ -1,4 +1,5 @@
 const {body} = require('express-validator');
+const {StatusCodes} = require('http-status-codes');
 
 const user_controller = require('../controllers/user_controller.js');
 const game_controller = require('../controllers/game_controller.js');
@@ -12,27 +13,13 @@ const MAX_USERNAME_LEN = 16;
 const MIN_PASS_LEN = 8;
 const MAX_PASS_LEN = 32;
 
-/*
-router.use((req, res, next) => {
-  if(req.session.user_id){
-    console.log('auth req to api: ', req.session.user_id);
-  }
-  else{
-    console.log('anon req to api');
-  }
-  next();
-});
-*/
-
 function isLoggedIn(req, res, next)
 {
   if(req.session.user_id){
-    // mongo -> last_online = Date.now()
     return next();
   }
   else{
-    //console.log("Request rejected");
-    res.status(401).send({msg: 'Unauthorized'}); // UNAUTHORIZED
+    res.status(StatusCodes.UNAUTHORIZED).send({status: "fail", code: StatusCodes.UNAUTHORIZED, data: null});
   }
 }
 
@@ -42,8 +29,7 @@ function isNotLoggedIn(req, res, next)
     return next();
   }
   else{
-    //console.log("Request rejected");
-    res.status(409).send({msg: 'Request rejected'});
+    res.status(StatusCodes.CONFLICT).send({status: "fail", code: StatusCodes.CONFLICT, data: null});
   }
 }
 
@@ -54,15 +40,22 @@ router.post('/reg', isNotLoggedIn,
   body('email').isEmail().withMessage('Invalid email'),
   user_controller.register
 );
-router.post('/login', isNotLoggedIn, user_controller.login);
+router.post('/changepassword', isLoggedIn,
+  body('current_password').isLength({ min: MIN_PASS_LEN, max: MAX_PASS_LEN}).withMessage('Invalid current password length'),
+  body('new_password').isLength({ min: MIN_PASS_LEN, max: MAX_PASS_LEN}).withMessage('Invalid new password length'),
+  user_controller.changePassword
+);
+router.post('/login', isNotLoggedIn, 
+  body('username').notEmpty(),
+  body('password').notEmpty(),
+  user_controller.login
+);
 router.post('/logout', isLoggedIn, user_controller.logout);
-router.get('/account', isLoggedIn, user_controller.getCurrentUser); 
-router.get("/user/:username", user_controller.getUserByUsername);
 
-router.get('/homepage', isLoggedIn, (req, res) => {
-  res.send('<h1>Hello! Session created!.</h1>');
-});
+router.get('/account', isLoggedIn, user_controller.getCurrentUser);
+router.get('/user/:username', user_controller.getUserByUsername);
+router.get('/gamepresets', game_controller.getGamePresets);
 
-router.get("/gamepresets", game_controller.getGamePresets);
+router.use('*', (req, res) => { res.status(StatusCodes.NOT_FOUND).send({status: "fail", code: StatusCodes.NOT_FOUND, data: null}); });
 
 module.exports = router;
