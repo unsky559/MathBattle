@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
 import "./dropdown.scss";
-import {set} from "mongoose";
 
 const Dropdown = (props) => {
     const dropdownState = useState(false);
