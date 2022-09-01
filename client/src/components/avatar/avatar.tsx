@@ -7,8 +7,9 @@ type propType = {
 }
 
 const Avatar = (props: propType) => {
+    // TODO: refactor classNames
     return (
-        <div className={["avatar", props.big ? "big" : ""].join(" ")}> // TODO: refactor classNames
+        <div className={["avatar", props.big ? "big" : ""].join(" ")}>
             <img src="https://thispersondoesnotexist.com/image" alt=""/>
         </div>
     );
