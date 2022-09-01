@@ -1,8 +1,11 @@
 # MathBattle
 ![repository-open-graph-template](https://user-images.githubusercontent.com/33353900/147120951-d595beaa-661f-4a13-b1a7-e9d129373b73.jpg)
-A multiplayer math game. Main goal is to get a more points than your opponent. An example randomly generate and show to all players at the same time. If somebody solve current example will get a point and server generate a new example. 
+A multiplayer math game.
 
-I started this project at october 2018 for train math skills with my friends before exams. So, now I go back to this and I want to refactor it and add some new cool features.
+I started this project at october 2018 for train math skills with my friends before exams.
+Main goal to get a more points than your opponent.
+An example randomly generate and show to all players at the same time.
+First who solves current example get a point and server generate a new example.
 
 If you find a bug, has a question or has an enhancement idea, feel free to open a new issue.
 
