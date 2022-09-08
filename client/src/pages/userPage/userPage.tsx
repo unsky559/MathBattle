@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import "./userPage.scss";
+import cl from "./userPage.module.scss";
 import Avatar from "../../components/avatar/avatar";
 import SmartIcon from "../../components/smartIcon/smartIcon";
 import OnlineHandler from "../../components/onlineHandler/onlineHandler";
@@ -7,6 +7,7 @@ import GameResultRowCard from "../../components/gameResultRowCard/gameResultRowC
 import {apiGetRequest} from "../../webWorkers/apiRequest.ts";
 import {matchPath} from "react-router-dom";
 import {statusType} from "../../types/statusType";
+import classNames from "classnames";
 
 type userPageType = {
     stats: {
@@ -46,24 +47,24 @@ const UserPage = () => {
     }, []);
 
     return (
-        <div className="userPage container">
-            <div className="userContainer">
-                <div className="block">
-                    <div className="userInfo">
+        <div className={classNames(cl.userPage, cl.container)}>
+            <div className={cl.userContainer}>
+                <div className={cl.block}>
+                    <div className={cl.userInfo}>
                         <Avatar big/>
-                        <div className="userData">
-                            <div className="infoRow">
-                                <h1 className="userName">{user.username}</h1>
+                        <div className={cl.userData}>
+                            <div className={cl.infoRow}>
+                                <h1 className={cl.userName}>{user.username}</h1>
                                 <SmartIcon icon="../static/images/icons/rating/bubble_chart_black_24dp 1.svg" yellow text={user.stats.rating}/>
                             </div>
-                            <div className="infoRow">
+                            <div className={cl.infoRow}>
                                 <OnlineHandler type={statusType.online}/>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="contentContainer">
+            <div className={cl.contentContainer}>
                 {
                     user.stats.finished_lobbies.map((lobby) => {
                         return <GameResultRowCard key={Math.random()} lobby={lobby}/>

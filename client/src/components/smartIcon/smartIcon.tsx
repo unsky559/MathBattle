@@ -1,5 +1,6 @@
 import React from 'react';
-import "./smartIcon.scss";
+import cl from "./smartIcon.module.scss";
+import classNames from "classnames";
 
 type propType = {
     gray?: boolean,
@@ -11,15 +12,19 @@ type propType = {
 
 const SmartIcon = (props: propType) => {
     return (
-        <div className="smartIcon">
-            <div className="iconicInfo">
-                <div className={["iconicIcon", props.gray ? "gray" : "", props.yellow ? "yellow" : ""].join(" ")}>
-                    {   props.texty ? <span>{props.icon}</span> :
-                        (props.icon ? <img src={props.icon} /> : "") }
+        <div className={cl.smartIcon}>
+            <div className={cl.iconicInfo}>
+                <div className={classNames(cl.iconicIcon, {[cl.gray]: props.gray, [cl.yellow]: props.yellow})}>
+                    {   props.texty &&
+                        <span>{props.icon}</span> }
+                    {   !props.texty && props.icon &&
+                        <img src={props.icon} alt="icon" /> }
                 </div>
-                { props.text ? <div className="iconicData">
+                {   props.text &&
+                    <div className={cl.iconicData}>
                         { props.text }
-                    </div> : ""}
+                    </div>
+                }
             </div>
         </div>
     );

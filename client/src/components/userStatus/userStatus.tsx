@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import "./userStatus.scss";
+import cl from "./userStatus.module.scss";
 import Dropdown from "../dropdown/dropdown";
 import ButtonList from "../buttonList/buttonList";
 import {useHistory} from "react-router-dom";
@@ -33,16 +33,16 @@ const UserStatus = (props: propType) => {
         }], [props, history]);
 
     return (
-        <div className="dropdownHeaderContainer">
+        <div className={cl.dropdownHeaderContainer}>
             <Dropdown tabIndex = "0"
                       header = {
-                        <div className="userStatus">
-                            <div className="userAvatarName">
-                                <div className="avatar">
+                        <div className={cl.userStatus}>
+                            <div className={cl.userAvatarName}>
+                                <div className={cl.avatar}>
                                     <img src="https://thispersondoesnotexist.com/image" alt=""/>
                                 </div>
 
-                                <span className="userName">
+                                <span className={cl.userName}>
                                     {props.userData.username}
                                 </span>
 

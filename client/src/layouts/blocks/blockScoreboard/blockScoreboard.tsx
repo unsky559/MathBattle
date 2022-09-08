@@ -1,7 +1,6 @@
 import React, {Dispatch, SetStateAction} from 'react';
-import "../../../styles/shared/block.scss";
+import cl from "./blockScoreboard.module.scss";
 import Player from "../../../components/player/player";
-import {userType} from "../../../types/userType";
 import {playerType} from "../../../types/playerType";
 
 type propType = {
@@ -10,15 +9,13 @@ type propType = {
 
 const BlockScoreboard = (props: propType) => {
 
-    console.log("SCOREBOARD");
-    console.log(props.scoreboard);
     const scoreboard = props.scoreboard;
     const data = scoreboard[0];
 
     return (
-        <div className="block">
-            <span className="title">Scoreboard</span>
-            <div className="scoreboard">
+        <div className={cl.block}>
+            <span className={cl.title}>Scoreboard</span>
+            <div className={cl.scoreboard}>
                 {data.map((player: playerType) => {
                     if(player.userdata === null){
                         player.userdata = {
@@ -28,7 +25,6 @@ const BlockScoreboard = (props: propType) => {
                                 rating: 1000
                             }
                         }
-                        player.score = 0;
                     }
 
                     return <Player player = {player} />

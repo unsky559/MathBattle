@@ -1,0 +1,66 @@
+@import "src/styles/mixins/spacing";
+.gameModes{
+  padding: 20px 50px;
+
+  .title{
+    font-family: 'Rubik', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--background-opposite-col);
+    margin-bottom: 30px;
+  }
+
+  .row{
+    margin-bottom: 30px;
+    display: grid;
+    flex-flow: wrap;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: $spacing;
+  }
+
+}
+
+@media screen and (max-width: 1800px) {
+  .gameModes{
+    .row{
+      grid-template-columns: repeat(5, 1fr);
+      grid-gap: $spacing;
+    }
+  }
+}
+
+@media screen and (max-width: 1570px) {
+  .gameModes{
+    .row{
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: $spacing;
+    }
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .gameModes{
+    .row{
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: $spacing;
+    }
+  }
+}
+
+@media screen and (max-width: 920px) {
+  .gameModes{
+    .row{
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: $spacing;
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .gameModes{
+    .row{
+      grid-template-columns: 1fr;
+      grid-gap: $spacing;
+    }
+  }
+}

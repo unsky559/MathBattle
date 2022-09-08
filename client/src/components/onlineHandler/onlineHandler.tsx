@@ -1,6 +1,7 @@
 import React from 'react';
-import "./onlineHandler.scss";
+import cl from "./onlineHandler.module.scss";
 import {statusType} from "../../types/statusType";
+import classNames from "classnames";
 
 type propType = {
     type: statusType
@@ -8,19 +9,24 @@ type propType = {
 
 const OnlineHandler = (props: propType) => {
 
-    let classname;
-
-    if(props.type === statusType.online){
-        classname = "green";
-    }else if(props.type === statusType.offline){
-        classname = "gray";
-    }else if(props.type === statusType.inGame){
-        classname = "orange";
+    let pointColor = cl.gray;
+    switch (props.type){
+        case statusType.online:
+            pointColor = cl.green;
+            break;
+        case statusType.offline:
+            pointColor = cl.gray;
+            break;
+        case statusType.inGame:
+            pointColor = cl.orange;
+            break;
     }
 
+    const classes = classNames(cl.onlineHandler, pointColor);
+
     return (
-        <div className={["onlineHandler", classname].join(" ")}>
-            <div className="point"/>
+        <div className={classes}>
+            <div className={cl.point}/>
             <span>{props.type}</span>
         </div>
     )

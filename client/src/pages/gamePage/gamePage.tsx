@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import "./gamePage.scss";
+import cl from "./gamePage.module.scss";
 import BlockScoreboard from "../../layouts/blocks/blockScoreboard/blockScoreboard";
 import GameComponent from "../../components/gameComponent/gameComponent";
 import {matchPath, useHistory} from "react-router-dom";
@@ -82,10 +82,10 @@ const GamePage = () => {
 
     return (
         <div>
-            <div className="container">
-                <div className="gameLayout">
-                    <div className="gameBoard">
-                        <div className="innerContainer">
+            <div className={cl.container}>
+                <div className={cl.gameLayout}>
+                    <div className={cl.gameBoard}>
+                        <div className={cl.innerContainer}>
                             {
                                 gameFinished[0] ?
                                     <GameFinishedLayout isWin={isWin}/>
@@ -97,7 +97,7 @@ const GamePage = () => {
                             }
                         </div>
                     </div>
-                    <div className="statusBar">
+                    <div className={cl.statusBar}>
                         {/*<BlockGameInfo/>*/}
                         <BlockScoreboard scoreboard={scoreboardState}/>
                     </div>

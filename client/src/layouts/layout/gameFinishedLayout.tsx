@@ -1,6 +1,6 @@
 import React, {Dispatch, SetStateAction} from 'react';
 import Button from "../../components/button/button";
-import "./gameFinishedLayout.scss";
+import cl from "./gameFinishedLayout.module.scss";
 import {useHistory} from "react-router-dom";
 
 type propType = {
@@ -16,9 +16,9 @@ const GameFinishedLayout = (props: propType) => {
     }
 
     return (
-        <div className="gameFinishedLayout">
-            <h3 className="hTitle">Игра окончена</h3>
-            <p className="p">{winText}</p>
+        <div className={cl.gameFinishedLayout}>
+            <h3 className={cl.hTitle}>Игра окончена</h3>
+            <p className={cl.p}>{winText}</p>
             <Button text="На главную" onClick={openHomepage}/>
         </div>
     );

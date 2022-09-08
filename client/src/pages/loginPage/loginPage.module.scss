@@ -1,4 +1,6 @@
 @import "src/styles/mixins/fonts";
+@import "src/styles/shared/texts";
+@import "src/styles/shared/container";
 .loginPage{
   display: flex;
   .bigBanner{
@@ -21,7 +23,7 @@
       align-items: center;
     }
 
-    .banner-text{
+    .bannerText{
       .subBanner{
         @include defaultFont();
         font-size: 36px;

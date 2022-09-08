@@ -1,13 +1,15 @@
 import React from 'react';
-import './logo.scss';
+import cl from './logo.module.scss';
+import classNames from "classnames";
 
 type propType = {
     alternate: boolean
 }
 
 function Logo(props: propType) {
+    const classes = classNames(cl.logo, {[cl.alternate]: props.alternate})
     return (
-        <h1 className={["logo", props.alternate ? "alternate" : ""].join(" ")}>
+        <h1 className={classes}>
             MathBattle
         </h1>
     );

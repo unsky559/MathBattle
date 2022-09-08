@@ -1,5 +1,5 @@
-import React, {Dispatch, SetStateAction, useState} from 'react';
-import "./exampleContainer.scss";
+import React, {Dispatch, SetStateAction} from 'react';
+import cl from "./exampleContainer.module.scss";
 
 type propType = {
     loadingExpressionState: [boolean, Dispatch<SetStateAction<boolean>>],
@@ -11,11 +11,11 @@ const ExampleContainer = (props: propType) => {
     const loadingExpressionState = props.loadingExpressionState;
 
     return (
-        <div className="exampleContainer">
-            <div className={["example", loadingExpressionState[0] ? "loading" : ""].join(" ")}>
+        <div className={cl.exampleContainer}>
+            <div className={[cl.example, loadingExpressionState[0] ? cl.loading : ""].join(" ")}>
                 { props.example }
             </div>
-            <div className="answerArea">
+            <div className={cl.answerArea}>
                 { props.answer.map((value, index) => {
                     return <span key={index}>{value}</span>
                 }) }

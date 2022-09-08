@@ -1,6 +1,6 @@
 import React from 'react';
 
-import "./tabbed.scss";
+import cl from "./tabbed.module.scss";
 import "./tabs.scss";
 
 type propType = {
@@ -9,7 +9,7 @@ type propType = {
 
 const Tabbed = (props: propType) => {
     return (
-        <div className="tabbed">
+        <div className={cl.tabbed}>
 
             {/*<div className="tabs">*/}
             {/*    <div className="tabBtn active" tabIndex="0">*/}
@@ -20,7 +20,7 @@ const Tabbed = (props: propType) => {
             {/*    </div>*/}
             {/*</div>*/}
 
-            <div className="contents">
+            <div className={cl.contents}>
                 {props.children}
             </div>
         </div>

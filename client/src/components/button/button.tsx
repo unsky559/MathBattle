@@ -1,5 +1,5 @@
 import React from 'react';
-import "./button.scss";
+import cl from "./button.module.scss";
 
 type propType = {
     onClick?: () => void,
@@ -8,7 +8,7 @@ type propType = {
 
 const Button = (props: propType) => {
     return (
-        <button className="button" onClick={props.onClick}>
+        <button className={cl.button} onClick={props.onClick}>
             {/*TODO: replace props.text to props.children*/}
             { props.text }
         </button>

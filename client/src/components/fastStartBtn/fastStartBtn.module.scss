@@ -21,7 +21,7 @@
     display: block;
     padding-top: 100%;
   }
-  
+
   .foreground{
     position: absolute;
     width: 100%;
@@ -31,7 +31,7 @@
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
-    
+
     .content{
       padding: 15px 10px;
       .startTitle{
@@ -47,7 +47,7 @@
       .iconRow{
         display: flex;
         flex-wrap: wrap;
-        .smartIcon{
+        & > *{
           margin-right: 3px;
           margin-top: 5px;
         }

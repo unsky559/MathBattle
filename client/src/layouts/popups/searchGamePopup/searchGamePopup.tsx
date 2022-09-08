@@ -1,5 +1,5 @@
 import React from 'react';
-import "./searchGamePopup.scss";
+import cl from "./searchGamePopup.module.scss";
 import Spinner from "../../../components/spinner/spinner";
 import Button from "../../../components/button/button";
 import {useDispatch, useSelector} from "react-redux";
@@ -17,12 +17,12 @@ const SearchGamePopup = () => {
     }
 
     return (
-        <div className="searchGamePopup">
-            <p className="gameModeName">{gamemode.name}</p>
-            <div className="spinnerContainer">
+        <div className={cl.searchGamePopup}>
+            <p className={cl.gameModeName}>{gamemode.name}</p>
+            <div className={cl.spinnerContainer}>
                 <Spinner/>
             </div>
-            <div className="bottomRow">
+            <div className={cl.bottomRow}>
                 <Button onClick={closePopup} text="Отмена"/>
             </div>
         </div>
