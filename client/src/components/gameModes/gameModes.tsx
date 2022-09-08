@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import "./gameModes.scss";
+import cl from "./gameModes.module.scss";
 import FastStartBtn from "../fastStartBtn/fastStartBtn";
 import {apiGetRequest} from "../../webWorkers/apiRequest.ts";
 import gameSocket from "../../webWorkers/gameSocket.ts";
@@ -46,9 +46,9 @@ const GameModes = () => {
 
     return (
         <>
-            <div className="gameModes">
-                <h3 className="title">Разогрев</h3>
-                <div className="row">
+            <div className={cl.gameModes}>
+                <h3 className={cl.title}>Разогрев</h3>
+                <div className={cl.row}>
                     {
                         gamemodes[0].map((gamemode, index) => {
                             return <FastStartBtn key={index} data={gamemode} onClick={() => {

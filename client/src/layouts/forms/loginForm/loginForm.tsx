@@ -1,4 +1,4 @@
-import "./loginForm.scss";
+import cl from "./loginForm.module.scss";
 import React, {useState} from 'react';
 import Input from "../../../components/input/input";
 import Button from "../../../components/button/button";
@@ -50,7 +50,7 @@ const LoginForm = () => {
     }
 
     return (
-        <div className="loginForm">
+        <div className={cl.loginForm}>
             <Input placeholder="name" textState={inputLogin} focus/>
             <Input placeholder="pass" textState={inputPassword} password />
 

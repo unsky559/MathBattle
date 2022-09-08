@@ -2,7 +2,7 @@ import React, {lazy, Suspense} from 'react';
 import Spinner from "../components/spinner/spinner";
 import {Route} from "react-router-dom";
 
-const HomePage = lazy(() => import("./homePage"));
+const HomePage = lazy(() => import("./homePage/homePage"));
 const LoginPage = lazy(() => import("./loginPage/loginPage"));
 const GamePage = lazy(() => import("./gamePage/gamePage"));
 const UserPage = lazy(() => import("./userPage/userPage"));

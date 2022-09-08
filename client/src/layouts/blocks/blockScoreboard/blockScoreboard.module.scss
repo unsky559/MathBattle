@@ -1,0 +1,13 @@
+@import "src/styles/shared/block";
+@import "src/styles/shared/texts";
+@import "src/styles/mixins/spacing";
+
+.block{
+  margin-bottom: $spacing;
+}
+
+.scoreboard{
+  & > *{
+    margin-bottom: $spacing-m;
+  }
+}

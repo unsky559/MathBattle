@@ -1,7 +1,10 @@
 @import "../../styles/mixins/fonts";
 
-.key{
+.keyDefaultWidth{
   width: calc(100% / 4);
+}
+
+.key{
   position: relative;
 
   display: flex;
@@ -16,7 +19,7 @@
 
     @include defaultFont();
     font-size: 2rem;
-    font-width: 900;
+    font-weight: 900;
     color: var(--background-opposite-col);
 
     background-color: var(--background2-col);
@@ -29,6 +32,9 @@
   }
   &.zero{
     width: calc(100% / 3 * 2);
+    &:after{
+      display: none;
+    }
   }
   &.ok{
     &:after{

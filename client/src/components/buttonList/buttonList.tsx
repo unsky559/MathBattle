@@ -1,5 +1,5 @@
-import React, {forwardRef} from 'react';
-import "./buttonList.scss";
+import React from 'react';
+import cl from "./buttonList.module.scss";
 
 type propType = {
     buttons: {
@@ -11,13 +11,13 @@ type propType = {
 const ButtonList = (props: propType) => {
 
     return (
-        <div className="buttonList">
+        <div className={cl.buttonList}>
             { props.buttons.map( (btn) => {
                     return (<button
                         onClick={btn.onclick}
                         onKeyPress={btn.onclick}
                         key={Math.random()}
-                        className="listableButton">{btn.title}</button>);
+                        className={cl.listableButton}>{btn.title}</button>);
                 } )
             }
         </div>);

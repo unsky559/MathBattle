@@ -1,5 +1,5 @@
 import React, {Dispatch, SetStateAction, useEffect} from 'react';
-import "./gameKeyboard.scss";
+import cl from "./gameKeyboard.module.scss";
 import GameKey from "../gameKey/gameKey";
 
 const allowedKeys = ['0','1','2','3','4','5','6','7','8','9','-','.',',','Enter','Escape','Backspace'];
@@ -80,7 +80,7 @@ const GameKeyboard = (props: propType) => {
     });
 
     return (
-        <div className="keyboard">
+        <div className={cl.keyboard}>
             <GameKey text="7" onClick={keyInput("7")} />
             <GameKey text="8" onClick={keyInput("8")}/>
             <GameKey text="9" onClick={keyInput("9")}/>
@@ -91,13 +91,13 @@ const GameKeyboard = (props: propType) => {
             <GameKey text="6" onClick={keyInput("6")}/>
             <GameKey text="-" onClick={keyInput("-")}/>
 
-            <div className="kBtnRow">
-                <div className="buttons">
-                    <GameKey text="1" onClick={keyInput("1")}/>
-                    <GameKey text="2" onClick={keyInput("2")}/>
-                    <GameKey text="3" onClick={keyInput("3")}/>
+            <div className={cl.kBtnRow}>
+                <div className={cl.buttons}>
+                    <GameKey text="1" classWidth={cl.oneThird} onClick={keyInput("1")}/>
+                    <GameKey text="2" classWidth={cl.oneThird} onClick={keyInput("2")}/>
+                    <GameKey text="3" classWidth={cl.oneThird} onClick={keyInput("3")}/>
                     <GameKey text="0" isZero onClick={keyInput("0")}/>
-                    <GameKey text="." onClick={keyInput(".")}/>
+                    <GameKey text="." classWidth={cl.oneThird} onClick={keyInput(".")}/>
                 </div>
                 <GameKey text="ok" isOk onClick={enter()}/>
             </div>

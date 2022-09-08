@@ -1,9 +1,9 @@
 import React from 'react';
-import './nav.scss';
+import cl from './nav.module.scss';
 
 function Nav() {
     return (
-        <nav className="headerNavigation">
+        <nav className={cl.headerNavigation}>
             <a href="">
                 Играть
             </a>

@@ -1,11 +1,12 @@
 import React, {lazy, Suspense, useEffect, useState} from 'react';
 import Logo from "../logo/logo";
-import './header.scss';
+import cl from './header.module.scss';
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {defatultStateType} from "../../index";
 import {unloggedUser, userType} from "../../types/userType";
 import userState from "../../webWorkers/user/userState.ts";
+import classNames from "classnames";
 
 const UserStatus = lazy(() => import("../userStatus/userStatus"));
 const Button = lazy(() => import("../button/button"));
@@ -29,18 +30,20 @@ const Header = () => {
 
     }, []);
 
+    const clasesHeader = classNames(cl.header, { [cl.transparent]: collapseHeader} );
+    const clasesUnderheader = classNames(cl.underHeader, {[cl.hide]: !collapseHeader});
+
     return (
         <>
-            <header className={ ["header", ...collapseHeader ? "" : ["transparent"]].join(" ") }>
-                <div className="container">
-                    <div className="leftHeader">
+            <header className={ clasesHeader }>
+                <div className={cl.container}>
+                    <div className={cl.leftHeader}>
                         <Link to="/">
                             <Logo alternate={!collapseHeader} />
                         </Link>
-                        {/* collapseHeader && <Nav /> */}
                     </div>
                     { collapseHeader &&
-                        <div className="rightHeader">
+                        <div>
                             <Suspense fallback="">
                                 {
                                     loggedHeader ? <UserStatus userData={userData}/> :
@@ -53,7 +56,7 @@ const Header = () => {
                     }
                 </div>
             </header>
-            <div className={["underHeader", ...collapseHeader ? "" : ["hide"]].join(" ")}/>
+            <div className={ clasesUnderheader }/>
         </>
 
     );

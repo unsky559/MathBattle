@@ -13,15 +13,10 @@
       flex-grow: 1;
       display: flex;
       flex-wrap: wrap;
-      .key{
-        width: calc(100% / 3);
-        &.zero{
-          width: calc(100% / 3 * 2);
-          &:after{
-            display: none;
-          }
-        }
-      }
     }
   }
+}
+
+.oneThird{
+  width: calc(100%/3);
 }

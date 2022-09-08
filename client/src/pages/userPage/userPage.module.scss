@@ -1,4 +1,6 @@
 @import "src/styles/mixins/fonts";
+@import "src/styles/shared/container";
+@import "src/styles/shared/block";
 .userPage{
   display: flex;
   .userContainer{

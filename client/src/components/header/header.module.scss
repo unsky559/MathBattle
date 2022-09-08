@@ -1,4 +1,5 @@
 @import "src/styles/mixins/animation";
+@import "src/styles/shared/container";
 
 header.header{
   height: 80px;
@@ -29,6 +30,6 @@ header.header{
   height: 80px;
   transition: $animation-middle-duration $animation-fast-tf height;
   &.hide{
-    height: 0px;
+    height: 0;
   }
 }

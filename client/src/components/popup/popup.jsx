@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
-import "./popup.scss";
+import React from 'react';
+import cl from "./popup.module.scss";
 import CloseButton from "../closeButton/closeButton";
+import classNames from "classnames";
 
 const Popup = (props) => {
 
@@ -12,12 +13,12 @@ const Popup = (props) => {
     }
 
     return props.isActive && (
-        <div className="popupContainer" >
-            <div className="popupBackground" onClick={closePopup}></div>
-            <div className="container">
-                <div className="popupWindow">
-                    <div className="popupHeader">
-                        <h3 className={["popupHeadTitle", ! titleClose ? "center" : ""].join(" ")}>{ props.title }</h3>
+        <div className={cl.popupContainer} >
+            <div className={cl.popupBackground} onClick={closePopup}></div>
+            <div className={cl.container}>
+                <div className={cl.popupWindow}>
+                    <div className={cl.popupHeader}>
+                        <h3 className={classNames(cl.popupHeadTitle, {[cl.center]: !titleClose})}>{ props.title }</h3>
                         { titleClose ? <CloseButton onClick={closePopup}/> : "" }
                     </div>
                     { props.children }

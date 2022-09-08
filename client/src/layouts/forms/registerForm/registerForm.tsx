@@ -2,7 +2,7 @@ import React, {Dispatch, SetStateAction, useState} from 'react';
 import Input from "../../../components/input/input";
 import Button from "../../../components/button/button";
 
-import "./registerForm.scss";
+import cl from "./registerForm.module.scss";
 import {apiPostRequest} from "../../../webWorkers/apiRequest.ts";
 import {emailRegex, userNameRegex} from "../../../workers/regex.ts";
 
@@ -67,7 +67,7 @@ const RegisterForm = (props: propType) => {
     }
 
     return (
-        <div className="loginForm">
+        <div className={cl.loginForm}>
             <Input placeholder="email" textState={inputEmail} focus />
             <Input placeholder="username" textState={inputUsername} />
             <Input placeholder="pass" textState={inputPassword} password />
