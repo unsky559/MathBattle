@@ -62,7 +62,7 @@ Consider two cases:
 In this case you don't need to constantly watch for frontend files update. So it will be enough to build the front files once and watch only the backend updates.
 
 ```shell
-npm run build -w client && npm run watch -w back
+npm run build -w front && npm run watch -w back
 ```
 > **note:** in some OS you may need put ```&&``` in double quotes: ```"&&"```
 
@@ -72,7 +72,7 @@ To run both webpack watcher and node js server you need to run two different npm
 
 To run webpack watch server:
 ```shell
-npm run watch -w client 
+npm run watch -w front 
 ```
 To run node watch server:
 ```shell
@@ -87,5 +87,5 @@ npm run watch -w back
 ```
 *And run webpack watch server:*
 ```shell
-npm run watch -w client 
+npm run watch -w front 
 ```
