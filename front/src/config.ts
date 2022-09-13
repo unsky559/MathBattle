@@ -1,5 +1,5 @@
 const server = {
-    apiServer: "",
+    apiServer: "localhost:8000",
     apiURI: "/api",
 };
 const config = {

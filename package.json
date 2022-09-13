@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Math competitive game",
   "main": "back/server.js",
-  "workspaces": ["client", "back"],
+  "workspaces": ["front", "back"],
   "scripts": {
     "start": "npm run start --workspaces"
   },
