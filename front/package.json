@@ -7,7 +7,7 @@
     "test": "npx webpack configtest",
     "start": "npx webpack --mode=production",
     "build": "npx webpack --mode=development",
-    "watch": "webpack --mode=development --watch"
+    "watch": "npx webpack serve --mode=development"
   },
   "author": "unsky559",
   "license": "ISC",
@@ -28,7 +28,8 @@
     "sass-loader": "^12.2.0",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.2.6",
-    "typescript": "^4.5.5"
+    "typescript": "^4.5.5",
+    "webpack-dev-server": "^4.11.0"
   },
   "dependencies": {
     "@material/circular-progress": "^13.0.0",

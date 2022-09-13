@@ -11,7 +11,7 @@ module.exports = {
     },
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, '../back/dist')
+        path: path.resolve(__dirname, '../dist')
     },
     plugins: [
         new MiniCssExtractPlugin(),
@@ -25,7 +25,7 @@ module.exports = {
             patterns: [
                 {
                     from: path.resolve(__dirname, 'static'),
-                    to: path.resolve(__dirname, '../back/dist/static')
+                    to: path.resolve(__dirname, '../dist/static')
                 }
             ]
         }),
@@ -53,4 +53,13 @@ module.exports = {
             },
         ]
     },
+    devServer: {
+        compress: true,
+        port: 9000,
+        open: true,
+        allowedHosts: "all",
+        historyApiFallback: {
+            index: '/'
+        }
+    }
 };
